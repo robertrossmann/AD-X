@@ -126,4 +126,4 @@ If you work for a company and the library saved you a lot of time / effort in yo
 
 ### Via Flattr:
 
-<a href="http://flattr.com/thing/1301817/" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>
+<a href="http://flattr.com/thing/1301881/" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>
