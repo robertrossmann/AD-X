@@ -1,0 +1,24 @@
+{
+	"name": "alaneor/ad-x",
+	"description": "X-tremely powerful intefrace to Active Directory",
+	"keywords": ["Active Directory", "ldap"],
+	"homepage": "https://github.com/Alaneor/AD-X",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Robert Rossmann",
+			"email": "rr.rossmann@me.com",
+			"homepage": "https://github.com/Alaneor"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=5.4.0",
+		"ext-ldap": "*",
+		"ext-json": "*",
+		"ext-openssl": "*"
+	},
+	"require-dev": {
+		"apigen/apigen": "~2.8.0"
+	}
+}
