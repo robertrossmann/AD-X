@@ -6,7 +6,7 @@ destination		: docs/www
 charset			: utf8
 title			: AD-X Library
 allowedHtml		: [b,i,a,ul,ol,li,p,br,var,samp,kbd,tt,h2,h3,h4]
-# baseUrl		: ( fill this in when publishing the docs to web )
+baseUrl			: http://alaneor.github.io/AD-X/api
 
 accessLevels	: [public]
 autocomplete	: [classes, methods, constants, classconstants, functions]
