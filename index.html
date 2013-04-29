@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>AD-X by Alaneor</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>AD-X</h1>
+          <h2>Active Directory library for php</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Alaneor/AD-X/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Alaneor/AD-X/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Alaneor/AD-X" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>AD-X :: Active Directory library for php</h1>
+
+<p>The <strong>AD-X</strong> library aims to provide an easy-to-use, object-oriented and extremely powerful access to an Active Directory database.</p>
+
+<h2>Features</h2>
+
+<h3>The important ones</h3>
+
+<h4>Object-oriented API</h4>
+
+<p>Use a nice, understandable, object-oriented API to work with Active Directory.</p>
+
+<h4>Support for paged results</h4>
+
+<p>Need to fetch more objects than the maximum configured limit for a single request? No problem - just enable paged searching and off you go!</p>
+
+<h4>Support for referrals</h4>
+
+<p>If you use more domains in your Active Directory infrastructure, modifying objects across all domains could be a real pain. <strong>AD-X</strong> supports referrals, so if you hit one, the library will try to connect to the other domain and perform the operation there.</p>
+
+<h4>TLS or SSL encryption</h4>
+
+<p>You can use either TLS or SSL encryptions with the library. Just make sure you have the proper certificates installed and you are ready to go.</p>
+
+<h4>Automatic data conversion</h4>
+
+<p>Ever tried to find out when a user logged in to the system last time, only to discover that the <code>lastlogontimestamp</code> attribute is not a standard unix timestamp you know from <em>php</em>? Well, those days are over - when accessing any such attribute via <strong>AD-X</strong>, you get a unix timestamp. Free of charge.  </p>
+
+<p>And it does not end with just timestamps. Need to reset someone's password? Just set the attribute's value and you are done. The library will handle proper attribute formatting for you.<br>
+You can even convert attributes like <code>member</code> or <code>manager</code> into real objects with just one method call!</p>
+
+<h4>No assumptions: use the RootDSE and the directory schema</h4>
+
+<p>The library makes extensive use of the <em>rootDSE</em> entry and the directory schema to determine the nature of the current environment.</p>
+
+<h3>The nice to have ones</h3>
+
+<h4>
+<em>ldap v3</em> protocol support</h4>
+
+<p>Using the ldap v3 protocol, you can get the most out of a directory server by using the newest available technologies.</p>
+
+<h4>Namespaces all over the place</h4>
+
+<p>The library is fully namespaced to ensure 100% compatibility with any other libraries / frameworks you might need to use.</p>
+
+<h4>Exceptions-based error handling</h4>
+
+<p>Handle your exceptions flexibly by utilising exceptions. No more checking if a method returns <code>FALSE</code> or <code>NULL</code>!</p>
+
+<h4>Autoloading support</h4>
+
+<p>No need to include the library files - just include one file and the autoloader will take care of the rest.</p>
+
+<h4>Local directory schema cache</h4>
+
+<p>By caching the directory schema, the library can take advantage of the information present on the schema without the need to query the server for it, saving the execution time and speeding your application up.</p>
+
+<h4>Object to json string conversion</h4>
+
+<p>Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you can send the data.</p>
+
+<h4>Optional ldap query builder</h4>
+
+<p>If you like, you can use the provided ldap query builder that makes building ldap filters simple. You can even combine the query builder with hand-written filters.</p>
+
+<h2>Stability</h2>
+
+<p>The library is to be considered of a <strong>release candidate</strong> stability level. The library has been tested extensively in a real-world environment, but some non-thought-of edge cases and outstanding non-critical known issues might need fixing.</p>
+
+<p>Please submit your bugs to the Github's <a href="https://github.com/Alaneor/AD-X/issues">issue tracker</a>.</p>
+
+<h2>Installation</h2>
+
+<ol>
+<li>Download the repository to your drive</li>
+<li>Include the <a href="adx.php">adx.php</a> file into your project</li>
+<li>
+<p>Generate the schema cache:  </p>
+
+<div class="highlight"><pre><span class="nv">$link</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ADX\Core\Link</span><span class="p">(</span> <span class="s1">'company.com'</span><span class="p">,</span> <span class="mi">389</span> <span class="p">);</span> <span class="c1">// Connect to server on default port  </span>
+<span class="nv">$link</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span> <span class="s1">'username'</span><span class="p">,</span> <span class="s1">'password'</span> <span class="p">);</span> <span class="c1">// Authenticate to the server  </span>
+<span class="nx">ADX\Core\Schema</span><span class="o">::</span><span class="na">build</span><span class="p">(</span> <span class="nv">$link</span> <span class="p">);</span> <span class="c1">// Build the local schema cache ( takes some time, go get a coffee )</span>
+</pre></div>
+</li>
+<li>
+<p>Optionally include the namespaced objects into current namespace for easy usage:</p>
+
+<div class="highlight"><pre><span class="k">use</span> <span class="nx">ADX\Core\Link</span><span class="p">;</span> <span class="c1">// To include the Link class</span>
+<span class="c1">// … Include more as needed</span>
+</pre></div>
+</li>
+<li><p>Start using the library!</p></li>
+</ol><p>Depending on the stability of your Active Directory environment, you might need to re-build the schema cache occasionally.</p>
+
+<h2>Documentation</h2>
+
+<p>Documentation is currently available for the API only, but it includes a lot of examples and explanations.</p>
+
+<p>You can read the API documentation by generating it locally:</p>
+
+<ol>
+<li>Download the library</li>
+<li>Install the dependencies using <a href="http://getcomposer.org/">Composer</a>:<br><code>
+composer install --dev
+</code>
+</li>
+<li>Generate the API documentation using <a href="http://apigen.org/">ApiGen</a> ( installed by Composer ):<br><code>
+php ./vendor/apigen/apigen/apigen.php
+</code>
+</li>
+<li>Generated documentation will be available at <em>./docs/www/index.html</em>
+</li>
+</ol><h2>Known limitations</h2>
+
+<ul>
+<li>The <em>ldap v2</em> protocol is not supported and never will be. Pull requests to provide backwards-compatibility will be refused.</li>
+<li>The library has been built <strong>specifically for Active Directory</strong>. Compatibility with standards-based ldap servers like <a href="http://openldap.org">OpenLDAP</a> is likely broken. I have no plans to address this at the moment but a future release might make such thing possible.</li>
+<li>Unit tests are missing completely. I realise this might be a serious issue for future development and plan to address this with a future update. Any help with writing tests is much appreciated.</li>
+</ul><h2>Future to-dos</h2>
+
+<ul>
+<li>[ ] Improve the API documentation</li>
+<li>[ ] Write unit tests</li>
+<li>[ ] Make the API documentation available online without the need to build it locally</li>
+<li>[ ] Write tutorials</li>
+<li>[ ] Provide standards-ldap compatibility?</li>
+</ul><h2>License</h2>
+
+<p>This software is licensed under the <strong>MIT license</strong>.
+See the <a href="LICENSE">LICENSE</a> file for more information.</p>
+
+<h2>Appreciate</h2>
+
+<p>If you like this project and enjoy using it, feel free to spread the word about it wherever you wish.</p>
+
+<p>If this library helped you earn some money, please consider donating ( any amount is greatly appreciated! ).
+If you work for a company and the library saved you a lot of time / effort in your project, please consider donating a larger amount. :)</p>
+
+<h3>Via Flattr:</h3>
+
+<p><a href="http://flattr.com/thing/1301817/" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a></p>
+        </section>
+
+        <footer>
+          AD-X is maintained by <a href="https://github.com/Alaneor">Alaneor</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
