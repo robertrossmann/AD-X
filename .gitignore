@@ -3,3 +3,5 @@ thumbs.db
 Schema
 docs/www
 vendor
+.gitignore
+README.md
