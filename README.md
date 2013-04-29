@@ -5,6 +5,7 @@ The **AD-X** library aims to provide an easy-to-use, object-oriented and extreme
 ## Features
 
 ### The important ones
+----
 
 #### Object-oriented API
 Use a nice, understandable, object-oriented API to work with Active Directory.
@@ -30,6 +31,7 @@ The library makes extensive use of the *rootDSE* entry and the directory schema 
 
 
 ### The nice to have ones
+----
 
 #### *ldap v3* protocol support
 Using the ldap v3 protocol, you can get the most out of a directory server by using the newest available technologies.
@@ -47,7 +49,7 @@ No need to include the library files - just include one file and the autoloader 
 By caching the directory schema, the library can take advantage of the information present on the schema without the need to query the server for it, saving the execution time and speeding your application up.
 
 #### Object to json string conversion
-Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you can send the data.
+Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you have your json string ready.
 
 #### Optional ldap query builder
 If you like, you can use the provided ldap query builder that makes building ldap filters simple. You can even combine the query builder with hand-written filters.
@@ -61,8 +63,25 @@ Please submit your bugs to the Github's [issue tracker](https://github.com/Alane
 
 ## Installation
 
+### Requirements
+
+ - PHP >= 5.4.0
+ - PHP with LDAP support ( [setup instructions](http://www.php.net/manual/en/ldap.installation.php) )
+ - PHP with OpenSSL for SSL / TLS encrypted connections ( [setup instructions](http://cz1.php.net/manual/en/openssl.installation.php) )
+
+### Install:
+
+#### Via Composer:
+
+`composer require alaneor/ad-x`
+
+#### Manually:
+
 1. Download the repository to your drive
 1. Include the [adx.php](adx.php) file into your project
+
+#### Post-installation:
+
 1. Generate the schema cache:  
  ```php
     $link = new ADX\Core\Link( 'company.com', 389 ); // Connect to server on default port  
