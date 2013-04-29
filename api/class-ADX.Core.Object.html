@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Core\Object | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Core.html" title="Summary of ADX\Core"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
+				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Link.html">Link</a></li>
+				<li class="active"><a href="class-ADX.Core.Object.html">Object</a></li>
+				<li><a href="class-ADX.Core.Query.html">Query</a></li>
+				<li><a href="class-ADX.Core.Result.html">Result</a></li>
+				<li><a href="class-ADX.Core.Schema.html">Schema</a></li>
+				<li><a href="class-ADX.Core.Task.html">Task</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
+			</ul>
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Exception.html">Exception</a></li>
+				<li><a href="class-ADX.Core.IncorrectParameterException.html">IncorrectParameterException</a></li>
+				<li><a href="class-ADX.Core.InsufficientAccessException.html">InsufficientAccessException</a></li>
+				<li><a href="class-ADX.Core.InvalidCredentialsException.html">InvalidCredentialsException</a></li>
+				<li><a href="class-ADX.Core.InvalidOperationException.html">InvalidOperationException</a></li>
+				<li><a href="class-ADX.Core.LdapNativeException.html">LdapNativeException</a></li>
+				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
+				<li><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
+				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
+				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Object</h1>
+
+
+	<div class="description">
+	
+<p>Represents any entity in the ldap server</p>
+
+<p>Any object returned by lookup operations will be of this class or will
+inherit from it. It contains all the object's data, represented by instances of
+the <code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> class.</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+<b><span>ADX\Core\Object</span></b>			
+			 <code>implements</code> 
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Iterator.html"><span>Iterator</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>, 
+			
+				<a href="class-JsonSerializable.html"><span>JsonSerializable</span></a>
+			
+			 <code>uses</code> 
+				<a href="class-ADX.Core.Jsonizer.html"><span>ADX\Core\Jsonizer</span></a>
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
+		
+
+				<b>See:</b>
+				<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> - Attributes of an entity / object are represented by this
+class<br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Object.html#26-697" title="Go to source code">Object.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="read" id="_read">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_read">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#52-113" title="Go to source code">read</a>( <span>string <var>$dnOrFilter</var></span>, <span>array <var>$attributes</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Read a single object from the server</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Read a single object from the server</p>
+
+<p>Use this method to read the specified attributes of a single entity in the
+directory server if you know the distinguishe name of the object, or if you can
+provide a search filter that returns exactly zero or one object.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span class="php-keyword1">use</span> ADX\Core\Object;            <span
+class="php-comment">// Import the class into the current namespace</span>
+
+<span
+class="php-comment">// Read the object with specified distinguished name</span>
+<span
+class="php-var">$user</span> = Object::read(   <span
+class="php-quote">&quot;CN=Karen Berge,OU=admins,DC=corp,DC=company,DC=com&quot;</span>,
+                        [<span
+class="php-quote">'name'</span>, <span
+class="php-quote">'mail'</span>],
+                        <span
+class="php-var">$link</span> );                <span
+class="php-comment">// $link is a fully configured <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> object</span>
+
+<span
+class="php-comment">// Read an object specified by the search filter</span>
+<span
+class="php-keyword1">try</span>
+{
+        <span
+class="php-var">$user</span> = Object::read( <span
+class="php-quote">&quot;(&amp;(samaccountname=jsmith))&quot;</span>, [<span
+class="php-quote">'name'</span>, <span class="php-quote">'mail'</span>], <span
+class="php-var">$link</span> );
+}
+<span
+class="php-keyword1">catch</span> ( ADX\Core\Exception <span
+class="php-var">$e</span> )
+{
+        <span
+class="php-comment">// More than one object found - refine your search query!</span>
+        <span
+class="php-keyword1">echo</span> <span
+class="php-var">$e</span>-&gt;getMessage();
+        <span
+class="php-keyword1">exit</span>;
+}
+
+<span
+class="php-comment">// Use the object somehow...</span>
+<span
+class="php-keyword1">echo</span> <span class="php-var">$user</span>-&gt;<span
+class="php-keyword2">mail</span>-&gt;value(<span
+class="php-num">0</span>);
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$dnOrFilter</var></dt>
+						<dd><code>string</code><br>The distinguished name of the entity to be loaded or an ldap filter that
+reaturns exactly one object</dd>
+						<dt><var>$attributes</var></dt>
+						<dd><code>array</code><br>Array of attributes to be loaded from the server</dd>
+						<dt><var>$adxLink</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br>The configured and bound Link to server</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br>Object containing the requested attributes<br />
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Exception.html">ADX\Core\Exception</a></code></code><br>If the lookup operation returns more than one object from the server<br />
+					</div>
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Link.html#_rootDSE">ADX\Core\Link::rootDSE()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="restore" id="_restore">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_restore">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#115-138" title="Go to source code">restore</a>( <span>string <var>$json</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Restore an Object from a json string</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Restore an Object from a json string</p>
+
+<p>If you previously jsonized an instance of the <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> class, you can
+convert it to an object again using this method.</p>
+
+<p class="alert">All data that the json string holds will be considered as
+locally modified! That means, if you call <code><a href="class-ADX.Core.Object.html#_update">ADX\Core\Object::update()</a></code> on a restored
+object, all data will be sent to the server. As such, it is recommended that you
+use this method only with modified data if you plan to call <code><a href="class-ADX.Core.Object.html#_update">ADX\Core\Object::update()</a></code>.</p>
+<br />
+
+<p class="alert">This method is currently experimental.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$json</var></dt>
+						<dd><code>string</code><br>The json string, as returned by <code><a href="class-ADX.Core.Object.html#_json">ADX\Core\Object::json()</a></code></dd>
+						<dt><var>$adxLink</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br>The Link to be used for later server-side operations</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br>The restored object<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#141-198" title="Go to source code">__construct</a>( <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>() </span> )</code>
+
+			<div class="description short">
+				
+<p>Create a brand new object to be potentially saved to the server later on</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create a brand new object to be potentially saved to the server later on</p>
+
+<p>Create a new object, modify its attributes and optionally store the object on
+the directory server.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span class="php-keyword1">use</span> ADX\Core\Object;    <span
+class="php-comment">// Import the class into the current namespace</span>
+
+<span
+class="php-comment">// Create the instance and specify the 'objectclass' and 'mail' attributes immediately</span>
+<span
+class="php-var">$object</span> = <span
+class="php-keyword1">new</span> Object( <span
+class="php-var">$link</span>, [<span
+class="php-quote">'objectclass'</span> =&gt; <span
+class="php-quote">'user'</span>, <span
+class="php-quote">'mail'</span> =&gt; <span
+class="php-quote">'robert@company.com'</span>] );
+
+<span
+class="php-comment">// Optionally, further modify the object as needed</span>
+<span
+class="php-var">$object</span>-&gt;givenName-&gt;set( <span
+class="php-quote">'Robert'</span> );
+
+<span
+class="php-comment">// Save the object to the server</span>
+<span
+class="php-var">$object</span>-&gt;create( <span
+class="php-quote">'OU=admins,DC=corp,DC=company,DC=com'</span> );
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$adxLink</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br>A configured and bound <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> object</dd>
+						<dt><var>$attributes</var></dt>
+						<dd><code>array</code><br>A named array containing the attribute names as indexes and their values</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br>A new instance of this class<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create" id="_create">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>|null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#200-227" title="Go to source code">create</a>( <span>string <var>$dn</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Create the object on the server</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create the object on the server</p>
+
+<p>Use this method to save a newly created object on the directory server. To
+update an existing object, refer to the <code><a href="class-ADX.Core.Object.html#_update">ADX\Core\Object::update()</a></code> method for more
+information.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$dn</var></dt>
+						<dd><code>string</code><br>The distinguished name of the parent container where this object should be
+stored</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>|null</code><br>If there is an error, it will throw an exception and return null<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>|null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#229-254" title="Go to source code">update</a>( )</code>
+
+			<div class="description short">
+				
+<p>Update the object on the server with the locally made changes</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Update the object on the server with the locally made changes</p>
+
+<p>Use this method to save the local changes to an existing ldap entity to the
+server.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>|null</code><br>If there is an error, it will throw an exception and return null<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#256-267" title="Go to source code">delete</a>( )</code>
+
+			<div class="description short">
+				
+<p>Delete the object from ldap server</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Delete the object from ldap server</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get" id="_get">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#269-312" title="Go to source code">get</a>( <span>string <var>$attribute</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Get the specified attribute of the object</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get the specified attribute of the object</p>
+This is one of the many ways how to access an object's attribute.
+<h2>Example:</h2>
+
+<pre>
+<span class="php-keyword1">use</span> ADX\Core\Object;    <span
+class="php-comment">// Import the class into the current namespace</span>
+<span
+class="php-comment">// $link is a fully configured and bound <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> object</span>
+
+<span
+class="php-comment">// Retrieve or create an object</span>
+<span
+class="php-var">$object</span> = Object::read( <span
+class="php-quote">'OU=admins,DC=corp,DC=company,DC=com'</span>, [<span
+class="php-quote">'mail'</span>, <span
+class="php-quote">'givenname'</span>], <span
+class="php-var">$link</span> );
+
+<span
+class="php-comment">// Access the object's attribute</span>
+<span
+class="php-keyword2">print_r</span>( <span
+class="php-var">$object</span>-&gt;get( <span
+class="php-quote">'mail'</span> )-&gt;value() );
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code>string</code><br>The name of the attribute, as defined on the ldap server</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code></code><br>An instance of Attribute class, holding the attribute's value(s)<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set" id="_set">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#314-338" title="Go to source code">set</a>( <span>string <var>$attribute</var></span>, <span>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$value</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Set the specified attribute's value</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Set the specified attribute's value</p>
+Use this method to modify the value(s) of the specified attribute.
+<p class="alert">This method replaces values currently present on the
+attribute.<br />
+If you supply an instance of the <code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> class as the $value, the
+instance will be replaced.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code>string</code><br>The name of the attribute to be modified</dd>
+						<dt><var>$value</var></dt>
+						<dd><code>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code></code><br>The value(s) to be set on the attribute</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="remove" id="_remove">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_remove">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#340-367" title="Go to source code">remove</a>( <span>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$attributes</var> = <span class="php-keyword1">array</span>() </span> )</code>
+
+			<div class="description short">
+				
+<p>Remove the specific attribute(s) from the object</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Remove the specific attribute(s) from the object</p>
+
+<p>You can supply either a name of the attribute, an instance of the Attribute
+class or an array with either the names or instances to be removed.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attributes</var></dt>
+						<dd><code>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code></code><br>The attribute(s) to be removed</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="resolve" id="_resolve">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_resolve">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#369-432" title="Go to source code">resolve</a>( <span>string <var>$attribute</var></span>, <span>string|array <var>$attributes</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Resolve the attribute into individual instances of the <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> class</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Resolve the attribute into individual instances of the <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> class</p>
+
+<p>If the attribute holds distinguished name(s) as its values, it is considered
+to be resolvable. Resolving such attribute means that the distinguished names
+the attribute holds will be read from the directory server ( using <code><a href="class-ADX.Core.Object.html#_read">ADX\Core\Object::read()</a></code> ) and turned into editable instances of the Object class. You can
+supply an array of attributes that these objets should have when loaded from
+server.<br />
+<br />
+This method is very handy for retrieving information ( email address, name etc.)
+about e.g. members of a group.</p>
+
+<p class="alert">You must load the property from the server first in order to
+resolve it.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span class="php-keyword1">use</span> ADX\Core\Object;    <span
+class="php-comment">// Import the class into the current namespace</span>
+<span
+class="php-comment">// $link is a fully configured and bound <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> object</span>
+
+<span
+class="php-comment">// Read the list of members of a group</span>
+<span
+class="php-var">$group</span> = Object::read(
+        <span
+class="php-quote">'CN=My Security Group,OU=Groups,DC=corp,DC=company,DC=com'</span>,
+        [<span
+class="php-quote">'member'</span>],
+        <span
+class="php-var">$link</span> );
+
+<span
+class="php-comment">// Resolve the group's members into individual</span>
+<span
+class="php-comment">// objects ( each object will have the 'mail' attribute loaded )</span>
+<span
+class="php-var">$members</span> = <span
+class="php-var">$group</span>-&gt;resolve( <span
+class="php-quote">'member'</span>, [<span
+class="php-quote">'mail'</span>] );
+
+<span
+class="php-comment">// You have two options now.</span>
+<span
+class="php-comment">// No. 1: The $members is an instance of the <code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code> class -</span>
+<span
+class="php-comment">// you can utilise it's capabilities to traverse through the objects</span>
+<span
+class="php-comment">// in the resultset</span>
+<span
+class="php-var">$members</span>-&gt;<span
+class="php-keyword2">each</span>( <span
+class="php-keyword1">function</span>( <span
+class="php-var">$object</span> )
+{
+        <span
+class="php-keyword2">print_r</span>( <span
+class="php-var">$object</span>-&gt;<span
+class="php-keyword2">mail</span>-&gt;value() );
+});
+
+<span
+class="php-comment">// No. 2: Access those individual objects from the $group,</span>
+<span
+class="php-comment">// as if it were just another attribute</span>
+<span
+class="php-keyword2">print_r</span>( <span
+class="php-var">$group</span>-&gt;member-&gt;value(<span
+class="php-num">0</span>)-&gt;<span
+class="php-keyword2">mail</span>-&gt;value() ); <span
+class="php-comment">// Prints the email address of the first object in the 'member' attribute</span>
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code>string</code><br>The ldap name of the attribute to be resolved</dd>
+						<dt><var>$attributes</var></dt>
+						<dd><code>string|array</code><br>The attribute(s) the resolved objects should have</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code></code><br>The objects, contained within the Result class<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parent" id="_parent">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parent">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#434-451" title="Go to source code">parent</a>( )</code>
+
+			<div class="description short">
+				
+<p>Get the distinguished name of the parent container of the object</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get the distinguished name of the parent container of the object</p>
+
+<p>The object must be either loaded from a server or already saved to the server
+if created locally. Otherwise, the parent cannot be known.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>The parent's distinguished name<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="count" id="_count">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_count">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#453-457" title="Go to source code">count</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Countable.html#_count">Countable::count()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="all_attributes" id="_all_attributes">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_all_attributes">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#459-467" title="Go to source code">all_attributes</a>( )</code>
+
+			<div class="description short">
+				
+<p>Get an array of all attributes that are currently present on the object</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get an array of all attributes that are currently present on the object</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br>An array containing the names of all attributes defined on the object<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__toString" id="___toString">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___toString">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#663-679" title="Go to source code">__toString</a>( )</code>
+
+			<div class="description short">
+				
+<p>Get the textual identifier of the object</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get the textual identifier of the object</p>
+
+<p>If the distinguished name is known, it will be returned. Otherwise, the value
+of the RDN ( relative distinguished name ) is returned if present on the object.
+If not, the name of the class is returned.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>Either a DN of the object, the value of the RDN attribute ( if present ) or
+class name, respectively<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-ArrayAccess.html#methods">ArrayAccess</a></h3>
+		<p class="elementList">
+			<code><a href="class-ArrayAccess.html#_offsetExists">offsetExists()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetGet">offsetGet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetSet">offsetSet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetUnset">offsetUnset()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-Iterator.html#methods">Iterator</a></h3>
+		<p class="elementList">
+			<code><a href="class-Iterator.html#_current">current()</a></code>, 
+			<code><a href="class-Iterator.html#_key">key()</a></code>, 
+			<code><a href="class-Iterator.html#_next">next()</a></code>, 
+			<code><a href="class-Iterator.html#_rewind">rewind()</a></code>, 
+			<code><a href="class-Iterator.html#_valid">valid()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-JsonSerializable.html#methods">JsonSerializable</a></h3>
+		<p class="elementList">
+			<code><a href="class-JsonSerializable.html#_jsonSerialize">jsonSerialize()</a></code>
+		</p>
+
+		<h3>Methods used from <a href="class-ADX.Core.Jsonizer.html#methods">ADX\Core\Jsonizer</a></h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Core.Jsonizer.html#_json">json()</a></code>
+		</p>
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+
+
+
+		<h3>Magic properties</h3>
+		<table class="summary table table-bordered table-striped" id="magicProperties">
+		<tr data-order="dn" id="m$dn">
+			<td class="attributes"><code>
+				public  read-only
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Object.html#35" title="Go to source code"><var>$dn</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#m$dn" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>The Distinguished name of the object ( available only for objects already
+stored in ldap database )</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>The Distinguished name of the object ( available only for objects already
+stored in ldap database )</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

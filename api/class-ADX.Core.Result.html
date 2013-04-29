@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Core\Result | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Core.html" title="Summary of ADX\Core"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
+				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Link.html">Link</a></li>
+				<li><a href="class-ADX.Core.Object.html">Object</a></li>
+				<li><a href="class-ADX.Core.Query.html">Query</a></li>
+				<li class="active"><a href="class-ADX.Core.Result.html">Result</a></li>
+				<li><a href="class-ADX.Core.Schema.html">Schema</a></li>
+				<li><a href="class-ADX.Core.Task.html">Task</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
+			</ul>
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Exception.html">Exception</a></li>
+				<li><a href="class-ADX.Core.IncorrectParameterException.html">IncorrectParameterException</a></li>
+				<li><a href="class-ADX.Core.InsufficientAccessException.html">InsufficientAccessException</a></li>
+				<li><a href="class-ADX.Core.InvalidCredentialsException.html">InvalidCredentialsException</a></li>
+				<li><a href="class-ADX.Core.InvalidOperationException.html">InvalidOperationException</a></li>
+				<li><a href="class-ADX.Core.LdapNativeException.html">LdapNativeException</a></li>
+				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
+				<li><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
+				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
+				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Result</h1>
+
+
+	<div class="description">
+	
+<p>Encapsulates the data returned by Task to simplify data traversing</p>
+
+<p>This class behaves exactly like an array, except that you cannot modify it's
+contents ( immutable array ). You can loop through it, access individual objects
+using numeric indexes and traverse through the resulset using provided methods,
+applying a callback on each object in the resultset.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span
+class="php-comment">// ... Prepare the Link object and configure $task ( instance of Task )</span>
+<span
+class="php-var">$result</span> = <span
+class="php-var">$task</span>-&gt;get_result(); <span
+class="php-comment">// Returns the Result object</span>
+
+<span
+class="php-var">$first_obj</span> = <span
+class="php-var">$result</span>-&gt;first();  <span
+class="php-comment">// Get the first object in the resultset</span>
+
+<span
+class="php-comment">// Apply a filter on the result using the Result::filter() method</span>
+<span
+class="php-var">$filtered</span> = <span
+class="php-var">$result</span>-&gt;filter( <span
+class="php-keyword1">function</span>( <span
+class="php-var">$object</span> )        <span
+class="php-comment">// The current object will be passed as a parameter of the callback</span>
+{
+        <span
+class="php-keyword1">if</span> ( <span
+class="php-var">$object</span>-&gt;name-&gt;value( <span
+class="php-num">0</span> ) == <span
+class="php-quote">&quot;Robert Rossmann&quot;</span> ) <span
+class="php-keyword1">return</span> <span class="php-var">$object</span>;   <span
+class="php-comment">// Returning an object in the callback will put it into the filtered resultset</span>
+});
+
+<span
+class="php-comment">// Run the filter() method in a specific scope by specifying the $newthis parameter</span>
+<span
+class="php-var">$filtered</span> = <span
+class="php-var">$result</span>-&gt;filter( <span
+class="php-var">$myInstanceOfSomeClass</span>, <span
+class="php-keyword1">function</span>( <span
+class="php-var">$object</span> )
+{
+        <span
+class="php-keyword1">echo</span> <span
+class="php-keyword2">get_class</span>( <span
+class="php-var">$this</span> );        <span
+class="php-comment">// SomeClass ( Imaginary example )</span>
+});
+
+<span
+class="php-comment">// Loop through the resultset with the good old foreach</span>
+<span
+class="php-keyword1">foreach</span> ( <span class="php-var">$result</span> <span
+class="php-keyword1">as</span> <span
+class="php-var">$object</span> )
+{
+        <span
+class="php-comment">// Do something with $object..</span>
+        <span
+class="php-keyword1">echo</span> <span
+class="php-var">$object</span>-&gt;name-&gt;value( <span
+class="php-num">0</span> ) . <span
+class="php-quote">&quot;\n&quot;</span>;
+}
+</pre>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+<b><span>ADX\Core\Result</span></b>			
+			 <code>implements</code> 
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Iterator.html"><span>Iterator</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
+		
+
+				<b>See:</b>
+				<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+				<b>See:</b>
+				<a href="http://www.php.net/manual/en/class.closure.php">PHP - Closure</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Result.html#25-264" title="Go to source code">Result.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-ADX.Core.Result.html#72-81" title="Go to source code">__construct</a>( <span>array <var>$data</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Create an instance of the class using provided data as array</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create an instance of the class using provided data as array</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd><code>array</code><br>The data to be used in the object ( usually, the array contains instances of
+<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> )</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="to_array" id="_to_array">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_to_array">#</a>
+			<code><a href="source-class-ADX.Core.Result.html#83-91" title="Go to source code">to_array</a>( )</code>
+
+			<div class="description short">
+				
+<p>Extract the data from the object as a regular array</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Extract the data from the object as a regular array</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br>The array with all items in it<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="first" id="_first">
+
+			<td class="attributes"><code>
+				 public 
+				mixed|null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_first">#</a>
+			<code><a href="source-class-ADX.Core.Result.html#93-101" title="Go to source code">first</a>( )</code>
+
+			<div class="description short">
+				
+<p>Return the first item in the resultset</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Return the first item in the resultset</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed|null</code><br>The first item in the resultset, as returned from the directory server or null
+if the resultset is empty<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="each" id="_each">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_each">#</a>
+			<code><a href="source-class-ADX.Core.Result.html#103-112" title="Go to source code">each</a>( <span>Object <var>$newthis</var> = <span class="php-keyword1">null</span></span>, <span>function <var>$callback</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Loop through all objects in the resultset, applying a callback on it</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Loop through all objects in the resultset, applying a callback on it</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$newthis</var></dt>
+						<dd><code>Object</code><br>An optional object that the callback will be bound to ( the object will be
+assigned to $this )</dd>
+						<dt><var>$callback</var></dt>
+						<dd><code>function</code><br>The callback function to be applied on each object</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="filter" id="_filter">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_filter">#</a>
+			<code><a href="source-class-ADX.Core.Result.html#114-127" title="Go to source code">filter</a>( <span>Object <var>$newthis</var> = <span class="php-keyword1">null</span></span>, <span>function <var>$callback</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Filter the resultset by applying a callback that returns a subset of
+objects</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Filter the resultset by applying a callback that returns a subset of
+objects</p>
+
+<p>Use this function to loop through the objects in the resultset, evaluate each
+object in turn and return the objects that you want to have in a new Result
+object.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$newthis</var></dt>
+						<dd><code>Object</code><br>An optional object that the callback will be bound to ( the object will be
+assigned to $this )</dd>
+						<dt><var>$callback</var></dt>
+						<dd><code>function</code><br>The callback function to be applied on each object</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code></code><br>A subset of items that your callbacks returned, encapsulated in the Result class<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="unique" id="_unique">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_unique">#</a>
+			<code><a href="source-class-ADX.Core.Result.html#129-153" title="Go to source code">unique</a>( <span>string <var>$attribute</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Get an array of all unique values of a specified attribute within the
+resultset</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get an array of all unique values of a specified attribute within the
+resultset</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code>string</code><br>The ldap name of the attribute to be uniquified</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br>The array of all unique items within the resultset<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-ArrayAccess.html#methods">ArrayAccess</a></h3>
+		<p class="elementList">
+			<code><a href="class-ArrayAccess.html#_offsetExists">offsetExists()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetGet">offsetGet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetSet">offsetSet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetUnset">offsetUnset()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-Iterator.html#methods">Iterator</a></h3>
+		<p class="elementList">
+			<code><a href="class-Iterator.html#_current">current()</a></code>, 
+			<code><a href="class-Iterator.html#_key">key()</a></code>, 
+			<code><a href="class-Iterator.html#_next">next()</a></code>, 
+			<code><a href="class-Iterator.html#_rewind">rewind()</a></code>, 
+			<code><a href="class-Iterator.html#_valid">valid()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-Countable.html#methods">Countable</a></h3>
+		<p class="elementList">
+			<code><a href="class-Countable.html#_count">count()</a></code>
+		</p>
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

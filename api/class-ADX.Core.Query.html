@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Core\Query | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Core.html" title="Summary of ADX\Core"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
+				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Link.html">Link</a></li>
+				<li><a href="class-ADX.Core.Object.html">Object</a></li>
+				<li class="active"><a href="class-ADX.Core.Query.html">Query</a></li>
+				<li><a href="class-ADX.Core.Result.html">Result</a></li>
+				<li><a href="class-ADX.Core.Schema.html">Schema</a></li>
+				<li><a href="class-ADX.Core.Task.html">Task</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
+			</ul>
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Exception.html">Exception</a></li>
+				<li><a href="class-ADX.Core.IncorrectParameterException.html">IncorrectParameterException</a></li>
+				<li><a href="class-ADX.Core.InsufficientAccessException.html">InsufficientAccessException</a></li>
+				<li><a href="class-ADX.Core.InvalidCredentialsException.html">InvalidCredentialsException</a></li>
+				<li><a href="class-ADX.Core.InvalidOperationException.html">InvalidOperationException</a></li>
+				<li><a href="class-ADX.Core.LdapNativeException.html">LdapNativeException</a></li>
+				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
+				<li><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
+				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
+				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Query</h1>
+
+
+	<div class="description">
+	
+<p>This query builder provides a means of creating ldap search filters in a
+simple way</p>
+
+<p>Use this class to build your ldap search filter. Current support is
+implemented for the AND( &amp; ), OR( | ) and NOT( ! ) operators.</p>
+
+<p>Usage of this class is completely optional - you can either use it to build
+your filter or supply your own search filter as a regular string.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span class="php-keyword1">use</span> ADX\Core\Query;
+
+<span
+class="php-comment">// The simplest filter - all objects with email address present:</span>
+<span
+class="php-var">$filter</span> = Query::a(
+        [ <span
+class="php-quote">'mail'</span> =&gt; <span
+class="php-quote">'*'</span> ]
+);
+<span
+class="php-comment">// (&amp;(mail=*))</span>
+
+<span
+class="php-comment">// Limit the objects to only user accounts with email address present:</span>
+<span
+class="php-var">$filter</span> = Query::a([
+        <span
+class="php-quote">'objectclass'</span>   =&gt; <span
+class="php-quote">'user'</span>,
+        <span
+class="php-quote">'mail'</span>          =&gt; <span
+class="php-quote">'*'</span>
+]);
+<span
+class="php-comment">// (&amp;(objectclass=user)(mail=*))</span>
+
+<span
+class="php-comment">// All users that do NOT have the email address set:</span>
+<span
+class="php-comment">// ( notice that we pass multiple parameters to the</span>
+<span
+class="php-comment">// Query::a() method - you can pass as many as you like -</span>
+<span
+class="php-comment">// as long as they are hashes or strings )</span>
+<span
+class="php-var">$filter</span> = Query::a(
+        [<span
+class="php-quote">'objectclass'</span> =&gt; <span
+class="php-quote">'user'</span>],
+        Query::n([ <span
+class="php-quote">'mail'</span> =&gt; <span
+class="php-quote">'*'</span> ])     <span
+class="php-comment">// We pass multiple parameters here to the Query::a() method</span>
+);
+<span
+class="php-comment">// (&amp;(objectclass=user)(!(mail=*)))</span>
+</pre>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
+		
+
+		<b>Located at</b> <a href="source-class-ADX.Core.Query.html#25-156" title="Go to source code">Query.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="a" id="_a">
+
+			<td class="attributes"><code>
+				 public static
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_a">#</a>
+			<code><a href="source-class-ADX.Core.Query.html#64-75" title="Go to source code">a</a>( <span>array|string <var>$data</var>,…</span> )</code>
+
+			<div class="description short">
+				
+<p>Build a logical AND filter - (&amp;(attribute=value))</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Build a logical AND filter - (&amp;(attribute=value))</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var>,…</dt>
+						<dd><code>array|string</code><br>$data,... Unlimited number of hash arrays or strings to be used</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>The generated ldap filter<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="o" id="_o">
+
+			<td class="attributes"><code>
+				 public static
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_o">#</a>
+			<code><a href="source-class-ADX.Core.Query.html#77-88" title="Go to source code">o</a>( <span>array|string <var>$data</var>,…</span> )</code>
+
+			<div class="description short">
+				
+<p>Build a logical OR filter - (|(attribute=value))</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Build a logical OR filter - (|(attribute=value))</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var>,…</dt>
+						<dd><code>array|string</code><br>$data,... Unlimited number of hash arrays or strings to be used</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>The generated ldap filter<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="n" id="_n">
+
+			<td class="attributes"><code>
+				 public static
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_n">#</a>
+			<code><a href="source-class-ADX.Core.Query.html#90-101" title="Go to source code">n</a>( <span>array|string <var>$data</var>,…</span> )</code>
+
+			<div class="description short">
+				
+<p>Build a logical NOT filter - (|(attribute=value))</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Build a logical NOT filter - (|(attribute=value))</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var>,…</dt>
+						<dd><code>array|string</code><br>$data,... Unlimited number of hash arrays or strings to be used</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>The generated ldap filter<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

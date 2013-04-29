@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Core\Task | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Core.html" title="Summary of ADX\Core"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
+				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Link.html">Link</a></li>
+				<li><a href="class-ADX.Core.Object.html">Object</a></li>
+				<li><a href="class-ADX.Core.Query.html">Query</a></li>
+				<li><a href="class-ADX.Core.Result.html">Result</a></li>
+				<li><a href="class-ADX.Core.Schema.html">Schema</a></li>
+				<li class="active"><a href="class-ADX.Core.Task.html">Task</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
+			</ul>
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Exception.html">Exception</a></li>
+				<li><a href="class-ADX.Core.IncorrectParameterException.html">IncorrectParameterException</a></li>
+				<li><a href="class-ADX.Core.InsufficientAccessException.html">InsufficientAccessException</a></li>
+				<li><a href="class-ADX.Core.InvalidCredentialsException.html">InvalidCredentialsException</a></li>
+				<li><a href="class-ADX.Core.InvalidOperationException.html">InvalidOperationException</a></li>
+				<li><a href="class-ADX.Core.LdapNativeException.html">LdapNativeException</a></li>
+				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
+				<li><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
+				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
+				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Task</h1>
+
+
+	<div class="description">
+	
+<p>Performs lookup operations on ldap server</p>
+
+<p>You can use Task to perform searches on the ldap server according to options
+you specify.<br />
+This class serves as a wrapper for php functions that retrieve and process data
+from directory servers.</p>
+
+<h2>Features:</h2>
+
+<h3>Method Chaining</h3>
+ Methods may be chained together to simplify configuration. Ensure that the
+methods you wish to chain together return the <code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code> object to avoid
+issues. See the example code below.<br />
+<br />
+
+<p class="alert">Make sure you import the class into current namespace before
+trying to use it:<br />
+<code><span class="php-keyword1">use</span> ADX\Core\Task;</code><br />
+To simplify the examples, the above line is not present in the examples but it
+is assumed you have it in your implementation.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span
+class="php-keyword1">use</span> ADX\Enums;                                                  <span
+class="php-comment">// Import the Enums namespace</span>
+
+<span
+class="php-var">$link</span> = <span class="php-keyword1">new</span> <span
+class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );                              <span
+class="php-comment">// Connect to server</span>
+<span
+class="php-var">$link</span>-&gt;bind( <span
+class="php-quote">'user@example.com'</span>, <span
+class="php-quote">'MySecretPwd'</span> );               <span
+class="php-comment">// Authenticate</span>
+
+<span
+class="php-var">$task</span> = <span
+class="php-keyword1">new</span> Task( Enums\Operation::OpSearch, <span
+class="php-var">$link</span> );           <span
+class="php-comment">// Create a search operation</span>
+<span
+class="php-var">$task</span>   -&gt;get_attributes( [<span
+class="php-quote">'cn'</span>, <span class="php-quote">'givenname'</span>, <span
+class="php-quote">'sn'</span>, <span class="php-quote">'mail'</span>] )   <span
+class="php-comment">// Load these attributes for the objects</span>
+        -&gt;set_filter( <span
+class="php-quote">'(&amp;(objectclass=user)(mail=*))'</span> )         <span
+class="php-comment">// Get all users that have a mail attribute</span>
+        -&gt;set_base( <span
+class="php-quote">'OU=Users,DC=example,DC=com'</span> );             <span
+class="php-comment">// Limit the search only to the Users OU in the domain</span>
+
+<span
+class="php-comment">// Get the results!</span>
+<span
+class="php-var">$result</span> = <span
+class="php-var">$task</span>-&gt;run();
+</pre>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
+		
+
+				<b>See:</b>
+				<code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> - Use the Link object to establish and configure connection to
+directory servers<br />
+				<b>See:</b>
+				<code><a href="class-ADX.Enums.Operation.html">ADX\Enums\Operation</a></code> - Specify the scope of the lookup operation<br />
+				<b>See:</b>
+				<a
+href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms678001%28v=vs.85%29.aspx">MSDN
+- Deciding Where To Search</a><br />
+				<b>Todo:</b>
+				Move all lookup error checking from <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> to <code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code><br />
+				<b>Todo:</b>
+				The connection pooling feature might need a rewrite - if I start a lookup
+operation with an account that has lower access rights than the one I used
+previously, AD-X might fail to perform the requested operation.<br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Task.html#26-394" title="Go to source code">Task.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#116-140" title="Go to source code">__construct</a>( <span>string <var>$operationType</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Create a new directory lookup task</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create a new directory lookup task</p>
+
+<h4>Example</h4>
+
+<pre>
+<span
+class="php-keyword1">use</span> ADX\Enums;                          <span
+class="php-comment">// Import the Enums namespace</span>
+
+<span
+class="php-var">$link</span> = <span class="php-keyword1">new</span> <span
+class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );      <span
+class="php-comment">// Connect to server</span>
+
+<span
+class="php-comment">// Create a search task, performing the operation on the $link connection</span>
+<span
+class="php-var">$task</span> = <span
+class="php-keyword1">new</span> Task( Enums\Operation::OpSearch, <span
+class="php-var">$link</span> );
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$operationType</var></dt>
+						<dd><code>string</code><br>The type of lookup operation you wish to perform, defined in <code><a href="class-ADX.Enums.Operation.html">ADX\Enums\Operation</a></code>. While you can pass an explicit string as an argument, you are
+strongly discouraged from doing that.</dd>
+						<dt><var>$adxLink</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br>The Link the operation will be performed on</dd>
+					</dl></div>
+
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code> <br />
+							<code><code><a href="class-ADX.Enums.Operation.html">ADX\Enums\Operation</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="use_pages" id="_use_pages">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_use_pages">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#142-170" title="Go to source code">use_pages</a>( <span>integer <var>$page_size</var> = <span class="php-num">1000</span></span>, <span>string <var>$encoded_cookie</var> = <span class="php-quote">''</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Enable the results to be retrieved from directory server in pages</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Enable the results to be retrieved from directory server in pages</p>
+
+<p>This allows you to retrieve complete search results for queries that would
+otherwise hit the maximum limit for a single search ( Active Directory limits a
+single non-paged search to 1000 objects by default ). Enable this functionality
+by invoking this method on the Task and perform search queries using the same
+search criteria using <code><a href="class-ADX.Core.Task.html#_run">ADX\Core\Task::run()</a></code>. You can also avoid the overhead of
+calling this method multiple times by invoking Task::get_all_pages() and
+you will get all the data with a single command.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$page_size</var></dt>
+						<dd><code>integer</code><br>Number of objects in a single page ( default is 1000 )</dd>
+						<dt><var>$encoded_cookie</var></dt>
+						<dd><code>string</code><br>Base64-encoded pagination cookie to be re-used. If not specified, an empty
+cookie will be used</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a
+href="http://www.php.net/manual/en/function.ldap-control-paged-result.php">PHP -
+ldap_control_paged_result()</a><br />
+							<a
+href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746459%28v=vs.85%29.aspx">MSDN
+- Retrieving Large Results Sets</a><br />
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Enums.ServerControl.html#PagedResults">ADX\Enums\ServerControl::<b>PagedResults</b></a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_attributes" id="_get_attributes">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_attributes">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#172-189" title="Go to source code">get_attributes</a>( <span>array|string <var>$attributes</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Configure which attributes should be retrieved from the directory server</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Configure which attributes should be retrieved from the directory server</p>
+
+<p class="alert"><i>objectclass</i> and <i>dn</i> are <b>always</b>
+returned.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attributes</var></dt>
+						<dd><code>array|string</code><br>The attribute or attributes to be retrieved<br />
+<b>Default:</b> <code>[<span class="php-quote">'*'</span>]</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_filter" id="_set_filter">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_filter">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#191-206" title="Go to source code">set_filter</a>( <span>string <var>$filter</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Set the ldap filter for the task</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Set the ldap filter for the task</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$filter</var></dt>
+						<dd><code>string</code><br>A valid ldap filter string<br />
+<b>Default:</b> <code><span
+class="php-quote">&quot;(objectclass=*)&quot;</span></code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a
+href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx">MSDN
+- Search Filter Syntax</a><br />
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Perform some filter validation?<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_base" id="_set_base">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_base">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#208-226" title="Go to source code">set_base</a>( <span>string <var>$dn</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Set the base DN as the starting point for the lookup operation</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Set the base DN as the starting point for the lookup operation</p>
+You can limit the scope of the lookup operation by setting the search base to
+any valid distinguished name that exists in the directory structure. By doing
+so, your lookup operation will only return objects that belong to this DN.
+<p class="alert">If you specify a non-existing distinguished name as the base DN
+you will receive <code><a href="class-ADX.Enums.ServerResponse.html#NoSuchObject">ADX\Enums\ServerResponse::<b>NoSuchObject</b></a></code> error when executing
+the lookup operation.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$dn</var></dt>
+						<dd><code>string</code><br>The distinguished name of an existing directory object / container<br />
+<b>Default:</b> the base DN of the current domain</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="run" id="_run">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>|false
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_run">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#228-300" title="Go to source code">run</a>( )</code>
+
+			<div class="description short">
+				
+<p>Perform the lookup operation on server and return the resultset</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Perform the lookup operation on server and return the resultset</p>
+
+<p>This method sends the lookup request to the server with the configuration you
+provided. If the <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> has pagination enabled, it will return a single
+page. To get the subsequent pages, call this method again on the object, without
+modifying the lookup criteria.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>|false</code><br>The Result object with returned Objects or FALSE if maximum number of referrals
+was chased<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Link.html#$rootDSE">ADX\Core\Link::<var>$rootDSE</var></a></code></code><br>to get the domain base dn ( from <i>defaultnamingcontext</i> ) if no override has been specified<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="run_paged" id="_run_paged">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_run_paged">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#302-335" title="Go to source code">run_paged</a>( <span>integer <var>$page_size</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Return all pages at once when doing paged search operations</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Return all pages at once when doing paged search operations</p>
+
+<p>Use this method to get a complete resultset with all pages at once. Note that
+pagination must be enabled first in order for this method to do something more
+than <code><a href="class-ADX.Core.Task.html#_run">ADX\Core\Task::run()</a></code>. You can enable it by calling self:use_pages()
+or by passing a number of objects per page into this method.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$page_size</var></dt>
+						<dd><code>integer</code><br>Optional size of objects per single page</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code></code><br>A Result object containing the objects on the server<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Task.html#_use_pages">ADX\Core\Task::use_pages()</a></code></code><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="max_referrals" id="$max_referrals">
+			<td class="attributes"><code>
+				public  
+				integer
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Task.html#70-83" title="Go to source code"><var>$max_referrals</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$max_referrals" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Specify the maximum number of attempts to follow a referral</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Specify the maximum number of attempts to follow a referral</p>
+
+<p>Set this property to a desired number of attempts to follow a referral. If
+the number of encountered referrals is larger than this number, the lookup
+operation will fail.</p>
+
+<p>Default is to follow up to 3 referrals.</p>
+
+
+						<h4>See</h4>
+						<div class="list">
+								<a
+href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms677913%28v=vs.85%29.aspx">MSDN
+- Referrals</a><br />
+						</div>
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="complete" id="$complete">
+			<td class="attributes"><code>
+				public  
+				boolean
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Task.html#85-97" title="Go to source code"><var>$complete</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$complete" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Is there more data to be retrieved? Yes -&gt; false / No -&gt; true</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Is there more data to be retrieved? Yes -&gt; false / No -&gt; true</p>
+
+<p>This flag tells you if the result of your lookup operation is complete. Note
+that this is only applicable for paged lookups - if you do not enable
+pagination, this flag will always be true even if there would be more data to be
+retrieved with pagination enabled.</p>
+
+
+						<h4>See</h4>
+						<div class="list">
+								<code><code><a href="class-ADX.Core.Task.html#_use_pages">ADX\Core\Task::use_pages()</a></code></code><br />
+						</div>
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

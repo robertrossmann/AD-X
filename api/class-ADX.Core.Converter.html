@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Core\Converter | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Core.html" title="Summary of ADX\Core"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
+				<li class="active"><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Link.html">Link</a></li>
+				<li><a href="class-ADX.Core.Object.html">Object</a></li>
+				<li><a href="class-ADX.Core.Query.html">Query</a></li>
+				<li><a href="class-ADX.Core.Result.html">Result</a></li>
+				<li><a href="class-ADX.Core.Schema.html">Schema</a></li>
+				<li><a href="class-ADX.Core.Task.html">Task</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
+			</ul>
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Exception.html">Exception</a></li>
+				<li><a href="class-ADX.Core.IncorrectParameterException.html">IncorrectParameterException</a></li>
+				<li><a href="class-ADX.Core.InsufficientAccessException.html">InsufficientAccessException</a></li>
+				<li><a href="class-ADX.Core.InvalidCredentialsException.html">InvalidCredentialsException</a></li>
+				<li><a href="class-ADX.Core.InvalidOperationException.html">InvalidOperationException</a></li>
+				<li><a href="class-ADX.Core.LdapNativeException.html">LdapNativeException</a></li>
+				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
+				<li><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
+				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
+				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Converter</h1>
+
+
+	<div class="description">
+	
+<p>Provides conversion functionality between ldap and php datatypes</p>
+
+<p>All the conversion functionality is defined here. This class is used
+internally to convert data automatically to php as it is received from ldap
+server and also to convert data to ldap when data is being written to ldap
+server.</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
+		
+
+		<b>Located at</b> <a href="source-class-ADX.Core.Converter.html#26-235" title="Go to source code">Converter.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="to_ldap" id="_to_ldap">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_to_ldap">#</a>
+			<code><a href="source-class-ADX.Core.Converter.html#40-43" title="Go to source code">to_ldap</a>( <span><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$attribute</var></span>, <span>mixed <var>$values</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="from_ldap" id="_from_ldap">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_from_ldap">#</a>
+			<code><a href="source-class-ADX.Core.Converter.html#45-48" title="Go to source code">from_ldap</a>( <span><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$attribute</var></span>, <span>mixed <var>$values</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

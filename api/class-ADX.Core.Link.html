@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Core\Link | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Core.html" title="Summary of ADX\Core"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
+				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li class="active"><a href="class-ADX.Core.Link.html">Link</a></li>
+				<li><a href="class-ADX.Core.Object.html">Object</a></li>
+				<li><a href="class-ADX.Core.Query.html">Query</a></li>
+				<li><a href="class-ADX.Core.Result.html">Result</a></li>
+				<li><a href="class-ADX.Core.Schema.html">Schema</a></li>
+				<li><a href="class-ADX.Core.Task.html">Task</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
+			</ul>
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ADX.Core.Exception.html">Exception</a></li>
+				<li><a href="class-ADX.Core.IncorrectParameterException.html">IncorrectParameterException</a></li>
+				<li><a href="class-ADX.Core.InsufficientAccessException.html">InsufficientAccessException</a></li>
+				<li><a href="class-ADX.Core.InvalidCredentialsException.html">InvalidCredentialsException</a></li>
+				<li><a href="class-ADX.Core.InvalidOperationException.html">InvalidOperationException</a></li>
+				<li><a href="class-ADX.Core.LdapNativeException.html">LdapNativeException</a></li>
+				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
+				<li><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
+				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
+				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Link</h1>
+
+
+	<div class="description">
+	
+<p>Represents a connection to an ldap server</p>
+
+<p>This class is an encapsulation of the Resource ldap_link, returned by php's
+<a
+href="http://www.php.net/manual/en/function.ldap-connect.php">ldap_connect()</a>
+function and serves to simplify the configuration tasks of this link. You
+perform operations like connecting, binding, configuring the connection and
+reading the RootDSE entry using this object.<br />
+<br />
+If you typecast this object into a string you will get the current domain name
+the link is connected to.</p>
+
+<h3>Method Chaining</h3>
+ Methods may be chained together to simplify configuration. Ensure that the
+methods you wish to chain together return the <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> object to avoid
+issues. See the example code below.
+<h3>Serialisation support</h3>
+ You can serialise / unserialise the object to preserve the configuration across
+server requests. This allows you to configure a link with the needed features,
+perform an operation on the server, then store the link to i.e. a database for
+later re-use. If the user requests next operation, you can restore the object
+from the serialised data and continue using the link without any further
+configuration ( you will have to <code><a href="class-ADX.Core.Link.html#_bind">ADX\Core\Link::bind()</a></code> again with the same
+credentials, though ).<br />
+This is especially useful when performing paged search results - you get the
+first page, store the link in database, present the data to user and if user
+requests the next page, you use the same link to retrieve next batch of
+results.<br />
+<br />
+
+<p class="alert">Make sure you import the class into current namespace before
+trying to use it:<br />
+<code><span class="php-keyword1">use</span> ADX\Core\<span
+class="php-keyword2">Link</span>;</code><br />
+To simplify the examples, the above line is not present in the examples but it
+is assumed you have it in your implementation.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span class="php-var">$link</span> = <span
+class="php-keyword1">new</span> <span class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );      <span
+class="php-comment">// Connect to example.com over standard port 389</span>
+<span
+class="php-comment">// Typecasting to string gives you the domain name this link is connected to</span>
+<span
+class="php-keyword1">echo</span> <span class="php-quote">&quot;</span><span
+class="php-var">$link</span><span class="php-quote">&quot;</span>;   <span
+class="php-comment">// example.com</span>
+
+<span
+class="php-comment">// Chaining methods...</span>
+<span
+class="php-var">$link</span>-&gt;use_tls()-&gt;bind( <span
+class="php-quote">'user@example.com'</span>, <span
+class="php-quote">'MySecretPwd'</span> );
+
+<span
+class="php-comment">// Serialisation support</span>
+<span
+class="php-var">$serialised</span> = <span
+class="php-keyword2">serialize</span>( <span
+class="php-var">$link</span> );
+<span
+class="php-comment">// Save $serialised to a database...</span>
+<span
+class="php-comment">// WARNING - $link is no longer usable after being serialised!</span>
+
+<span
+class="php-comment">// In a later server request...</span>
+<span
+class="php-var">$link</span> = <span
+class="php-keyword2">unserialize</span>( <span
+class="php-var">$serialised</span> ); <span
+class="php-comment">// Retrieve $serialised from your storage first</span>
+<span
+class="php-var">$link</span>-&gt;bind( <span
+class="php-quote">'user@example.com'</span>, <span
+class="php-quote">'MySecretPwd'</span> );       <span
+class="php-comment">// Use the link with previously configured features</span>
+</pre>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
+		
+
+				<b>See:</b>
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code> - perform lookup operations on directory servers<br />
+				<b>Used by:</b>
+				<code><code><a href="class-ADX.Core.Task.html#___construct">ADX\Core\Task::__construct()</a></code></code> <br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Link.html#26-552" title="Go to source code">Link.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#122-176" title="Go to source code">__construct</a>( <span>string <var>$domain</var></span>, <span>integer <var>$port</var> = <span class="php-num">389</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>() </span> )</code>
+
+			<div class="description short">
+				
+<p>Create a new connection to a directory server</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create a new connection to a directory server</p>
+
+<p>Connects to a directory server and reads the RootDSE entry ( via anonymous
+bind ). Note that <b>ldap v3 is enforced</b> for all operations and cannot be
+overriden.</p>
+
+<h4>Example</h4>
+
+<pre>
+<span class="php-var">$link</span> = <span
+class="php-keyword1">new</span> <span class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );      <span
+class="php-comment">// Uses default ldap port 389</span>
+<span
+class="php-var">$link</span> = <span class="php-keyword1">new</span> <span
+class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span>, <span
+class="php-num">636</span> ); <span
+class="php-comment">// Uses ssl-specific port 636</span>
+<span
+class="php-var">$link</span> = <span class="php-keyword1">new</span> <span
+class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span>, <span
+class="php-num">389</span>, [ServerControl::ShowDeleted] );   <span
+class="php-comment">// Allows listing of deleted objects</span>
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$domain</var></dt>
+						<dd><code>string</code><br>DNS name of the directory server, i.e. <i>example.com</i></dd>
+						<dt><var>$port</var></dt>
+						<dd><code>integer</code><br>Port to use for connection</dd>
+						<dt><var>$options</var></dt>
+						<dd><code>array</code><br>Optional list of options to use. See <code><a href="class-ADX.Enums.ServerControl.html">ADX\Enums\ServerControl</a></code> for available
+options</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a href="http://www.php.net/manual/en/function.ldap-connect.php">PHP -
+ldap_connect()</a><br />
+							<a href="http://www.php.net/manual/en/function.ldap-set-option.php">PHP -
+ldap_set_option()</a><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="bind" id="_bind">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_bind">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#178-210" title="Go to source code">bind</a>( <span>string <var>$username</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$password</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Bind to the directory server using provided credentials ( or anonymously if
+none provided )</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Bind to the directory server using provided credentials ( or anonymously if
+none provided )</p>
+
+<p>This method performs the standard <code><span
+class="php-keyword2">ldap_bind</span>()</code> operation on the ldap link.
+Before that, it performs the link configuration, like setting the protocol
+version and applying user-specific server controls.</p>
+
+<h4>Example</h4>
+
+<pre>
+<span class="php-var">$link</span> = <span
+class="php-keyword1">new</span> <span class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );      <span
+class="php-comment">// Connect to server</span>
+<span
+class="php-var">$link</span>-&gt;bind();  <span
+class="php-comment">// Perform anonymous bind attempt</span>
+<span
+class="php-var">$link</span>-&gt;bind( <span
+class="php-quote">'user@example.com'</span>, <span
+class="php-quote">'MySecretPassword'</span> );  <span
+class="php-comment">// Perform authenticated bind attempt</span>
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$username</var></dt>
+						<dd><code>string</code><br>The username to be used for binding ( Visit <a
+href="http://msdn.microsoft.com/en-us/library/cc223499.aspx">MSDN</a> for
+possible formats )</dd>
+						<dt><var>$password</var></dt>
+						<dd><code>string</code><br>The password to be used for binding</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a href="http://php.net/manual/en/function.ldap-bind.php">PHP - ldap_bind()</a><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="sasl_bind" id="_sasl_bind">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_sasl_bind">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#212-224" title="Go to source code">sasl_bind</a>( )</code>
+
+			<div class="description short">
+				
+<p>Bind to the directory using a sasl mechanism</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Bind to the directory using a sasl mechanism</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a href="http://www.php.net/manual/en/function.ldap-sasl-bind.php">PHP -
+ldap_sasl_bind()</a><br />
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Implementation is missing at this moment; keeping the method here for future
+development<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="use_tls" id="_use_tls">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_use_tls">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#226-254" title="Go to source code">use_tls</a>( )</code>
+
+			<div class="description short">
+				
+<p>Enable TLS security layer for this connection</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Enable TLS security layer for this connection</p>
+
+<p>Use this method to enable Transport Layer Security on the connection. You
+should use this <b>before</b> binding to the directory server, otherwise you
+risk compromising authentication data.</p>
+
+<p>This method does not check if you have a valid certificate installed on the
+machine - it only invokes the standard <code><span
+class="php-keyword2">ldap_start_tls</span>()</code> function - the host
+machine's configuration necessary for a successful TLS connection is up to
+you.</p>
+
+<h4>Example</h4>
+
+<pre>
+<span class="php-var">$link</span> = <span
+class="php-keyword1">new</span> <span class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );      <span
+class="php-comment">// Connect to server</span>
+<span
+class="php-var">$link</span>-&gt;use_tls();                       <span
+class="php-comment">// Enable TLS BEFORE binding</span>
+<span
+class="php-var">$link</span>-&gt;bind( <span
+class="php-quote">'user@example.com'</span>, <span
+class="php-quote">'MySecretPassword'</span> );  <span
+class="php-comment">// Perform authenticated bind attempt</span>
+</pre>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a href="http://www.php.net/manual/en/function.ldap-start-tls.php">PHP -
+ldap_start_tls()</a><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="rootDSE" id="_rootDSE">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_rootDSE">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#256-299" title="Go to source code">rootDSE</a>( <span>array <var>$attributes</var> = [<span class="php-quote">'*'</span>, <span class="php-quote">'+'</span>] </span> )</code>
+
+			<div class="description short">
+				
+<p>Read information from the RootDSE that is not available by default</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Read information from the RootDSE that is not available by default</p>
+
+<p>Use this method to read additional information from the RootDSE entry if the
+information you require is not available in <code><a href="class-ADX.Core.Link.html#$rootDSE">ADX\Core\Link::<var>$rootDSE</var></a></code> by
+default.</p>
+
+<p>Returns all available information when called without any parameter.</p>
+
+<h4>Example</h4>
+
+<pre>
+<span class="php-var">$link</span>   = <span
+class="php-keyword1">new</span> <span class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );    <span
+class="php-comment">// Connect to server</span>
+<span
+class="php-var">$object</span> = <span
+class="php-var">$link</span>-&gt;rootDSE();             <span
+class="php-comment">// Load ALL attributes from the RootDSE</span>
+<span
+class="php-comment">// Do something with Object...</span>
+<span
+class="php-var">$isSynchronised</span> = <span
+class="php-var">$object</span>-&gt;isSynchronized-&gt;value( <span
+class="php-num">0</span> );
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attributes</var></dt>
+						<dd><code>array</code><br>Array with the attributes you wish to have retrieved</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br>The Object representing the RootDSE entry with requested attributes<br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Object.html#_read">ADX\Core\Object::read()</a></code></code> <br />
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Make the information requested via this method available in the <code><a href="class-ADX.Core.Link.html#$rootDSE">ADX\Core\Link::<var>$rootDSE</var></a></code> property for subsequent reuse<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="show_deleted" id="_show_deleted">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_show_deleted">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#301-325" title="Go to source code">show_deleted</a>( <span>boolean <var>$critical</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Show deleted objects in the search results</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Show deleted objects in the search results</p>
+
+<p>Invoke this method to inform the directory server that it should also include
+deleted objects in the search result. This is a shorthand way of doing the
+following:<br />
+</p>
+
+<pre>
+<span
+class="php-keyword1">use</span> ADX\Enums;                          <span
+class="php-comment">// Import the Enums namespace</span>
+<span
+class="php-var">$link</span> = <span class="php-keyword1">new</span> <span
+class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );      <span
+class="php-comment">// Connect to server</span>
+<span
+class="php-var">$link</span>-&gt;use_extended_control( Enums\ServerControl::ShowDeleted, <span
+class="php-keyword1">false</span> ); <span
+class="php-comment">// Enable as non-critical feature</span>
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$critical</var></dt>
+						<dd><code>boolean</code><br>If set to true, the feature is critical and server will not perform any
+operation if the feature is not available</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Link.html#_use_extended_control">ADX\Core\Link::use_extended_control()</a></code></code><br />
+							<a href="http://www.php.net/manual/en/function.ldap-set-option.php">PHP -
+ldap_set_option()</a> ( LDAP_OPT_SERVER_CONTROLS )<br />
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Link.html#_use_extended_control">ADX\Core\Link::use_extended_control()</a></code></code> <br />
+							<code><code><a href="class-ADX.Enums.ServerControl.html#ShowDeleted">ADX\Enums\ServerControl::<b>ShowDeleted</b></a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="use_extended_control" id="_use_extended_control">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code>|false
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_use_extended_control">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#327-363" title="Go to source code">use_extended_control</a>( <span>string <var>$control_oid</var></span>, <span>boolean <var>$critical</var> = <span class="php-keyword1">false</span></span>, <span>mixed <var>$value</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Enable an extended ldap control</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Enable an extended ldap control</p>
+
+<p>Use this method to enable any of the ldap server controls defined in <code><a href="class-ADX.Enums.ServerControl.html">ADX\Enums\ServerControl</a></code> or by specifying your own control oid as the method's
+parameter.<br />
+Please note that the $value parameter is not supported ( and possibly never will
+be ) due to lack of knowledge about BER encoding in php...</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$control_oid</var></dt>
+						<dd><code>string</code><br>The control OID of the server control to be used</dd>
+						<dt><var>$critical</var></dt>
+						<dd><code>boolean</code><br>If set to true, the feature is critical and server will not perform any
+operation if the feature is not available</dd>
+						<dt><var>$value</var></dt>
+						<dd><code>mixed</code><br>Value to be sent along the control ( not supported yet )</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code>|false</code><br>Returns FALSE if the feature could not be enabled<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Enums.ServerControl.html">ADX\Enums\ServerControl</a></code></code><br />
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Core.Link.html#_show_deleted">ADX\Core\Link::show_deleted()</a></code></code> <br />
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Implement the $value for the control request<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_link" id="_get_link">
+
+			<td class="attributes"><code>
+				 public 
+				Resource
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_link">#</a>
+			<code><a href="source-class-ADX.Core.Link.html#365-378" title="Go to source code">get_link</a>( )</code>
+
+			<div class="description short">
+				
+<p>Returns the configured Resource ldap link to be used in ldap operations</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Returns the configured Resource ldap link to be used in ldap operations</p>
+
+<p>This method is used internally - you should not have any need to call it
+explicitly unless you deliberately want to do something special with the
+Resource object.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>Resource</code><br>ldap link object<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a href="http://www.php.net/manual/en/resource.php">PHP - Resources</a> ( ldap
+link )<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="rootDSE" id="$rootDSE">
+			<td class="attributes"><code>
+				public  
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Link.html#79-108" title="Go to source code"><var>$rootDSE</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$rootDSE" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> that represents the RootDSE of a directory server.</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> that represents the RootDSE of a directory server.</p>
+
+<p>This information is generated automatically for each new Link object and the
+information is used across the library. You should not attempt to modify the
+object.</p>
+
+<p>These attributes ( represented as <code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> ) are available by
+default:<br />
+</p>
+
+<ul>
+	<li>dnshostname</li>
+
+	<li>defaultnamingcontext</li>
+
+	<li>supportedcontrol</li>
+
+	<li>supportedldapversion</li>
+
+	<li>supportedsaslmechanisms</li>
+
+	<li>rootdomainnamingcontext</li>
+
+	<li>configurationnamingcontext</li>
+
+	<li>schemanamingcontext</li>
+
+	<li>namingcontexts</li>
+
+	<li>currenttime</li>
+</ul>
+
+<h4>Example</h4>
+
+<pre>
+<span
+class="php-comment">// Read the current time of the directory server</span>
+<span
+class="php-var">$link</span>           = <span
+class="php-keyword1">new</span> <span class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );
+<span
+class="php-var">$server_time</span>    = <span
+class="php-var">$link</span>-&gt;rootDSE-&gt;currenttime-&gt;value( <span
+class="php-num">0</span> );
+<span
+class="php-comment">// Do something with $server_time...</span>
+</pre>
+
+
+						<h4>See</h4>
+						<div class="list">
+								<a
+href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684291%28v=vs.85%29.aspx">MSDN
+- RootDSE</a><br />
+						</div>
+						<h4>Used by</h4>
+						<div class="list">
+								<code><code><a href="class-ADX.Core.Task.html#_run">ADX\Core\Task::run()</a></code></code><br>to get the domain base dn ( from <i>defaultnamingcontext</i> ) if no override has been specified<br />
+						</div>
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>
