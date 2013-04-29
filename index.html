@@ -39,7 +39,7 @@
 
 <h3>The important ones</h3>
 
-<h4>Object-oriented API</h4>
+<hr><h4>Object-oriented API</h4>
 
 <p>Use a nice, understandable, object-oriented API to work with Active Directory.</p>
 
@@ -68,7 +68,7 @@ You can even convert attributes like <code>member</code> or <code>manager</code>
 
 <h3>The nice to have ones</h3>
 
-<h4>
+<hr><h4>
 <em>ldap v3</em> protocol support</h4>
 
 <p>Using the ldap v3 protocol, you can get the most out of a directory server by using the newest available technologies.</p>
@@ -91,7 +91,7 @@ You can even convert attributes like <code>member</code> or <code>manager</code>
 
 <h4>Object to json string conversion</h4>
 
-<p>Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you can send the data.</p>
+<p>Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you have your json string ready.</p>
 
 <h4>Optional ldap query builder</h4>
 
@@ -105,9 +105,26 @@ You can even convert attributes like <code>member</code> or <code>manager</code>
 
 <h2>Installation</h2>
 
+<h3>Requirements</h3>
+
+<ul>
+<li>PHP &gt;= 5.4.0</li>
+<li>PHP with LDAP support ( <a href="http://www.php.net/manual/en/ldap.installation.php">setup instructions</a> )</li>
+<li>PHP with OpenSSL for SSL / TLS encrypted connections ( <a href="http://cz1.php.net/manual/en/openssl.installation.php">setup instructions</a> )</li>
+</ul><h3>Install:</h3>
+
+<h4>Via Composer:</h4>
+
+<p><code>composer require alaneor/ad-x</code></p>
+
+<h4>Manually:</h4>
+
 <ol>
 <li>Download the repository to your drive</li>
 <li>Include the <a href="adx.php">adx.php</a> file into your project</li>
+</ol><h4>Post-installation:</h4>
+
+<ol>
 <li>
 <p>Generate the schema cache:  </p>
 
