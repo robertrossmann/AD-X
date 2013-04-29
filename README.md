@@ -84,7 +84,8 @@ Depending on the stability of your Active Directory environment, you might need 
 
 Documentation is currently available for the API only, but it includes a lot of examples and explanations.
 
-You can read the API documentation by generating it locally:
+### Read online: [API documentation](http://alaneor.github.io/AD-X/api)
+### Generate the documentation locally:
 
 1. Download the library
 1. Install the dependencies using [Composer](http://getcomposer.org/):  
@@ -106,11 +107,10 @@ php ./vendor/apigen/apigen/apigen.php
 
 ## Future to-dos
 
- - [ ] Improve the API documentation
- - [ ] Write unit tests
- - [ ] Make the API documentation available online without the need to build it locally
- - [ ] Write tutorials
- - [ ] Provide standards-ldap compatibility?
+ - Improve the API documentation
+ - Write unit tests
+ - Write tutorials
+ - Provide standards-ldap compatibility?
 
 ## License
 
