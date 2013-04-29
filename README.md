@@ -6,64 +6,51 @@ The **AD-X** library aims to provide an easy-to-use, object-oriented and extreme
 
 ### The important ones
 
- - **Object-oriented API**
+#### Object-oriented API
+Use a nice, understandable, object-oriented API to work with Active Directory.
 
-    Use a nice, understandable, object-oriented API to work with Active Directory.
+#### Support for paged results
+Need to fetch more objects than the maximum configured limit for a single request? No problem - just enable paged searching and off you go!
 
+#### Support for referrals
+If you use more domains in your Active Directory infrastructure, modifying objects across all domains could be a real pain. **AD-X** supports referrals, so if you hit one, the library will try to connect to the other domain and perform the operation there.
 
- - **Support for paged results**
+#### TLS or SSL encryption
+You can use either TLS or SSL encryptions with the library. Just make sure you have the proper certificates installed and you are ready to go.
 
-    Need to fetch more objects than the maximum configured limit for a single request? No problem - just enable paged searching and off you go!
+#### Automatic data conversion
 
- - **Support for referrals**
+Ever tried to find out when a user logged in to the system last time, only to discover that the `lastlogontimestamp` attribute is not a standard unix timestamp you know from *php*? Well, those days are over - when accessing any such attribute via **AD-X**, you get a unix timestamp. Free of charge.  
 
-    If you use more domains in your Active Directory infrastructure, modifying objects across all domains could be a real pain. **AD-X** supports referrals, so if you hit one, the library will try to connect to the other domain and perform the operation there.
+And it does not end with just timestamps. Need to reset someone's password? Just set the attribute's value and you are done. The library will handle proper attribute formatting for you.  
+You can even convert attributes like `member` or `manager` into real objects with just one method call!
 
- - **TLS or SSL encryption**
-
-    You can use either TLS or SSL encryptions with the library. Just make sure you have the proper certificates installed and you are ready to go.
-
- - **Automatic data conversion**
-
-    Ever tried to find out when a user logged in to the system last time, only to discover that the `lastlogontimestamp` attribute is not a standard unix timestamp you know from *php*? Well, those days are over - when accessing any such attribute via **AD-X**, you get a unix timestamp. Free of charge.  
-
-    And it does not end with just timestamps. Need to reset someone's password? Just set the attribute's value and you are done. The library will handle proper attribute formatting for you.  
-    You can even convert attributes like `member` or `manager` into real objects with just one method call!
-
- - **No assumptions:** all information is obtained by reading the RootDSE or the directory schema
-
-    The library makes extensive use of the *rootDSE* entry and the directory schema to determine the nature of the current environment.
+#### No assumptions: use the RootDSE and the directory schema
+The library makes extensive use of the *rootDSE* entry and the directory schema to determine the nature of the current environment.
 
 
 ### The nice to have ones
 
- - ***ldap v3* protocol support**
+#### *ldap v3* protocol support
+Using the ldap v3 protocol, you can get the most out of a directory server by using the newest available technologies.
 
-    Using the ldap v3 protocol, you can get the most out of a directory server by using the newest available technologies.
+#### Namespaces all over the place
+The library is fully namespaced to ensure 100% compatibility with any other libraries / frameworks you might need to use.
 
- - **Namespaces all over the place**
+#### Exceptions-based error handling
+Handle your exceptions flexibly by utilising exceptions. No more checking if a method returns `FALSE` or `NULL`!
 
-    The library is fully namespaced to ensure 100% compatibility with any other libraries / frameworks you might need to use.
+#### Autoloading support
+No need to include the library files - just include one file and the autoloader will take care of the rest.
 
- - **Exceptions-based error handling**
-    
-    Handle your exceptions flexibly by utilising exceptions. No more checking if a method returns `FALSE` or `NULL`!
+#### Local directory schema cache
+By caching the directory schema, the library can take advantage of the information present on the schema without the need to query the server for it, saving the execution time and speeding your application up.
 
- - **Autoloading support**
-    No need to include the library files - just include one file and the autoloader will take care of the rest.
+#### Object to json string conversion
+Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you can send the data.
 
- - **Local directory schema cache**
-
-    By caching the directory schema, the library can take advantage of the information present on the schema without the need to query the server for it, saving the execution time and speeding your application up.
-
- - **Object to json string conversion**
-
-    Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you can send the data.
-
- - **Optional ldap query builder**
-
-    If you like, you can use the provided ldap query builder that makes building ldap filters simple. You can even combine the query builder with hand-written filters.
-
+#### Optional ldap query builder
+If you like, you can use the provided ldap query builder that makes building ldap filters simple. You can even combine the query builder with hand-written filters.
 
 
 ## Stability
