@@ -355,12 +355,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 			// Typecast to string in case Attribute object has been supplied (this will convert it to attribute's name)
 			$attribute = (string)$attribute;
 
-			// Check for attribute's presence first
-			if ( array_key_exists( $attribute, $this->data ) )
-			{
-				$this->_register_change( $this->data[$attribute] );
-				unset( $this->data[$attribute] );
-			}
+			// Remove the attribute by clearing it's value
+			$this->$attribute->clear();
 		}
 
 		return $this;
