@@ -121,7 +121,7 @@ class Schema
 			{
 				$objects = $task->run();
 
-				if ( $objects instanceof Result )
+				if ( $objects )
 				{
 					// Loop through the schema objects and save them to a local file, named
 					// after the attribute they represent
