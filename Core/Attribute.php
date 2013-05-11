@@ -24,8 +24,6 @@ namespace ADX\Core;
 use ADX\Enums;
 
 /**
- * Serves as the container for everything that can be called a value in the ldap database
- *
  * Contains logic for storing and manipulating the value(s) of a particular property of an {@link Object}.
  *
  * @property-read	bool	$isResolvable	If the attribute contains distinguished name(s), it is considered to be resolvable ( can be converted to an Object )
@@ -50,6 +48,17 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	protected $iteratorPosition	= 0;
 
 
+	/**
+	 * Create a new instance of an attribute
+	 *
+	 * You should explicitly create new objects of this class only rarely - usually
+	 * all you need to do is to set the property on the object, a new instance of the
+	 * Attribute class will be created for you automatically.
+	 *
+	 * @param		string			The ldap display name of the attribute to be created
+	 * @param		mixed|array		The initial value(s) this attribute should have
+	 * @param		Object			An instance of {@link Object} this attribute belongs to
+	 */
 	public function __construct( $attribute, $values = array(), Object $object = null )
 	{
 		$args = func_get_args();
@@ -82,15 +91,24 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		if ( $object ) $this->belongs_to( $object );
 	}
 
+	/**
+	 * Get the ldap display name of the attribute
+	 *
+	 * @return		string		The display name of this attribute
+	 */
 	public function attribute()
-	{	// Get the ldap attribute name
-
+	{
 		return $this->attribute;
 	}
 
+	/**
+	 * Get the value of the attribute, optionally at a specified index
+	 *
+	 * @param		integer			The optional index of the value
+	 * @return		array|mixed		The array with all values ( if no index was provided ) or the value at the specified index
+	 */
 	public function value( $index = null )
-	{	// Get the value or values of the attribute, optionally at given index
-
+	{
 		// Fix numeric indexes if some values have been removed in a multi-valued attribute
 		$this->_reindex();
 
@@ -105,6 +123,9 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	/**
 	 * Returns the attribute's data in an ldap-compatible format
 	 *
+	 * This method is used internally to get the attribute's data
+	 * in a format that is suitable for storage in an ldap database.
+	 *
 	 * @return		array	The array containing all the values
 	 */
 	public function ldap_data()
@@ -112,6 +133,12 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return Converter::to_ldap( $this, $this->value() );
 	}
 
+	/**
+	 * Add a value to the attribute, preserving already existing values
+	 *
+	 * @param		mixed|array		The value(s) to be added to the attribute
+	 * @return		self
+	 */
 	public function add( $values )
 	{
 		$args = func_get_args();
@@ -125,10 +152,18 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return $this;
 	}
 
+	/**
+	 * Remove the specified value or the value at specified index from the attribute
+	 *
+	 * If you provide an index, the value at that index will be removed. If you provide
+	 * any other datatype, that datatype will be converted to a string and will be looked up
+	 * among the values ( which will also be converted to strings ).
+	 *
+	 * @param		integer|mixed		The index or other data that should be removed
+	 * @return		self
+	 */
 	public function remove( $valueOrIndex )
 	{
-		// Remove the value specified or the value at specified index
-
 		// Make sure this attribute is not constructed
 		if ( $this->isConstructed ) throw new InvalidOperationException();
 
@@ -162,6 +197,12 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return $this;
 	}
 
+	/**
+	 * Set the value(s) of the attribute, replacing any existing values
+	 *
+	 * @param		mixed		The value(s) to be set
+	 * @return		self
+	 */
 	public function set( $value )
 	{
 	// Replace the value in attribute with the supplied new value
@@ -169,10 +210,13 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return $this->clear()->add( $value );
 	}
 
+	/**
+	 * Remove all values from the attribute
+	 *
+	 * @return    [type]    [description]
+	 */
 	public function clear()
 	{
-		// Reset the whole attribute to empty value
-
 		// Make sure this attribute is not constructed
 		if ( $this->isConstructed ) throw new InvalidOperationException();
 
@@ -184,6 +228,17 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return $this;
 	}
 
+	/**
+	 * Get the {@link Object} this attribute belongs to or set a new parent
+	 *
+	 * If you do not provide a parameter to this method it will return
+	 * the current owner of this attribute ( instance of {@link Object} ).
+	 * You can also provide a new instance of the Object class as a parameter
+	 * to inform the attribute that it should belong to that Object instead.
+	 *
+	 * @param		Object		The new owner of this Attribute
+	 * @return		self
+	 */
 	public function belongs_to( Object $object = null )
 	{	// Return or set the object this attribute belongs to
 
@@ -194,6 +249,13 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return $this;
 	}
 
+	/**
+	 * Get the number of values this attribute has
+	 *
+	 * This is an implementation of the {@link \Countable} interface.
+	 *
+	 * @return    integer		The number of values this attribute currently has
+	 */
 	public function count()
 	{
 		// Returns the number of values in the property
