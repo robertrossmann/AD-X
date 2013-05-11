@@ -159,7 +159,7 @@ class Task
 	 */
 	public function use_pages( $page_size = 1000, $encoded_cookie = '' )
 	{
-		if ( in_array( Enums\ServerControl::PagedResults, $this->adxLink->rootDSE->supportedcontrol->value() ) )
+		if ( in_array( Enums\ServerControl::PagedResults, $this->adxLink->rootDSE->supportedcontrol() ) )
 		{
 			$this->page_size	= $page_size;
 			$this->cookie		= $encoded_cookie === '' ? $encoded_cookie : base64_decode( $encoded_cookie );
@@ -240,7 +240,7 @@ class Task
 	{
 		// Prepare the information needed for the operation
 		$link_id	= $this->adxLink->get_link();
-		$baseDN		= ( $this->dn || $this->dn === '' ) ? $this->dn : $this->adxLink->rootDSE->defaultnamingcontext->value( 0 );
+		$baseDN		= ( $this->dn || $this->dn === '' ) ? $this->dn : $this->adxLink->rootDSE->defaultnamingcontext(0);
 		if ( $this->page_size && $this->complete ) $this->cookie = '';	// Reset the cookie if the operation is started again
 		$this->complete = false;										// Reset the completion status
 

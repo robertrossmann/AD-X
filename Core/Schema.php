@@ -95,7 +95,7 @@ class Schema
 		// Prepare the schema folder either by cleaning it's contents or by creating it
 		file_exists( $schemaDir ) ? static::flush() : mkdir( $schemaDir, 0644 );
 
-		$schema_base = $adxLink->rootDSE->schemanamingcontext->value( 0 ); // schemanamingcontext is loaded by default
+		$schema_base = $adxLink->rootDSE->schemaNamingContext(0); // schemanamingcontext is loaded by default
 
 		// Create the tasks...
 		// I have to create them separately because I have two different
@@ -127,7 +127,7 @@ class Schema
 					// after the attribute they represent
 					foreach ( $objects as $object )
 					{
-						$filename = $object->ldapdisplayname->value( 0 ).".json";
+						$filename = $object->ldapDisplayName(0).".json";
 						$data = $object->json();
 
 						file_put_contents( static::$schema_dir."/$filename", $data );

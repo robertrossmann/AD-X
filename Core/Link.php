@@ -343,7 +343,7 @@ class Link
 	 */
 	public function use_extended_control( $control_oid, $critical = false, $value = null )
 	{
-		if ( in_array( $control_oid, $this->rootDSE->supportedcontrol->value() ) )
+		if ( in_array( $control_oid, $this->rootDSE->supportedcontrol() ) )
 		{
 			$control = [
 				'oid'			=> $control_oid,
