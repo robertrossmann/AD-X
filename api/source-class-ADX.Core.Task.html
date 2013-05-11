@@ -8,7 +8,7 @@
 	<title>File Task.php | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<script type="text/javascript" src="elementlist.js?1582746296"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -272,7 +272,7 @@
 </span></span><span id="159" class="l"><a class="l" href="#159">159 </a><span class="php-comment">     */</span>
 </span><span id="160" class="l"><a class="l" href="#160">160 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_use_pages" href="#_use_pages">use_pages</a>( <span class="php-var">$page_size</span> = <span class="php-num">1000</span>, <span class="php-var">$encoded_cookie</span> = <span class="php-quote">''</span> )
 </span><span id="161" class="l"><a class="l" href="#161">161 </a>    {
-</span><span id="162" class="l"><a class="l" href="#162">162 </a>        <span class="php-keyword1">if</span> ( <span class="php-keyword2">in_array</span>( Enums\ServerControl::PagedResults, <span class="php-var">$this</span>-&gt;adxLink-&gt;rootDSE-&gt;supportedcontrol-&gt;value() ) )
+</span><span id="162" class="l"><a class="l" href="#162">162 </a>        <span class="php-keyword1">if</span> ( <span class="php-keyword2">in_array</span>( Enums\ServerControl::PagedResults, <span class="php-var">$this</span>-&gt;adxLink-&gt;rootDSE-&gt;supportedcontrol() ) )
 </span><span id="163" class="l"><a class="l" href="#163">163 </a>        {
 </span><span id="164" class="l"><a class="l" href="#164">164 </a>            <span class="php-var">$this</span>-&gt;page_size    = <span class="php-var">$page_size</span>;
 </span><span id="165" class="l"><a class="l" href="#165">165 </a>            <span class="php-var">$this</span>-&gt;cookie       = <span class="php-var">$encoded_cookie</span> === <span class="php-quote">''</span> ? <span class="php-var">$encoded_cookie</span> : <span class="php-keyword2">base64_decode</span>( <span class="php-var">$encoded_cookie</span> );
@@ -353,7 +353,7 @@
 </span><span id="240" class="l"><a class="l" href="#240">240 </a>    {
 </span><span id="241" class="l"><a class="l" href="#241">241 </a>        <span class="php-comment">// Prepare the information needed for the operation</span>
 </span><span id="242" class="l"><a class="l" href="#242">242 </a>        <span class="php-var">$link_id</span>    = <span class="php-var">$this</span>-&gt;adxLink-&gt;get_link();
-</span><span id="243" class="l"><a class="l" href="#243">243 </a>        <span class="php-var">$baseDN</span>     = ( <span class="php-var">$this</span>-&gt;dn || <span class="php-var">$this</span>-&gt;dn === <span class="php-quote">''</span> ) ? <span class="php-var">$this</span>-&gt;dn : <span class="php-var">$this</span>-&gt;adxLink-&gt;rootDSE-&gt;defaultnamingcontext-&gt;value( <span class="php-num">0</span> );
+</span><span id="243" class="l"><a class="l" href="#243">243 </a>        <span class="php-var">$baseDN</span>     = ( <span class="php-var">$this</span>-&gt;dn || <span class="php-var">$this</span>-&gt;dn === <span class="php-quote">''</span> ) ? <span class="php-var">$this</span>-&gt;dn : <span class="php-var">$this</span>-&gt;adxLink-&gt;rootDSE-&gt;defaultnamingcontext(<span class="php-num">0</span>);
 </span><span id="244" class="l"><a class="l" href="#244">244 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$this</span>-&gt;page_size &amp;&amp; <span class="php-var">$this</span>-&gt;complete ) <span class="php-var">$this</span>-&gt;cookie = <span class="php-quote">''</span>;  <span class="php-comment">// Reset the cookie if the operation is started again</span>
 </span><span id="245" class="l"><a class="l" href="#245">245 </a>        <span class="php-var">$this</span>-&gt;complete = <span class="php-keyword1">false</span>;                                        <span class="php-comment">// Reset the completion status</span>
 </span><span id="246" class="l"><a class="l" href="#246">246 </a>

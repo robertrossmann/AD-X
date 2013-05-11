@@ -8,7 +8,7 @@
 	<title>File Schema.php | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?3656520498"></script>
+	<script type="text/javascript" src="elementlist.js?1582746296"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -208,7 +208,7 @@
 </span><span id="95" class="l"><a class="l" href="#95"> 95 </a>        <span class="php-comment">// Prepare the schema folder either by cleaning it's contents or by creating it</span>
 </span><span id="96" class="l"><a class="l" href="#96"> 96 </a>        <span class="php-keyword2">file_exists</span>( <span class="php-var">$schemaDir</span> ) ? <span class="php-keyword1">static</span>::<span class="php-keyword2">flush</span>() : <span class="php-keyword2">mkdir</span>( <span class="php-var">$schemaDir</span>, <span class="php-num">0644</span> );
 </span><span id="97" class="l"><a class="l" href="#97"> 97 </a>
-</span><span id="98" class="l"><a class="l" href="#98"> 98 </a>        <span class="php-var">$schema_base</span> = <span class="php-var">$adxLink</span>-&gt;rootDSE-&gt;schemanamingcontext-&gt;value( <span class="php-num">0</span> ); <span class="php-comment">// schemanamingcontext is loaded by default</span>
+</span><span id="98" class="l"><a class="l" href="#98"> 98 </a>        <span class="php-var">$schema_base</span> = <span class="php-var">$adxLink</span>-&gt;rootDSE-&gt;schemaNamingContext(<span class="php-num">0</span>); <span class="php-comment">// schemanamingcontext is loaded by default</span>
 </span><span id="99" class="l"><a class="l" href="#99"> 99 </a>
 </span><span id="100" class="l"><a class="l" href="#100">100 </a>        <span class="php-comment">// Create the tasks...</span>
 </span><span id="101" class="l"><a class="l" href="#101">101 </a>        <span class="php-comment">// I have to create them separately because I have two different</span>
@@ -234,19 +234,19 @@
 </span><span id="121" class="l"><a class="l" href="#121">121 </a>            {
 </span><span id="122" class="l"><a class="l" href="#122">122 </a>                <span class="php-var">$objects</span> = <span class="php-var">$task</span>-&gt;run();
 </span><span id="123" class="l"><a class="l" href="#123">123 </a>
-</span><span id="124" class="l"><a class="l" href="#124">124 </a>                <span class="php-keyword1">if</span> ( <span class="php-var">$objects</span> <span class="php-keyword1">instanceof</span> Result )
+</span><span id="124" class="l"><a class="l" href="#124">124 </a>                <span class="php-keyword1">if</span> ( <span class="php-var">$objects</span> )
 </span><span id="125" class="l"><a class="l" href="#125">125 </a>                {
 </span><span id="126" class="l"><a class="l" href="#126">126 </a>                    <span class="php-comment">// Loop through the schema objects and save them to a local file, named</span>
 </span><span id="127" class="l"><a class="l" href="#127">127 </a>                    <span class="php-comment">// after the attribute they represent</span>
 </span><span id="128" class="l"><a class="l" href="#128">128 </a>                    <span class="php-keyword1">foreach</span> ( <span class="php-var">$objects</span> <span class="php-keyword1">as</span> <span class="php-var">$object</span> )
 </span><span id="129" class="l"><a class="l" href="#129">129 </a>                    {
-</span><span id="130" class="l"><a class="l" href="#130">130 </a>                        <span class="php-var">$filename</span> = <span class="php-var">$object</span>-&gt;ldapdisplayname-&gt;value( <span class="php-num">0</span> ).<span class="php-quote">&quot;.json&quot;</span>;
+</span><span id="130" class="l"><a class="l" href="#130">130 </a>                        <span class="php-var">$filename</span> = <span class="php-var">$object</span>-&gt;ldapDisplayName(<span class="php-num">0</span>).<span class="php-quote">&quot;.json&quot;</span>;
 </span><span id="131" class="l"><a class="l" href="#131">131 </a>                        <span class="php-var">$data</span> = <span class="php-var">$object</span>-&gt;json();
 </span><span id="132" class="l"><a class="l" href="#132">132 </a>
 </span><span id="133" class="l"><a class="l" href="#133">133 </a>                        <span class="php-keyword2">file_put_contents</span>( <span class="php-keyword1">static</span>::<span class="php-var">$schema_dir</span>.<span class="php-quote">&quot;/</span><span class="php-var">$filename</span><span class="php-quote">&quot;</span>, <span class="php-var">$data</span> );
 </span><span id="134" class="l"><a class="l" href="#134">134 </a>                    }
 </span><span id="135" class="l"><a class="l" href="#135">135 </a>                }
-</span><span id="136" class="l"><a class="l" href="#136">136 </a>                <span class="php-keyword1">else</span> <span class="php-keyword1">return</span>;    <span class="php-comment">// Probably hit the maximum referrals limit...</span>
+</span><span id="136" class="l"><a class="l" href="#136">136 </a>                <span class="php-keyword1">else</span> <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception( <span class="php-quote">'Maximum number of referrals reached'</span> );
 </span><span id="137" class="l"><a class="l" href="#137">137 </a>            }
 </span><span id="138" class="l"><a class="l" href="#138">138 </a>            <span class="php-keyword1">while</span> ( ! <span class="php-var">$task</span>-&gt;complete );
 </span><span id="139" class="l"><a class="l" href="#139">139 </a>        }
