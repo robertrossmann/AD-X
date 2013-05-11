@@ -133,7 +133,7 @@ class Schema
 						file_put_contents( static::$schema_dir."/$filename", $data );
 					}
 				}
-				else return;	// Probably hit the maximum referrals limit...
+				else throw new Exception( 'Maximum number of referrals reached' );
 			}
 			while ( ! $task->complete );
 		}
