@@ -351,6 +351,11 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		}
 	}
 
+	public function __invoke( $index = null )
+	{
+		return $this->value( $index );
+	}
+
 	public function __clone()
 	{
 		$this->_reindex(); // Reindex the value keys if necessary
