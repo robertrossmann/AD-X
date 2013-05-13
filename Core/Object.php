@@ -690,4 +690,12 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	{
 		return isset( $this->data[$attribute] );
 	}
+
+	/**
+	 * @internal
+	 */
+	public function __call( $attribute, $args )
+	{
+		return $this->$attribute->value( $args[0] );
+	}
 }
