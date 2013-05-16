@@ -303,10 +303,6 @@ class Task
 	 * Return all pages at once when doing paged search operations
 	 *
 	 * Use this method to get a complete resultset with all pages at once.
-	 * Note that pagination must be enabled first in order for this
-	 * method to do something more than {@link self::run()}. You can
-	 * enable it by calling {@link self:use_pages()} or by passing a
-	 * number of objects per page into this method.
 	 *
 	 * @param		int			Optional size of objects per single page
 	 * @return		Result		A Result object containing the objects on the server
@@ -315,7 +311,7 @@ class Task
 	 */
 	public function run_paged( $page_size = null )
 	{
-		if ( isset( $page_size ) ) $this->use_pages( $page_size );
+		isset( $page_size ) ? $this->use_pages( $page_size ) : $this->use_pages();
 
 		$resultset = array();
 
