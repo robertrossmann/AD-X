@@ -85,7 +85,7 @@ Please submit your bugs to the Github's [issue tracker](https://github.com/Alane
 1. Generate the schema cache:  
  ```php
     $link = new ADX\Core\Link( 'company.com', 389 ); // Connect to server on default port  
-    $link->bind( 'username', 'password' ); // Authenticate to the server  
+    $link->bind( 'username@company.com', 'password' ); // Authenticate to the server  
     ADX\Core\Schema::build( $link ); // Build the local schema cache ( takes some time, go get a coffee )
 ```
 
