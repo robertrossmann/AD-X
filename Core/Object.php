@@ -696,6 +696,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 */
 	public function __call( $attribute, $args )
 	{
+		if ( ! isset( $args[0] ) ) $args[0] = null;
+
 		return $this->$attribute->value( $args[0] );
 	}
 }
