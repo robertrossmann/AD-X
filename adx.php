@@ -20,21 +20,28 @@
 // OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+// AD-X library bootstrap script
+
 namespace ADX;
+
+// Define path constants
+! defined( 'ADX_DS' )			&& define( 'ADX_DS', DIRECTORY_SEPARATOR );		// A little shortcut...
+! defined( 'ADX_ROOT_PATH' )	&& define( 'ADX_ROOT_PATH', __DIR__ . ADX_DS );	// Path to folder where the adx.php file resides ( the root )
+
 // Enable class autoloading
 // As my folder structure follows my namespace structure, this is all I
 // have to write in order to have my classes autoloaded.
 function autoload( $class )
 {
-	$class = str_replace('\\', '/', $class );				// Convert the namespace path to file path
-	$class = str_ireplace( __NAMESPACE__."/", '', $class );	// Remove the current namespace from the path
+	$class = str_ireplace('\\', ADX_DS, $class );					// Convert the namespace path to file path
+	$class = str_ireplace( __NAMESPACE__ . ADX_DS, '', $class );	// Remove the current namespace from the path
 
-	$file = __DIR__.'/'.$class.'.php';						// Build the full file string by including current directory and file suffix
+	$file = ADX_ROOT_PATH . ADX_DS . $class . '.php';				// Build the full file string by including current directory and file suffix
 
-	if ( file_exists( $file ) ) include_once $file;			// Include the file if it exists
+	file_exists( $file ) && include_once $file;						// Include the file if it exists
 }
 
-spl_autoload_register( 'ADX\autoload' );					// Register the autoloader
+spl_autoload_register( 'ADX\autoload' );							// Register the autoloader
 
 // This little bugger is the only exception.:)
-require_once( __DIR__.'/common.php' );
+require_once( ADX_ROOT_PATH . 'common.php' );
