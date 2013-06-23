@@ -146,7 +146,7 @@ class Schema
 	 */
 	public static function flush()
 	{
-		array_map( 'unlink', glob( $schemaDir . ADX_DS . '*.json' ) );
+		array_map( 'unlink', glob( ADX_ROOT_PATH . static::$schema_dir . ADX_DS . '*.json' ) );
 	}
 
 	/**
