@@ -184,9 +184,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		if ( isset( $schema ) && $schema )
 		{
-			$this->rdnAttId = $schema['rdnattid'][0];
+			$this->rdnAttId = isset( $schema['rdnattid'] ) ? $schema['rdnattid'][0] : 'cn';	// If the RdnAttId could not be found, assume cn as default
 		}
-
 
 		if ( count( $attributes ) > 0 ) $this->data = $this->_filter_ldap_result( $attributes, $comesFromLdap );
 
