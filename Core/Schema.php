@@ -49,7 +49,7 @@ class Schema
 	 *
 	 * @var			string
 	 */
-	protected static $schema_dir = '../Schema';
+	protected static $schema_dir = 'Schema';
 
 	/**
 	 * These attributes will be loaded about the schema object
@@ -90,7 +90,7 @@ class Schema
 	public static function build( Link $adxLink )
 	{
 		// Define where to store the schema definition
-		$schemaDir = __DIR__.'/'.static::$schema_dir;
+		$schemaDir = ADX_ROOT_PATH . static::$schema_dir;
 
 		// Prepare the schema folder either by cleaning it's contents or by creating it
 		file_exists( $schemaDir ) ? static::flush() : mkdir( $schemaDir, 0755 );
@@ -127,10 +127,10 @@ class Schema
 					// after the attribute they represent
 					foreach ( $objects as $object )
 					{
-						$filename = $object->ldapDisplayName(0).".json";
+						$filename = $object->ldapDisplayName(0) . ".json";
 						$data = $object->json();
 
-						file_put_contents( static::$schema_dir."/$filename", $data );
+						file_put_contents( $schemaDir. ADX_DS . "$filename", $data );
 					}
 				}
 				else throw new Exception( 'Maximum number of referrals reached' );
@@ -146,7 +146,7 @@ class Schema
 	 */
 	public static function flush()
 	{
-		array_map( 'unlink', glob( static::$schema_dir.'/*.json' ) );
+		array_map( 'unlink', glob( $schemaDir . ADX_DS . '*.json' ) );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Schema
 
 		// No, it is not - load it from the file and store it in runtime cache for future re-use
 
-		$schema_file = __DIR__.'/'.static::$schema_dir."/$schema_object.json";
+		$schema_file = ADX_ROOT_PATH . static::$schema_dir . ADX_DS . "$schema_object.json";
 
 		// Check if this file has been cached and load it if so
 		if ( file_exists( $schema_file ) )
