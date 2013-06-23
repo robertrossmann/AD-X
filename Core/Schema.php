@@ -93,7 +93,7 @@ class Schema
 		$schemaDir = __DIR__.'/'.static::$schema_dir;
 
 		// Prepare the schema folder either by cleaning it's contents or by creating it
-		file_exists( $schemaDir ) ? static::flush() : mkdir( $schemaDir, 0644 );
+		file_exists( $schemaDir ) ? static::flush() : mkdir( $schemaDir, 0755 );
 
 		$schema_base = $adxLink->rootDSE->schemaNamingContext(0); // schemanamingcontext is loaded by default
 
