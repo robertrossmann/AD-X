@@ -73,8 +73,8 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		{
 			$this->attributeSyntax	= $schema['attributesyntax'][0];
 			$this->omSyntax			= $schema['omsyntax'][0];
-			$this->isConstructed	= isset( $schema['systemflags'] ) ? (bool)( $schema['systemflags'][0] & Enums\SystemFlags::AttrIsConstructed ) : false;
 			$this->isSingleValued	= isset( $schema['issinglevalued'] )	? ( $schema['issinglevalued'][0] == 'TRUE' ) : false;	// I have to do manual conversion here
+			$this->isConstructed	= isset( $schema['systemflags'] )		? (bool)( $schema['systemflags'][0] & Enums\SystemFlags::AttrIsConstructed ) : false;
 			$this->isResolvable		= $this->attributeSyntax === Enums\Syntax::DnString;
 		}
 
