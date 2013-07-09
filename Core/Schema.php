@@ -84,8 +84,6 @@ class Schema
 	 * The location of the Schema is taken from the RootDSE's "schemanamingcontext" entry.
 	 *
 	 * @param		Link		The Link object to be used to connect to directory server
-	 *
-	 * @todo		Also cache class schema objects
 	 */
 	public static function build( Link $adxLink )
 	{
