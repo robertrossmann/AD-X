@@ -114,7 +114,8 @@ class Converter
 				break;
 
 			case 'unicodepwd':					// A password always needs special treatment
-				$method = 'unicodepwd';
+			case 'objectguid':					// I want objectguid shown as AD tools show it ( like Powershell )
+				$method = $attribute;
 				break;
 
 			// These attributes have LargeInt as syntax, but their meaning is different ( they represent a time )
@@ -231,5 +232,48 @@ class Converter
 		}
 
 		return $pwd;
+	}
+
+	protected static function _to_p_objectguid( $guid )
+	{
+		// An interesting piece of code I have found that converts
+		// the objectguid exactly to what standard Powershell or other MS-based
+		// tools show.
+		$hex_guid = unpack( "H*hex", $guid );
+		$hex	= $hex_guid["hex"];
+
+		$hex1	= substr( $hex, -26, 2 ) . substr( $hex, -28, 2 ) . substr( $hex, -30, 2 ) . substr( $hex, -32, 2 );
+		$hex2	= substr( $hex, -22, 2 ) . substr( $hex, -24, 2 );
+		$hex3	= substr( $hex, -18, 2 ) . substr( $hex, -20, 2 );
+		$hex4	= substr( $hex, -16, 4 );
+		$hex5	= substr( $hex, -12, 12 );
+
+		$guid = $hex1 . "-" . $hex2 . "-" . $hex3 . "-" . $hex4 . "-" . $hex5;
+
+		return $guid;
+	}
+
+	protected static function _to_l_objectguid( $guid )
+	{
+		$guid = str_replace( '-', '', $guid );
+
+		$octet_str  = substr( $guid, 6,		2 );
+		$octet_str .= substr( $guid, 4,		2 );
+		$octet_str .= substr( $guid, 2,		2 );
+		$octet_str .= substr( $guid, 0,		2 );
+		$octet_str .= substr( $guid, 10,	2 );
+		$octet_str .= substr( $guid, 8,		2 );
+		$octet_str .= substr( $guid, 14,	2 );
+		$octet_str .= substr( $guid, 12,	2 );
+		$octet_str .= substr( $guid, 16,	strlen( $guid ) );
+
+		$hex_guid = '';
+
+		for ( $i = 0; $i <= strlen( $octet_str ) - 2; $i = $i + 2 )
+		{
+			$hex_guid .=  "\\" . substr( $octet_str, $i, 2 );
+		}
+
+		return $hex_guid;
 	}
 }
