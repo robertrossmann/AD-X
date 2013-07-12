@@ -39,12 +39,12 @@ class Converter
 
 	public static function to_ldap( Attribute $attribute, $values )
 	{
-		return static::_convert( 'u_to_l', $attribute, $values );
+		return static::_convert( 'to_l', $attribute, $values );
 	}
 
 	public static function from_ldap( Attribute $attribute, $values )
 	{
-		return static::_convert( 'l_to_u', $attribute, $values );
+		return static::_convert( 'to_p', $attribute, $values );
 	}
 
 
@@ -141,14 +141,14 @@ class Converter
 
 	// Conversion functions are defined below
 
-	protected static function _u_to_l_timestamp( $timestamp )
+	protected static function _to_l_timestamp( $timestamp )
 	{
 		if ( $timestamp === 0 ) return 0;
 
 		return ( floor( $timestamp / 10000000 ) - 11644473600 );
 	}
 
-	protected static function _l_to_u_timestamp( $timestamp )
+	protected static function _to_p_timestamp( $timestamp )
 	{
 		// The second part of the conditiona takes care of some crazy behaviour
 		// ( documented, though ) of accountExpires, which can be zero
@@ -159,25 +159,25 @@ class Converter
 		return ( ( $timestamp * 10000000 ) + 11644473600 );
 	}
 
-	protected static function _u_to_l_bool( $bool )
+	protected static function _to_l_bool( $bool )
 	{
 		if ( $bool === true )	return 'TRUE';
 		if ( $bool === false )	return 'FALSE';
 	}
 
-	protected static function _l_to_u_bool( $bool )
+	protected static function _to_p_bool( $bool )
 	{
 		if ( strtolower( $bool ) === 'true' )	return true;
 		if ( strtolower( $bool ) === 'false' )	return false;
 	}
 
-	protected static function _u_to_l_utctime( $time )
+	protected static function _to_l_utctime( $time )
 	{
 		// Example: 20130327203157.0Z
 		return date( "YmdHis", $time ).'.0Z';
 	}
 
-	protected static function _l_to_u_utctime( $time )
+	protected static function _to_p_utctime( $time )
 	{
 		// Example imput: 20130327203157.0Z
 		// Strip the timezone offset by exploding and pass the first part into DateTime for parsing
@@ -187,13 +187,13 @@ class Converter
 		return $time->getTimestamp();
 	}
 
-	protected static function _u_to_l_generalisedtime( $time )
+	protected static function _to_l_generalisedtime( $time )
 	{
 		// Example: 20130327203157.0Z
 		return date( "YmdHis", $time ).'.0Z';
 	}
 
-	protected static function _l_to_u_generalisedtime( $time )
+	protected static function _to_p_generalisedtime( $time )
 	{
 		// Example imput: 20130327203157.0Z
 		// Strip the timezone offset by exploding and pass the first part into DateTime for parsing
@@ -203,12 +203,12 @@ class Converter
 		return $time->getTimestamp();
 	}
 
-	protected static function _l_to_u_binary( $data )
+	protected static function _to_p_binary( $data )
 	{
 		return base64_encode( $data );
 	}
 
-	protected static function _u_to_l_object( $object )
+	protected static function _to_l_object( $object )
 	{
 		if ( $object instanceof Object && ! $object->dn )	throw new InvalidOperationException( "The object $object is not stored on server - please save your object first, then retry the action" );
 
@@ -218,7 +218,7 @@ class Converter
 
 	// Special cases
 
-	protected static function _u_to_l_unicodepwd( $password )
+	protected static function _to_l_unicodepwd( $password )
 	{
 		$password	= "\"$password\"";	// Enclose the password in double quotes
 
