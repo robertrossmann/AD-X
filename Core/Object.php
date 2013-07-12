@@ -93,16 +93,16 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		if ( $dnOrFilter === '' || preg_match( '/^[^(].*DC={1}.*[^)]$/i', $dnOrFilter ) === 1 )	// It's a DN or rootDSE
 		{
 			$task = new Task( Enums\Operation::OpRead, $adxLink );
-			$task	->get_attributes( $attributes )
-					->set_base( $dnOrFilter );
+			$task	->attributes( $attributes )
+					->base( $dnOrFilter );
 
 			return $task->run()->first();
 		}
 		else	// It's a filter
 		{
 			$task = new Task( Enums\Operation::OpSearch, $adxLink );
-			$task	->get_attributes( $attributes )
-					->set_filter( $dnOrFilter );
+			$task	->attributes( $attributes )
+					->filter( $dnOrFilter );
 
 			$result = $task->run();
 

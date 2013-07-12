@@ -49,9 +49,9 @@ use ADX\Enums;
  * $link->bind( 'user@example.com', 'MySecretPwd' );		// Authenticate
  *
  * $task = new Task( Enums\Operation::OpSearch, $link );		// Create a search operation
- * $task	->get_attributes( ['cn', 'givenname', 'sn', 'mail'] )	// Load these attributes for the objects
- * 	->set_filter( '(&(objectclass=user)(mail=*))' )		// Get all users that have a mail attribute
- * 	->set_base( 'OU=Users,DC=example,DC=com' );		// Limit the search only to the Users OU in the domain
+ * $task	->attributes( ['cn', 'givenname', 'sn', 'mail'] )	// Load these attributes for the objects
+ * 	->filter( '(&(objectclass=user)(mail=*))' )		// Get all users that have a mail attribute
+ * 	->base( 'OU=Users,DC=example,DC=com' );			// Limit the search only to the Users OU in the domain
  *
  * // Get the results!
  * $result = $task->run();
@@ -174,14 +174,19 @@ class Task
 	/**
 	 * Configure which attributes should be retrieved from the directory server
 	 *
+	 * If you do not pass any parameters to this function, it will return an array
+	 * of all currently requested attributes to be loaded from server.
+	 *
 	 * <p class="alert"><i>objectclass</i> and <i>dn</i> are <b>always</b> returned.</p>
 	 *
 	 * @param		array|string		The attribute or attributes to be retrieved<br><b>Default:</b> <code>['*']</code>
 	 * @return		self
 	 *
 	 */
-	public function get_attributes( $attributes )
+	public function attributes( $attributes = null )
 	{
+		if ( is_null( $attributes ) ) return $this->attributes;
+
 		// Make sure this param is an array
 		if ( ! is_array( $attributes ) ) $attributes = [$attributes];
 
@@ -191,28 +196,30 @@ class Task
 	}
 
 	/**
-	 * Set the ldap filter for the task
+	 * Get or set the ldap filter for the task
 	 *
 	 * @param		string		A valid ldap filter string<br><b>Default:</b> <code>"(objectclass=*)"</code>
 	 * @return		self
 	 *
 	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx">MSDN - Search Filter Syntax</a>
-	 *
+	 * @see			{@link Query}
 	 * @todo		Perform some filter validation?
 	 */
-	public function set_filter( $filter )
+	public function filter( $filter = null )
 	{
+		if ( is_null( $filter ) ) return $this->filter;
+
 		$this->filter = $filter;
 
 		return $this;
 	}
 
 	/**
-	 * Set the base DN as the starting point for the lookup operation
+	 * Get or set the base DN as the starting point for the lookup operation
 	 *
 	 * You can limit the scope of the lookup operation by setting the search base to any
 	 * valid distinguished name that exists in the directory structure. By doing so, your
-	 * lookup operation will only return objects that belong to this DN.
+	 * lookup operation will only return objects that fall under this DN.
 	 * <p class="alert">If you specify a non-existing distinguished name as the base DN
 	 * you will receive {@link Enums\ServerResponse::NoSuchObject} error when executing the
 	 * lookup operation.</p>
@@ -220,8 +227,10 @@ class Task
 	 * @param		string		The distinguished name of an existing directory object / container<br><b>Default:</b> the base DN of the current domain
 	 * @return		self
 	 */
-	public function set_base( $dn )
+	public function base( $dn = null )
 	{
+		if ( is_null( $dn ) ) return $this->dn;
+
 		$this->dn = $dn;
 
 		return $this;

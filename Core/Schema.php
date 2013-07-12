@@ -100,15 +100,15 @@ class Schema
 		// sets of attributes that I need to have loaded
 		$tasks[0] = new Task( Enums\Operation::OpList, $adxLink );
 		$tasks[0]	->use_pages( 500 )
-					->set_base( $schema_base )
-					->set_filter( q::a( ['objectclass' => 'attributeschema'] ) )		// Attribute definitions
-					->get_attributes( static::$attribute_properties );
+					->base( $schema_base )
+					->filter( q::a( ['objectclass' => 'attributeschema'] ) )		// Attribute definitions
+					->attributes( static::$attribute_properties );
 
 		$tasks[1] = new Task( Enums\Operation::OpList, $adxLink );
 		$tasks[1]	->use_pages( 500 )
-					->set_base( $schema_base )
-					->set_filter( q::a( ['objectclass' => 'classschema'] ) )			// Class definitions
-					->get_attributes( static::$class_properties );
+					->base( $schema_base )
+					->filter( q::a( ['objectclass' => 'classschema'] ) )			// Class definitions
+					->attributes( static::$class_properties );
 
 		// And retrieve the schema objects!
 		foreach ( $tasks as $task )
