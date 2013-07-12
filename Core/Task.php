@@ -363,6 +363,7 @@ class Task
 	{
 		// Ensure that attributes required by the library to work correctly are always present in the resultset
 		$mandatory = [
+			'objectguid',
 			'objectclass',
 		];
 
