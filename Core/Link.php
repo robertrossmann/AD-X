@@ -154,7 +154,7 @@ class Link
 			$get = [
 				'dnshostname',
 				'defaultnamingcontext',
-				'highestcommitedusn',
+				'highestcommittedusn',
 				'supportedcontrol',
 				'supportedldapversion',
 				'supportedsaslmechanisms',
