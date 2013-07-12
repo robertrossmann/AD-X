@@ -67,6 +67,12 @@ use ADX\Enums;
 class Task
 {
 	protected static $connection_pool = array();	// Contains link objects to which this task has been referred to during lookup
+	protected static $allowedScopes	= [
+			Enums\Operation::OpSearch,
+			Enums\Operation::OpList,
+			Enums\Operation::OpRead,
+	];
+
 	/**
 	 * Specify the maximum number of attempts to follow a referral
 	 *
@@ -96,11 +102,7 @@ class Task
 	 */
 	public $complete;
 
-	protected $allowedScopes	= [
-			Enums\Operation::OpSearch,
-			Enums\Operation::OpList,
-			Enums\Operation::OpRead,
-	];
+
 	protected $adxLink;
 
 	protected $operationType;						// The operation to be performed ( one of consts with name OperationType* defined in this class )
@@ -133,7 +135,7 @@ class Task
 	 */
 	public function __construct( $operationType, Link $adxLink )
 	{
-		if ( ! in_array( $operationType, $this->allowedScopes ) ) throw new IncorrectParameterException( 'Invalid Operation supplied for directory lookup - see the Operation enumeration for allowed values' );
+		if ( ! in_array( $operationType, $this::$allowedScopes ) ) throw new IncorrectParameterException( 'Invalid Operation supplied for directory lookup - see the Operation enumeration for allowed values' );
 
 		$this->operationType	= $operationType;
 		$this->adxLink			= $adxLink;
