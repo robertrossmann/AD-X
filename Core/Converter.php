@@ -37,24 +37,25 @@ class Converter
 	final private function __construct() {}
 
 
-	public static function to_ldap( Attribute $attribute, $values )
+	public static function to_ldap( $attribute, $values )
 	{
 		return static::_convert( 'to_l', $attribute, $values );
 	}
 
-	public static function from_ldap( Attribute $attribute, $values )
+	public static function from_ldap( $attribute, $values )
 	{
 		return static::_convert( 'to_p', $attribute, $values );
 	}
 
 
-	protected static function _convert( $direction, Attribute $attribute, $values )
+	protected static function _convert( $direction, $attribute, $values )
 	{
 		// Load the schema information for the current attribute
 		$schema		= Schema::get( "$attribute" );
 		$ats		= $schema['attributesyntax'][0];
 		$oms		= $schema['omsyntax'][0];
 
+		$values		= is_array( $values ) ? $values : [$values];
 		$converted	= array();
 		$method		= null;
 		$class		= get_called_class();
