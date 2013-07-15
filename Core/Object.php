@@ -90,6 +90,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	public static function read( $dnOrFilter, $attributes, Link $adxLink )
 	{
 		// Check if we have DN or a search filter
+		if ( ! is_string( $dnOrFilter ) ) throw new IncorrectParameterException( 'Invalid search filter supplied - you must provide a valid ldap filter' );
+
 		if ( $dnOrFilter === '' || preg_match( '/^[^(].*DC={1}.*[^)]$/i', $dnOrFilter ) === 1 )	// It's a DN or rootDSE
 		{
 			$task = new Task( Enums\Operation::OpRead, $adxLink );
