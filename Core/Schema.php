@@ -49,7 +49,7 @@ class Schema
 	 *
 	 * @var			string
 	 */
-	protected static $schema_dir = '../Schema';
+	protected static $schema_dir = 'Schema';
 
 	/**
 	 * These attributes will be loaded about the schema object
@@ -84,16 +84,14 @@ class Schema
 	 * The location of the Schema is taken from the RootDSE's "schemanamingcontext" entry.
 	 *
 	 * @param		Link		The Link object to be used to connect to directory server
-	 *
-	 * @todo		Also cache class schema objects
 	 */
 	public static function build( Link $adxLink )
 	{
 		// Define where to store the schema definition
-		$schemaDir = __DIR__.'/'.static::$schema_dir;
+		$schemaDir = ADX_ROOT_PATH . static::$schema_dir;
 
 		// Prepare the schema folder either by cleaning it's contents or by creating it
-		file_exists( $schemaDir ) ? static::flush() : mkdir( $schemaDir, 0644 );
+		file_exists( $schemaDir ) ? static::flush() : mkdir( $schemaDir, 0755 );
 
 		$schema_base = $adxLink->rootDSE->schemaNamingContext(0); // schemanamingcontext is loaded by default
 
@@ -102,15 +100,15 @@ class Schema
 		// sets of attributes that I need to have loaded
 		$tasks[0] = new Task( Enums\Operation::OpList, $adxLink );
 		$tasks[0]	->use_pages( 500 )
-					->set_base( $schema_base )
-					->set_filter( q::a( ['objectclass' => 'attributeschema'] ) )		// Attribute definitions
-					->get_attributes( static::$attribute_properties );
+					->base( $schema_base )
+					->filter( q::a( ['objectclass' => 'attributeschema'] ) )		// Attribute definitions
+					->attributes( static::$attribute_properties );
 
 		$tasks[1] = new Task( Enums\Operation::OpList, $adxLink );
 		$tasks[1]	->use_pages( 500 )
-					->set_base( $schema_base )
-					->set_filter( q::a( ['objectclass' => 'classschema'] ) )			// Class definitions
-					->get_attributes( static::$class_properties );
+					->base( $schema_base )
+					->filter( q::a( ['objectclass' => 'classschema'] ) )			// Class definitions
+					->attributes( static::$class_properties );
 
 		// And retrieve the schema objects!
 		foreach ( $tasks as $task )
@@ -127,10 +125,10 @@ class Schema
 					// after the attribute they represent
 					foreach ( $objects as $object )
 					{
-						$filename = $object->ldapDisplayName(0).".json";
+						$filename = $object->ldapDisplayName(0) . ".json";
 						$data = $object->json();
 
-						file_put_contents( static::$schema_dir."/$filename", $data );
+						file_put_contents( $schemaDir. ADX_DS . "$filename", $data );
 					}
 				}
 				else throw new Exception( 'Maximum number of referrals reached' );
@@ -146,7 +144,7 @@ class Schema
 	 */
 	public static function flush()
 	{
-		array_map( 'unlink', glob( static::$schema_dir.'/*.json' ) );
+		array_map( 'unlink', glob( ADX_ROOT_PATH . static::$schema_dir . ADX_DS . '*.json' ) );
 	}
 
 	/**
@@ -168,7 +166,7 @@ class Schema
 
 		// No, it is not - load it from the file and store it in runtime cache for future re-use
 
-		$schema_file = __DIR__.'/'.static::$schema_dir."/$schema_object.json";
+		$schema_file = ADX_ROOT_PATH . static::$schema_dir . ADX_DS . "$schema_object.json";
 
 		// Check if this file has been cached and load it if so
 		if ( file_exists( $schema_file ) )

@@ -21,14 +21,16 @@ You can use either TLS or SSL encryptions with the library. Just make sure you h
 
 #### Automatic data conversion
 
-Ever tried to find out when a user logged in to the system last time, only to discover that the `lastlogontimestamp` attribute is not a standard unix timestamp you know from *php*? Well, those days are over - when accessing any such attribute via **AD-X**, you get a unix timestamp. Free of charge.  
+Ever tried to find out when a user logged in to the system last time, only to discover that the `lastlogontimestamp` attribute is not a standard unix timestamp you know from *php*? Well, those days are over - when accessing any such attribute via **AD-X**, you get a unix timestamp. Free of charge.
 
-And it does not end with just timestamps. Need to reset someone's password? Just set the attribute's value and you are done. The library will handle proper attribute formatting for you.  
+And it does not end with just timestamps. Need to reset someone's password? Just set the attribute's value and you are done. The library will handle proper attribute formatting for you.
 You can even convert attributes like `member` or `manager` into real objects with just one method call!
 
 #### No assumptions: use the RootDSE and the directory schema
 The library makes extensive use of the *rootDSE* entry and the directory schema to determine the nature of the current environment.
 
+#### Track changes on your server
+Search for data once and then track all changes for that resultset with only one method call.
 
 ### The nice to have ones
 ----
@@ -43,7 +45,7 @@ The library is fully namespaced to ensure 100% compatibility with any other libr
 Handle your exceptions flexibly by utilising exceptions. No more checking if a method returns `FALSE` or `NULL`!
 
 #### Autoloading support
-No need to include the library files - just include one file and the autoloader will take care of the rest.
+No need to include the library files - let Composer's autoloading do the work for you or, without Composer, just include one file and the autoloader will take care of the rest.
 
 #### Local directory schema cache
 By caching the directory schema, the library can take advantage of the information present on the schema without the need to query the server for it, saving the execution time and speeding your application up.
@@ -82,10 +84,10 @@ Please submit your bugs to the Github's [issue tracker](https://github.com/Alane
 
 #### Post-installation:
 
-1. Generate the schema cache:  
+1. Generate the schema cache:
  ```php
-    $link = new ADX\Core\Link( 'company.com', 389 ); // Connect to server on default port  
-    $link->bind( 'username@company.com', 'password' ); // Authenticate to the server  
+    $link = new ADX\Core\Link( 'company.com', 389 ); // Connect to server on default port
+    $link->bind( 'username@company.com', 'password' ); // Authenticate to the server
     ADX\Core\Schema::build( $link ); // Build the local schema cache ( takes some time, go get a coffee )
 ```
 
@@ -107,13 +109,13 @@ Documentation is currently available for the API only, but it includes a lot of 
 ### Generate the documentation locally:
 
 1. Download the library
-1. Install the dependencies using [Composer](http://getcomposer.org/):  
+1. Install the dependencies using [Composer](http://getcomposer.org/):
 ```
 composer install --dev
 ```
-1. Generate the API documentation using [ApiGen](http://apigen.org/) ( installed by Composer ):  
+1. Generate the API documentation using [ApiGen](http://apigen.org/) ( installed by Composer ):
 ```
-php ./vendor/apigen/apigen/apigen.php
+php ./vendor/bin/apigen.php
 ```
 1. Generated documentation will be available at *./docs/www/index.html*
 

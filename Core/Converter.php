@@ -37,24 +37,25 @@ class Converter
 	final private function __construct() {}
 
 
-	public static function to_ldap( Attribute $attribute, $values )
+	public static function to_ldap( $attribute, $values )
 	{
-		return static::_convert( 'u_to_l', $attribute, $values );
+		return static::_convert( 'to_l', $attribute, $values );
 	}
 
-	public static function from_ldap( Attribute $attribute, $values )
+	public static function from_ldap( $attribute, $values )
 	{
-		return static::_convert( 'l_to_u', $attribute, $values );
+		return static::_convert( 'to_p', $attribute, $values );
 	}
 
 
-	protected static function _convert( $direction, Attribute $attribute, $values )
+	protected static function _convert( $direction, $attribute, $values )
 	{
 		// Load the schema information for the current attribute
 		$schema		= Schema::get( "$attribute" );
 		$ats		= $schema['attributesyntax'][0];
 		$oms		= $schema['omsyntax'][0];
 
+		$values		= is_array( $values ) ? $values : [$values];
 		$converted	= array();
 		$method		= null;
 		$class		= get_called_class();
@@ -114,7 +115,8 @@ class Converter
 				break;
 
 			case 'unicodepwd':					// A password always needs special treatment
-				$method = 'unicodepwd';
+			case 'objectguid':					// I want objectguid shown as AD tools show it ( like Powershell )
+				$method = $attribute;
 				break;
 
 			// These attributes have LargeInt as syntax, but their meaning is different ( they represent a time )
@@ -141,14 +143,14 @@ class Converter
 
 	// Conversion functions are defined below
 
-	protected static function _u_to_l_timestamp( $timestamp )
+	protected static function _to_l_timestamp( $timestamp )
 	{
 		if ( $timestamp === 0 ) return 0;
 
 		return ( floor( $timestamp / 10000000 ) - 11644473600 );
 	}
 
-	protected static function _l_to_u_timestamp( $timestamp )
+	protected static function _to_p_timestamp( $timestamp )
 	{
 		// The second part of the conditiona takes care of some crazy behaviour
 		// ( documented, though ) of accountExpires, which can be zero
@@ -159,25 +161,25 @@ class Converter
 		return ( ( $timestamp * 10000000 ) + 11644473600 );
 	}
 
-	protected static function _u_to_l_bool( $bool )
+	protected static function _to_l_bool( $bool )
 	{
 		if ( $bool === true )	return 'TRUE';
 		if ( $bool === false )	return 'FALSE';
 	}
 
-	protected static function _l_to_u_bool( $bool )
+	protected static function _to_p_bool( $bool )
 	{
 		if ( strtolower( $bool ) === 'true' )	return true;
 		if ( strtolower( $bool ) === 'false' )	return false;
 	}
 
-	protected static function _u_to_l_utctime( $time )
+	protected static function _to_l_utctime( $time )
 	{
 		// Example: 20130327203157.0Z
 		return date( "YmdHis", $time ).'.0Z';
 	}
 
-	protected static function _l_to_u_utctime( $time )
+	protected static function _to_p_utctime( $time )
 	{
 		// Example imput: 20130327203157.0Z
 		// Strip the timezone offset by exploding and pass the first part into DateTime for parsing
@@ -187,13 +189,13 @@ class Converter
 		return $time->getTimestamp();
 	}
 
-	protected static function _u_to_l_generalisedtime( $time )
+	protected static function _to_l_generalisedtime( $time )
 	{
 		// Example: 20130327203157.0Z
 		return date( "YmdHis", $time ).'.0Z';
 	}
 
-	protected static function _l_to_u_generalisedtime( $time )
+	protected static function _to_p_generalisedtime( $time )
 	{
 		// Example imput: 20130327203157.0Z
 		// Strip the timezone offset by exploding and pass the first part into DateTime for parsing
@@ -203,12 +205,12 @@ class Converter
 		return $time->getTimestamp();
 	}
 
-	protected static function _l_to_u_binary( $data )
+	protected static function _to_p_binary( $data )
 	{
 		return base64_encode( $data );
 	}
 
-	protected static function _u_to_l_object( $object )
+	protected static function _to_l_object( $object )
 	{
 		if ( $object instanceof Object && ! $object->dn )	throw new InvalidOperationException( "The object $object is not stored on server - please save your object first, then retry the action" );
 
@@ -218,7 +220,7 @@ class Converter
 
 	// Special cases
 
-	protected static function _u_to_l_unicodepwd( $password )
+	protected static function _to_l_unicodepwd( $password )
 	{
 		$password	= "\"$password\"";	// Enclose the password in double quotes
 
@@ -231,5 +233,48 @@ class Converter
 		}
 
 		return $pwd;
+	}
+
+	protected static function _to_p_objectguid( $guid )
+	{
+		// An interesting piece of code I have found that converts
+		// the objectguid exactly to what standard Powershell or other MS-based
+		// tools show.
+		$hex_guid = unpack( "H*hex", $guid );
+		$hex	= $hex_guid["hex"];
+
+		$hex1	= substr( $hex, -26, 2 ) . substr( $hex, -28, 2 ) . substr( $hex, -30, 2 ) . substr( $hex, -32, 2 );
+		$hex2	= substr( $hex, -22, 2 ) . substr( $hex, -24, 2 );
+		$hex3	= substr( $hex, -18, 2 ) . substr( $hex, -20, 2 );
+		$hex4	= substr( $hex, -16, 4 );
+		$hex5	= substr( $hex, -12, 12 );
+
+		$guid = $hex1 . "-" . $hex2 . "-" . $hex3 . "-" . $hex4 . "-" . $hex5;
+
+		return $guid;
+	}
+
+	protected static function _to_l_objectguid( $guid )
+	{
+		$guid = str_replace( '-', '', $guid );
+
+		$octet_str  = substr( $guid, 6,		2 );
+		$octet_str .= substr( $guid, 4,		2 );
+		$octet_str .= substr( $guid, 2,		2 );
+		$octet_str .= substr( $guid, 0,		2 );
+		$octet_str .= substr( $guid, 10,	2 );
+		$octet_str .= substr( $guid, 8,		2 );
+		$octet_str .= substr( $guid, 14,	2 );
+		$octet_str .= substr( $guid, 12,	2 );
+		$octet_str .= substr( $guid, 16,	strlen( $guid ) );
+
+		$hex_guid = '';
+
+		for ( $i = 0; $i <= strlen( $octet_str ) - 2; $i = $i + 2 )
+		{
+			$hex_guid .=  "\\" . substr( $octet_str, $i, 2 );
+		}
+
+		return $hex_guid;
 	}
 }

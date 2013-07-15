@@ -20,5 +20,8 @@
 	},
 	"require-dev": {
 		"apigen/apigen": "~2.8.0"
+	},
+	"autoload": {
+		"files": ["adx.php"]
 	}
 }
