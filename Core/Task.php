@@ -21,7 +21,10 @@
 
 
 namespace ADX\Core;
+
 use ADX\Enums;
+use ADX\Core\Query as q;
+
 
 /**
  * Performs lookup operations on ldap server
@@ -115,6 +118,128 @@ class Task
 
 	protected $referral_counter	= 0;				// Number of times a referral was chased
 
+
+	/**
+	 * Pull changes from Active Directory for a given query
+	 *
+	 * Use this method to set up a search query and later get all changed objects
+	 * for that query. This method returns a special {@link Delta} object that preserves
+	 * your search configuration and you use this object for consequent
+	 * searches. It also contains your search results. When you run the method for the first time,
+	 * it behaves as if you performed just an ordinary search, but on consequent searches,
+	 * it only returns objects that were modified or deleted since you last ran the search query.
+	 *
+	 * <br>
+	 *
+	 * <p class='alert'>Note that due to the way this feature is implemented it is impossible to
+	 * search for objects where only specific attributes have been modified - the method returns all objects
+	 * that were modified in any way since your last execution and it is your task to determine if
+	 * the changes happened on attributes that you are interested in.</p>
+	 * <br>
+	 *
+	 * This method takes two possible forms of arguments:<br>
+	 * When you run it for the first time, you pass the search parameters
+	 * as for any other ldap search query - the search filter, the list of attributes to be
+	 * returned and a fully configured {@link Link} instance.
+	 *
+	 * <br>
+	 *
+	 * For all consecutive executions, you only pass the {@link Delta} instance
+	 * that you got when you ran the method for the first time and, again, a configured {@link Link}
+	 * instance.
+	 *
+	 * <h2>Example:</h2>
+	 * To watch for changes on all users in your domain:
+	 * <code>
+	 * // Establish connection to your directory server
+	 * $link = new Link( 'example.com' );
+	 * $link->bind( 'admin@example.com', 'SecretPwd' );
+	 *
+	 * // When called for the first time for a particular query, you get
+	 * // an instance of Delta class - this instance contains the results
+	 * // of your query as well as all the information/state necessary
+	 * // to perform subsequent queries to get all changes for that resultset
+	 * $delta = Task::changes( '(objectcategory=person)', ['mail', 'name', 'memberof'], $link );
+	 * $result = $delta->result;	// Here's where the actual data is
+	 * // Do something with result...
+	 *
+	 * // Now it's time to store the $delta instance someplace safe so we can get
+	 * // changes for this query at a later time - you should serialise the instance
+	 * // and store it somewhere - i.e. in a database or on disk
+	 * file_put_contents( 'my_query_state.txt', serialize( $delta ) );	// Always serialise!
+	 *
+	 * // Many moments pass...
+	 * // In another script, far, far away...
+	 *
+	 * // It's time to see which objects have been modified since our last run
+	 * // Connect to ldap again
+	 * $link = new Link( 'example.com' );
+	 * $link->bind( 'admin@example.com', 'SecretPwd' );
+	 *
+	 * // Get the previous query state from the file
+	 * $delta = unserialize( file_get_contents( 'my_query_state.txt' ) );
+	 * // And get all the objects that have been changed since we last
+	 * // run the changes method, but this time we only pass in
+	 * // the instance of Delta class - it contains all the information
+	 * // about our previous query so we don't have to configure it again
+	 * $delta = Task::changes( $delta, $link );
+	 * $result = $delta->result;	// Changed objects are here again!
+	 *
+	 * // Notice that now we have a new instance of the Delta class in the
+	 * // $class variable - reflecting the fact that we just ran the query again
+	 *
+	 * // And so the story continues on and on...
+	 * </code>
+	 *
+	 * <h2>Things you should know</h2>
+	 * <ul>
+	 * <li>You must always connect to the same domain controller for a particular query,
+	 * otherwise you will receive the full resultset on each run</li>
+	 * <li>To track deleted objects, all returned objects have an <i>isDeleted</i>
+	 * {@link Attribute} automatically that you can use to check if that object has been deleted</li>
+	 * <li>You cannot use BaseDN overrides with this feature at this time
+	 * ( this might be implemented in the future )</li>
+	 * </ul>
+	 *
+	 * @return		Delta		Object containing the state and data of the changes
+	 *
+	 * @see			<a href="http://msdn.microsoft.com/en-us/library/ms677627.aspx">MSDN - Polling for changes using usnChanged</a>
+	 */
+	public static function changes()
+	{
+		$args		= func_get_args();
+		$link		= array_pop( $args );		// Link is always last
+		$rootDSE	= $link->rootDSE;
+		$server		= $rootDSE->dnsHostName(0);	// We will only be able to get a diff when talking to the same server next time
+
+		if ( $args[0] instanceof Delta )		// This is a continuation of previous diff run
+		{
+			$last_delta 	= $args[0];
+			$filter			= $last_delta->filter;
+			$attributes		= $last_delta->attributes;
+			$boundaryUSN	= $last_delta->server == $server ? $last_delta->cookie + 1 : 0;	// Pull all data if we are dealing with a different server
+
+			// Include deleted objects in the resultset
+			$link->show_deleted( true );		// Also make this control extension critical
+		}
+		else									// This is a new diff run
+		{
+			$filter			= $args[0];
+			$attributes		= $args[1];
+			$boundaryUSN	= 0;
+		}
+
+		$task = new static( Enums\Operation::OpSearch, $link );
+		$task->filter( q::a( "(usnChanged>=$boundaryUSN)", $filter ) )	// Add the USN magic to the search query
+			 ->attributes( array_merge( $attributes, ['isDeleted'] ) );	// Include isDeleted to help identifying deleted objects
+
+		// Run, Forest, run!
+		$result = $task->run_paged();
+
+		return new Delta( $result, $filter, $attributes, $server, $rootDSE->highestCommittedUSN(0) );
+	}
+
+
 	/**
 	 * Create a new directory lookup task
 	 *
@@ -177,7 +302,10 @@ class Task
 	 * If you do not pass any parameters to this function, it will return an array
 	 * of all currently requested attributes to be loaded from server.
 	 *
-	 * <p class="alert"><i>objectclass</i> and <i>dn</i> are <b>always</b> returned.</p>
+	 * <p class="alert"><i>objectClass</i>, <i>objectGUID</i> and <i>dn</i> are <b>always</b>
+	 * returned. Note, however, that the <i>dn</i> attribute is <b>not</b> an instance of
+	 * {@link Attribute} - it's only a read-only property containing the string representation
+	 * of the distinguished name.</p>
 	 *
 	 * @param		array|string		The attribute or attributes to be retrieved<br><b>Default:</b> <code>['*']</code>
 	 * @return		self
