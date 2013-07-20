@@ -32,7 +32,7 @@ use ADX\Enums;
  *
  * @see		{@link Attribute} - Attributes of an entity / object are represented by this class
  *
- * @property-read	string	$dn		The Distinguished name of the object ( available only for objects already stored in ldap database )
+ * @property-read		string	$dn			The Distinguished name of the object ( available only for objects already stored in ldap database )
  */
 class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 {
@@ -81,11 +81,11 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * echo $user->mail->value(0);
 	 * </code>
 	 *
-	 * @throws	Exception	If the lookup operation returns more than one object from the server
-	 * @param	string		The distinguished name of the entity to be loaded or an ldap filter that reaturns exactly one object
-	 * @param	array		Array of attributes to be loaded from the server
-	 * @param	Link		The configured and bound Link to server
-	 * @return	self		Object containing the requested attributes
+	 * @throws		Exception		If the lookup operation returns more than one object from the server
+	 * @param		string			The distinguished name of the entity to be loaded or an ldap filter that reaturns exactly one object
+	 * @param		array			Array of attributes to be loaded from the server
+	 * @param		Link			The configured and bound Link to server
+	 * @return		self			Object containing the requested attributes
 	 */
 	public static function read( $dnOrFilter, $attributes, Link $adxLink )
 	{
@@ -206,7 +206,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * more information.
 	 *
 	 * @param		string		The distinguished name of the parent container where this object should be stored
-	 * @return		self|null	If there is an error, it will throw an exception and return null
+	 * @return		self
 	 */
 	public function create( $dn )
 	{
@@ -233,7 +233,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * Use this method to save the local changes to an existing ldap entity
 	 * to the server.
 	 *
-	 * @return		self|null	If there is an error, it will throw an exception and return null
+	 * @return		self
 	 */
 	public function update()
 	{
@@ -256,6 +256,11 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 	/**
 	 * Delete the object from ldap server
+	 *
+	 * Once you delete the object from server you should release the
+	 * php instance and not use it again to prevent unexpected errors.
+	 *
+	 * @return		void
 	 */
 	public function delete()
 	{
@@ -283,8 +288,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * print_r( $object->get( 'mail' )->value() );
 	 * </code>
 	 *
-	 * @param		string		The name of the attribute, as defined on the ldap server
-	 * @return		Attribute	An instance of Attribute class, holding the attribute's value(s)
+	 * @param		string			The name of the attribute, as defined on the ldap server
+	 * @return		Attribute		An instance of Attribute class, holding the attribute's value(s)
 	 */
 	public function get( $attribute )
 	{
@@ -321,8 +326,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * If you supply an instance of the {@link Attribute} class as the $value, the instance
 	 * will be replaced.</p>
 	 *
-	 * @param		string					The name of the attribute to be modified
-	 * @param		string|array|Attribute	The value(s) to be set on the attribute
+	 * @param		string						The name of the attribute to be modified
+	 * @param		string|array|Attribute		The value(s) to be set on the attribute
 	 * @return		self
 	 */
 	public function set( $attribute, $value )
@@ -344,7 +349,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * You can supply either a name of the attribute, an instance of the Attribute class
 	 * or an array with either the names or instances to be removed.
 	 *
-	 * @param		string|array|Attribute	The attribute(s) to be removed
+	 * @param		string|array|Attribute		The attribute(s) to be removed
 	 * @return		self
 	 */
 	public function remove( $attributes = array() )
@@ -407,11 +412,12 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * // No. 2: Access those individual objects from the $group,
 	 * // as if it were just another attribute
 	 * print_r( $group->member->value(0)->mail->value() ); // Prints the email address of the first object in the 'member' attribute
+	 * print_r( $group->member(0)->mail() );		// Use a shorter syntax to print the same information
 	 * </code>
 	 *
-	 * @param		string			The ldap name of the attribute to be resolved
-	 * @param		string|array	The attribute(s) the resolved objects should have
-	 * @return		Result			The objects, contained within the Result class
+	 * @param		string				The ldap name of the attribute to be resolved
+	 * @param		string|array		The attribute(s) the resolved objects should have
+	 * @return		Result				The objects, contained within the Result class
 	 */
 	public function resolve( $attribute, $attributes = null )
 	{
@@ -434,7 +440,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * The object must be either loaded from a server or already saved to the
 	 * server if created locally. Otherwise, the parent cannot be known.
 	 *
-	 * @return string The parent's distinguished name
+	 * @return		string		The parent's distinguished name
 	 */
 	public function parent()
 	{
@@ -444,11 +450,15 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		unset( $data['count'] );						// Remove the count
 		unset( $data[0] );								// Remove the RDN of this object
 
-		return implode(',', $data );					// Glue them back together
+		return implode( ',', $data );					// Glue them back together
 	}
 
+	/**
+	 * Get the number of defined Attributes in this object
+	 *
+	 * @return		integer
+	 */
 	public function count()
-	// returns the number of properties in object
 	{
 		return count( $this->data );
 	}
@@ -456,7 +466,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	/**
 	 * Get an array of all attributes that are currently present on the object
 	 *
-	 * @return	array	An array containing the names of all attributes defined on the object
+	 * @return		array		An array containing the names of all attributes defined on the object
 	 */
 	public function all_attributes()
 	{
@@ -477,7 +487,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * This function returns data that is ready to be stored in ldap database, in
 	 * ldap-compatible format.
-	 * @return		array	The hash of changed data ( keys are attribute names and values are their values )
+	 *
+	 * @return		array		The hash of changed data ( keys are attribute names and values are their values )
 	 */
 	protected function _get_changed_data()
 	{
@@ -488,8 +499,12 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		return $data;
 	}
 
+	/**
+	 * This method handles the last ldap error ( by throwing proper exception, for example )
+	 *
+	 * @return		void
+	 */
 	protected function _handle_last_error()
-	// This method handles the last ldap error ( by throwing proper exception, for example )
 	{
 		$link_id	= $this->adxLink->get_link(); 	// The link resource
 		$error		= ldap_errno( $link_id );		// The error code
@@ -561,7 +576,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	public function offsetSet( $offset, $value )
 	{
 		// Ony Attribute objects can be added to these types of objects
-		if (! $value instanceof Attribute )
+		if ( ! $value instanceof Attribute )
 		{
 			throw new IncorrectParameterException( 'You can only add instances of Attribute as an attribute of Object' );
 		}
@@ -679,7 +694,6 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * @internal
 	 */
 	public function __get( $attribute )
-	// Standard accessor method for object's attributes
 	{
 		return $this->get( $attribute );
 	}
