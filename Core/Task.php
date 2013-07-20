@@ -316,7 +316,7 @@ class Task
 		if ( is_null( $attributes ) ) return $this->attributes;
 
 		// Make sure this param is an array
-		if ( ! is_array( $attributes ) ) $attributes = [$attributes];
+		$attributes = (array)$attributes;
 
 		$this->attributes = $attributes;
 

@@ -55,7 +55,7 @@ class Converter
 		$ats		= $schema['attributesyntax'][0];
 		$oms		= $schema['omsyntax'][0];
 
-		$values		= is_array( $values ) ? $values : [$values];
+		$values		= (array)$values;
 		$converted	= array();
 		$method		= null;
 		$class		= get_called_class();

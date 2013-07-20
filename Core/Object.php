@@ -354,7 +354,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 */
 	public function remove( $attributes = array() )
 	{
-		if ( ! is_array( $attributes ) ) $attributes = [$attributes];
+		// Make sure this param is an array
+		$attributes = (array)$attributes;
 
 		foreach ( $attributes as $attribute )
 		{

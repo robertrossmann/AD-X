@@ -291,7 +291,7 @@ class Link
 		}
 
 		// Successfully bound anonymously!
-		if ( ! is_array( $attributes ) ) $attributes = [$attributes];
+		$attributes = (array)$attributes;
 
 		// Read the rootDSE
 		$rootDSE = Object::read( '', $attributes, $this );

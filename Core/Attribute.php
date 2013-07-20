@@ -79,7 +79,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		}
 
 		// Ensure we have the values in an array
-		if ( ! is_array( $values ) ) $values = [$values];
+		$values = (array)$values;
 
 		// Convert the value to a valid php value ( bool, timestamp conversions etc. )
 		if ( $shouldConvert ) $values = Converter::from_ldap( $this, $values );
@@ -145,7 +145,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		$ignoreChanges = isset( $args[1] ) ? $args[1] : false;	// This parameter is hidden
 
 		// Add new value or values to the attribute
-		if ( ! is_array( $values ) ) $values = [$values];
+		$values = (array)$values;
 
 		foreach ( $values as $value ) $this->_set_value( $value, null, $ignoreChanges );
 
