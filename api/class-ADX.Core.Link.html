@@ -7,7 +7,7 @@
 	<title>Class ADX\Core\Link | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1582746296"></script>
+	<script type="text/javascript" src="elementlist.js?2465905656"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -72,6 +72,7 @@
 			<ul>
 				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
 				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Delta.html">Delta</a></li>
 				<li class="active"><a href="class-ADX.Core.Link.html">Link</a></li>
 				<li><a href="class-ADX.Core.Object.html">Object</a></li>
 				<li><a href="class-ADX.Core.Query.html">Query</a></li>
@@ -147,8 +148,8 @@ results.<br />
 
 <p class="alert">Make sure you import the class into current namespace before
 trying to use it:<br />
-<code><span class="php-keyword1">use</span> ADX\Core\<span
-class="php-keyword2">Link</span>;</code><br />
+<code>&lt;span class="php-keyword1"&gt;use&lt;/span&gt; ADX\Core\&lt;span
+class="php-keyword2"&gt;Link&lt;/span&gt;;</code><br />
 To simplify the examples, the above line is not present in the examples but it
 is assumed you have it in your implementation.</p>
 
@@ -218,7 +219,7 @@ class="php-comment">// Use the link with previously configured features</span>
 				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code> - perform lookup operations on directory servers<br />
 				<b>Used by:</b>
 				<code><code><a href="class-ADX.Core.Task.html#___construct">ADX\Core\Task::__construct()</a></code></code> <br />
-		<b>Located at</b> <a href="source-class-ADX.Core.Link.html#26-552" title="Go to source code">Link.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Link.html#26-553" title="Go to source code">Link.php</a><br />
 	</div>
 
 
@@ -236,7 +237,7 @@ class="php-comment">// Use the link with previously configured features</span>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#122-176" title="Go to source code">__construct</a>( <span>string <var>$domain</var></span>, <span>integer <var>$port</var> = <span class="php-num">389</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>() </span> )</code>
+			<code><a href="source-class-ADX.Core.Link.html#122-177" title="Go to source code">__construct</a>( <span>string <var>$domain</var></span>, <span>integer <var>$port</var> = <span class="php-num">389</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>() </span> )</code>
 
 			<div class="description short">
 				
@@ -311,7 +312,7 @@ ldap_set_option()</a><br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_bind">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#178-210" title="Go to source code">bind</a>( <span>string <var>$username</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$password</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Link.html#179-211" title="Go to source code">bind</a>( <span>string <var>$username</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$password</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -325,9 +326,9 @@ none provided )</p>
 <p>Bind to the directory server using provided credentials ( or anonymously if
 none provided )</p>
 
-<p>This method performs the standard <code><span
-class="php-keyword2">ldap_bind</span>()</code> operation on the ldap link.
-Before that, it performs the link configuration, like setting the protocol
+<p>This method performs the standard <code>&lt;span
+class="php-keyword2"&gt;ldap_bind&lt;/span&gt;()</code> operation on the ldap
+link. Before that, it performs the link configuration, like setting the protocol
 version and applying user-specific server controls.</p>
 
 <h4>Example</h4>
@@ -385,7 +386,7 @@ possible formats )</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_sasl_bind">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#212-224" title="Go to source code">sasl_bind</a>( )</code>
+			<code><a href="source-class-ADX.Core.Link.html#213-225" title="Go to source code">sasl_bind</a>( )</code>
 
 			<div class="description short">
 				
@@ -432,7 +433,7 @@ development<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_use_tls">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#226-254" title="Go to source code">use_tls</a>( )</code>
+			<code><a href="source-class-ADX.Core.Link.html#227-255" title="Go to source code">use_tls</a>( )</code>
 
 			<div class="description short">
 				
@@ -449,8 +450,8 @@ should use this <b>before</b> binding to the directory server, otherwise you
 risk compromising authentication data.</p>
 
 <p>This method does not check if you have a valid certificate installed on the
-machine - it only invokes the standard <code><span
-class="php-keyword2">ldap_start_tls</span>()</code> function - the host
+machine - it only invokes the standard <code>&lt;span
+class="php-keyword2"&gt;ldap_start_tls&lt;/span&gt;()</code> function - the host
 machine's configuration necessary for a successful TLS connection is up to
 you.</p>
 
@@ -501,7 +502,7 @@ ldap_start_tls()</a><br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_rootDSE">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#256-299" title="Go to source code">rootDSE</a>( <span>array <var>$attributes</var> = [<span class="php-quote">'*'</span>, <span class="php-quote">'+'</span>] </span> )</code>
+			<code><a href="source-class-ADX.Core.Link.html#257-300" title="Go to source code">rootDSE</a>( <span>array <var>$attributes</var> = [<span class="php-quote">'*'</span>, <span class="php-quote">'+'</span>] </span> )</code>
 
 			<div class="description short">
 				
@@ -576,7 +577,7 @@ class="php-num">0</span> );
 
 			<td class="name"><div>
 			<a class="anchor" href="#_show_deleted">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#301-325" title="Go to source code">show_deleted</a>( <span>boolean <var>$critical</var> = <span class="php-keyword1">false</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Link.html#302-326" title="Go to source code">show_deleted</a>( <span>boolean <var>$critical</var> = <span class="php-keyword1">false</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -650,7 +651,7 @@ ldap_set_option()</a> ( LDAP_OPT_SERVER_CONTROLS )<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_use_extended_control">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#327-363" title="Go to source code">use_extended_control</a>( <span>string <var>$control_oid</var></span>, <span>boolean <var>$critical</var> = <span class="php-keyword1">false</span></span>, <span>mixed <var>$value</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Link.html#328-364" title="Go to source code">use_extended_control</a>( <span>string <var>$control_oid</var></span>, <span>boolean <var>$critical</var> = <span class="php-keyword1">false</span></span>, <span>mixed <var>$value</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -714,7 +715,7 @@ operation if the feature is not available</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get_link">#</a>
-			<code><a href="source-class-ADX.Core.Link.html#365-378" title="Go to source code">get_link</a>( )</code>
+			<code><a href="source-class-ADX.Core.Link.html#366-379" title="Go to source code">get_link</a>( )</code>
 
 			<div class="description short">
 				

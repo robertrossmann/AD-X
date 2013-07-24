@@ -7,7 +7,7 @@
 	<title>Class ADX\Core\Task | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1582746296"></script>
+	<script type="text/javascript" src="elementlist.js?2465905656"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -72,6 +72,7 @@
 			<ul>
 				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
 				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Delta.html">Delta</a></li>
 				<li><a href="class-ADX.Core.Link.html">Link</a></li>
 				<li><a href="class-ADX.Core.Object.html">Object</a></li>
 				<li><a href="class-ADX.Core.Query.html">Query</a></li>
@@ -132,7 +133,8 @@ issues. See the example code below.<br />
 
 <p class="alert">Make sure you import the class into current namespace before
 trying to use it:<br />
-<code><span class="php-keyword1">use</span> ADX\Core\Task;</code><br />
+<code>&lt;span class="php-keyword1"&gt;use&lt;/span&gt; ADX\Core\Task;</code><br
+/>
 To simplify the examples, the above line is not present in the examples but it
 is assumed you have it in your implementation.</p>
 
@@ -160,15 +162,16 @@ class="php-keyword1">new</span> Task( Enums\Operation::OpSearch, <span
 class="php-var">$link</span> );           <span
 class="php-comment">// Create a search operation</span>
 <span
-class="php-var">$task</span>   -&gt;get_attributes( [<span
+class="php-var">$task</span>   -&gt;attributes( [<span
 class="php-quote">'cn'</span>, <span class="php-quote">'givenname'</span>, <span
-class="php-quote">'sn'</span>, <span class="php-quote">'mail'</span>] )   <span
+class="php-quote">'sn'</span>, <span
+class="php-quote">'mail'</span>] )       <span
 class="php-comment">// Load these attributes for the objects</span>
-        -&gt;set_filter( <span
-class="php-quote">'(&amp;(objectclass=user)(mail=*))'</span> )         <span
+        -&gt;filter( <span
+class="php-quote">'(&amp;(objectclass=user)(mail=*))'</span> )             <span
 class="php-comment">// Get all users that have a mail attribute</span>
-        -&gt;set_base( <span
-class="php-quote">'OU=Users,DC=example,DC=com'</span> );             <span
+        -&gt;base( <span
+class="php-quote">'OU=Users,DC=example,DC=com'</span> );                 <span
 class="php-comment">// Limit the search only to the Users OU in the domain</span>
 
 <span
@@ -209,13 +212,196 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms678001%28v=vs.85
 				The connection pooling feature might need a rewrite - if I start a lookup
 operation with an account that has lower access rights than the one I used
 previously, AD-X might fail to perform the requested operation.<br />
-		<b>Located at</b> <a href="source-class-ADX.Core.Task.html#26-394" title="Go to source code">Task.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Task.html#29-530" title="Go to source code">Task.php</a><br />
 	</div>
 
 
 
 		<h2>Methods summary</h2>
 		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="changes" id="_changes">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-ADX.Core.Delta.html">ADX\Core\Delta</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_changes">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#122-240" title="Go to source code">changes</a>( )</code>
+
+			<div class="description short">
+				
+<p>Pull changes from Active Directory for a given query</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Pull changes from Active Directory for a given query</p>
+
+<p>Use this method to set up a search query and later get all changed objects
+for that query. This method returns a special <code><a href="class-ADX.Core.Delta.html">ADX\Core\Delta</a></code> object that
+preserves your search configuration and you use this object for consequent
+searches. It also contains your search results. When you run the method for the
+first time, it behaves as if you performed just an ordinary search, but on
+consequent searches, it only returns objects that were modified or deleted since
+you last ran the search query.</p>
+
+<div><br />
+</div>
+
+<p class="alert">Note that due to the way this feature is implemented it is
+impossible to search for objects where only specific attributes have been
+modified - the method returns all objects that were modified in any way since
+your last execution and it is your task to determine if the changes happened on
+attributes that you are interested in.</p>
+<br />
+
+<p>This method takes two possible forms of arguments:<br />
+When you run it for the first time, you pass the search parameters as for any
+other ldap search query - the search filter, the list of attributes to be
+returned and a fully configured <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> instance.</p>
+
+<div><br />
+</div>
+
+<p>For all consecutive executions, you only pass the <code><a href="class-ADX.Core.Delta.html">ADX\Core\Delta</a></code> instance that
+you got when you ran the method for the first time and, again, a configured
+<code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> instance.</p>
+
+<h2>Example:</h2>
+ To watch for changes on all users in your domain:
+<pre>
+<span
+class="php-comment">// Establish connection to your directory server</span>
+<span
+class="php-var">$link</span> = <span class="php-keyword1">new</span> <span
+class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );
+<span
+class="php-var">$link</span>-&gt;bind( <span
+class="php-quote">'admin@example.com'</span>, <span
+class="php-quote">'SecretPwd'</span> );
+
+<span
+class="php-comment">// When called for the first time for a particular query, you get</span>
+<span
+class="php-comment">// an instance of Delta class - this instance contains the results</span>
+<span
+class="php-comment">// of your query as well as all the information/state necessary</span>
+<span
+class="php-comment">// to perform subsequent queries to get all changes for that resultset</span>
+<span
+class="php-var">$delta</span> = Task::changes( <span
+class="php-quote">'(objectcategory=person)'</span>, [<span
+class="php-quote">'mail'</span>, <span class="php-quote">'name'</span>, <span
+class="php-quote">'memberof'</span>], <span
+class="php-var">$link</span> );
+<span class="php-var">$result</span> = <span
+class="php-var">$delta</span>-&gt;result;       <span
+class="php-comment">// Here's where the actual data is</span>
+<span
+class="php-comment">// Do something with result...</span>
+
+<span
+class="php-comment">// Now it's time to store the $delta instance someplace safe so we can get</span>
+<span
+class="php-comment">// changes for this query at a later time - you should serialise the instance</span>
+<span
+class="php-comment">// and store it somewhere - i.e. in a database or on disk</span>
+<span
+class="php-keyword2">file_put_contents</span>( <span
+class="php-quote">'my_query_state.txt'</span>, <span
+class="php-keyword2">serialize</span>( <span
+class="php-var">$delta</span> ) ); <span
+class="php-comment">// Always serialise!</span>
+
+<span
+class="php-comment">// Many moments pass...</span>
+<span
+class="php-comment">// In another script, far, far away...</span>
+
+<span
+class="php-comment">// It's time to see which objects have been modified since our last run</span>
+<span
+class="php-comment">// Connect to ldap again</span>
+<span
+class="php-var">$link</span> = <span class="php-keyword1">new</span> <span
+class="php-keyword2">Link</span>( <span
+class="php-quote">'example.com'</span> );
+<span
+class="php-var">$link</span>-&gt;bind( <span
+class="php-quote">'admin@example.com'</span>, <span
+class="php-quote">'SecretPwd'</span> );
+
+<span
+class="php-comment">// Get the previous query state from the file</span>
+<span
+class="php-var">$delta</span> = <span
+class="php-keyword2">unserialize</span>( <span
+class="php-keyword2">file_get_contents</span>( <span
+class="php-quote">'my_query_state.txt'</span> ) );
+<span
+class="php-comment">// And get all the objects that have been changed since we last</span>
+<span
+class="php-comment">// run the changes method, but this time we only pass in</span>
+<span
+class="php-comment">// the instance of Delta class - it contains all the information</span>
+<span
+class="php-comment">// about our previous query so we don't have to configure it again</span>
+<span
+class="php-var">$delta</span> = Task::changes( <span
+class="php-var">$delta</span>, <span class="php-var">$link</span> );
+<span
+class="php-var">$result</span> = <span
+class="php-var">$delta</span>-&gt;result;       <span
+class="php-comment">// Changed objects are here again!</span>
+
+<span
+class="php-comment">// Notice that now we have a new instance of the Delta class in the</span>
+<span
+class="php-comment">// $class variable - reflecting the fact that we just ran the query again</span>
+
+<span
+class="php-comment">// And so the story continues on and on...</span>
+</pre>
+
+<h2>Things you should know</h2>
+
+<ul>
+	<li>You must always connect to the same domain controller for a particular
+	query, otherwise you will receive the full resultset on each run</li>
+
+	<li>To track deleted objects, all returned objects have an <i>isDeleted</i>
+	<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> automatically that you can use to check if that object has
+	been deleted</li>
+
+	<li>You cannot use BaseDN overrides with this feature at this time ( this might
+	be implemented in the future )</li>
+</ul>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Delta.html">ADX\Core\Delta</a></code></code><br>Object containing the state and data of the changes<br />
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							<a href="http://msdn.microsoft.com/en-us/library/ms677627.aspx">MSDN - Polling
+for changes using usnChanged</a><br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="__construct" id="___construct">
 
 			<td class="attributes"><code>
@@ -227,7 +413,7 @@ previously, AD-X might fail to perform the requested operation.<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#116-140" title="Go to source code">__construct</a>( <span>string <var>$operationType</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#243-267" title="Go to source code">__construct</a>( <span>string <var>$operationType</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
 
 			<div class="description short">
 				
@@ -294,7 +480,7 @@ strongly discouraged from doing that.</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_use_pages">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#142-170" title="Go to source code">use_pages</a>( <span>integer <var>$page_size</var> = <span class="php-num">1000</span></span>, <span>string <var>$encoded_cookie</var> = <span class="php-quote">''</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#269-297" title="Go to source code">use_pages</a>( <span>integer <var>$page_size</var> = <span class="php-num">1000</span></span>, <span>string <var>$encoded_cookie</var> = <span class="php-quote">''</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -349,7 +535,7 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746459%28v=vs.85
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="get_attributes" id="_get_attributes">
+		<tr data-order="attributes" id="_attributes">
 
 			<td class="attributes"><code>
 				 public 
@@ -359,8 +545,8 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746459%28v=vs.85
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_get_attributes">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#172-189" title="Go to source code">get_attributes</a>( <span>array|string <var>$attributes</var></span> )</code>
+			<a class="anchor" href="#_attributes">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#299-324" title="Go to source code">attributes</a>( <span>array|string <var>$attributes</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -372,8 +558,13 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746459%28v=vs.85
 				
 <p>Configure which attributes should be retrieved from the directory server</p>
 
-<p class="alert"><i>objectclass</i> and <i>dn</i> are <b>always</b>
-returned.</p>
+<p>If you do not pass any parameters to this function, it will return an array
+of all currently requested attributes to be loaded from server.</p>
+
+<p class="alert"><i>objectClass</i>, <i>objectGUID</i> and <i>dn</i> are
+<b>always</b> returned. Note, however, that the <i>dn</i> attribute is
+<b>not</b> an instance of <code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> - it's only a read-only property
+containing the string representation of the distinguished name.</p>
 
 
 
@@ -381,7 +572,7 @@ returned.</p>
 					<div class="list"><dl>
 						<dt><var>$attributes</var></dt>
 						<dd><code>array|string</code><br>The attribute or attributes to be retrieved<br />
-<b>Default:</b> <code>[<span class="php-quote">'*'</span>]</code></dd>
+<b>Default:</b> <code>[&lt;span class="php-quote"&gt;'*'&lt;/span&gt;]</code></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
@@ -395,7 +586,7 @@ returned.</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="set_filter" id="_set_filter">
+		<tr data-order="filter" id="_filter">
 
 			<td class="attributes"><code>
 				 public 
@@ -405,18 +596,18 @@ returned.</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_set_filter">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#191-206" title="Go to source code">set_filter</a>( <span>string <var>$filter</var></span> )</code>
+			<a class="anchor" href="#_filter">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#326-343" title="Go to source code">filter</a>( <span>string <var>$filter</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
-<p>Set the ldap filter for the task</p>
+<p>Get or set the ldap filter for the task</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Set the ldap filter for the task</p>
+<p>Get or set the ldap filter for the task</p>
 
 
 
@@ -424,8 +615,8 @@ returned.</p>
 					<div class="list"><dl>
 						<dt><var>$filter</var></dt>
 						<dd><code>string</code><br>A valid ldap filter string<br />
-<b>Default:</b> <code><span
-class="php-quote">&quot;(objectclass=*)&quot;</span></code></dd>
+<b>Default:</b> <code>&lt;span
+class="php-quote"&gt;"(objectclass=*)"&lt;/span&gt;</code></dd>
 					</dl></div>
 
 					<h4>Returns</h4>
@@ -439,6 +630,7 @@ class="php-quote">&quot;(objectclass=*)&quot;</span></code></dd>
 							<a
 href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx">MSDN
 - Search Filter Syntax</a><br />
+							<code><a href="class-ADX.Core.Query.html">ADX\Core\Query</a></code><br />
 					</div>
 					<h4>Todo</h4>
 					<div class="list">
@@ -449,7 +641,7 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="set_base" id="_set_base">
+		<tr data-order="base" id="_base">
 
 			<td class="attributes"><code>
 				 public 
@@ -459,21 +651,21 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_set_base">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#208-226" title="Go to source code">set_base</a>( <span>string <var>$dn</var></span> )</code>
+			<a class="anchor" href="#_base">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#345-365" title="Go to source code">base</a>( <span>string <var>$dn</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
-<p>Set the base DN as the starting point for the lookup operation</p>
+<p>Get or set the base DN as the starting point for the lookup operation</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>Set the base DN as the starting point for the lookup operation</p>
+<p>Get or set the base DN as the starting point for the lookup operation</p>
 You can limit the scope of the lookup operation by setting the search base to
 any valid distinguished name that exists in the directory structure. By doing
-so, your lookup operation will only return objects that belong to this DN.
+so, your lookup operation will only return objects that fall under this DN.
 <p class="alert">If you specify a non-existing distinguished name as the base DN
 you will receive <code><a href="class-ADX.Enums.ServerResponse.html#NoSuchObject">ADX\Enums\ServerResponse::<b>NoSuchObject</b></a></code> error when executing
 the lookup operation.</p>
@@ -509,7 +701,7 @@ the lookup operation.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#228-300" title="Go to source code">run</a>( )</code>
+			<code><a href="source-class-ADX.Core.Task.html#367-439" title="Go to source code">run</a>( )</code>
 
 			<div class="description short">
 				
@@ -556,7 +748,7 @@ was chased<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run_paged">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#302-335" title="Go to source code">run_paged</a>( <span>integer <var>$page_size</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#441-470" title="Go to source code">run_paged</a>( <span>integer <var>$page_size</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -568,10 +760,7 @@ was chased<br />
 				
 <p>Return all pages at once when doing paged search operations</p>
 
-<p>Use this method to get a complete resultset with all pages at once. Note that
-pagination must be enabled first in order for this method to do something more
-than <code><a href="class-ADX.Core.Task.html#_run">ADX\Core\Task::run()</a></code>. You can enable it by calling self:use_pages()
-or by passing a number of objects per page into this method.</p>
+<p>Use this method to get a complete resultset with all pages at once.</p>
 
 
 
@@ -618,7 +807,7 @@ or by passing a number of objects per page into this method.</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-ADX.Core.Task.html#70-83" title="Go to source code"><var>$max_referrals</var></a>
+					<a href="source-class-ADX.Core.Task.html#79-92" title="Go to source code"><var>$max_referrals</var></a>
 			</td>
 			<td class="description"><div>
 				<a href="#$max_referrals" class="anchor">#</a>
@@ -656,7 +845,7 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms677913%28v=vs.85
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-ADX.Core.Task.html#85-97" title="Go to source code"><var>$complete</var></a>
+					<a href="source-class-ADX.Core.Task.html#94-106" title="Go to source code"><var>$complete</var></a>
 			</td>
 			<td class="description"><div>
 				<a href="#$complete" class="anchor">#</a>

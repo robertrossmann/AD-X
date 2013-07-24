@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Trait ADX\Core\Jsonizer | AD-X Library</title>
+	<title>Class ADX\Core\Delta | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
 	<script type="text/javascript" src="elementlist.js?2465905656"></script>
@@ -72,7 +72,7 @@
 			<ul>
 				<li><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
 				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
-				<li><a href="class-ADX.Core.Delta.html">Delta</a></li>
+				<li class="active"><a href="class-ADX.Core.Delta.html">Delta</a></li>
 				<li><a href="class-ADX.Core.Link.html">Link</a></li>
 				<li><a href="class-ADX.Core.Object.html">Object</a></li>
 				<li><a href="class-ADX.Core.Query.html">Query</a></li>
@@ -84,7 +84,7 @@
 
 			<h3>Traits</h3>
 			<ul>
-				<li class="active"><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
+				<li><a href="class-ADX.Core.Jsonizer.html">Jsonizer</a></li>
 			</ul>
 
 			<h3>Exceptions</h3>
@@ -111,23 +111,26 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Trait Jsonizer</h1>
+	<h1>Class Delta</h1>
 
 
+	<div class="description">
+	
+<p>A helper class returned upon retrieving changes from the directory server</p>
 
+<p>Instances of this class represent a current state of a search query for which
+you would later like to retrieve changes. You should always serialize these
+instances and store them for later use in order for the change tracking to
+work.</p>
 
-
-
-
-
-
-	<div>
-		<h3>Direct Known Users</h3>
-		<p class="elementList">
-			<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>, 
-			<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
-		</p>
 	</div>
+
+
+
+
+
+
+
 
 
 	<div class="alert alert-info">
@@ -136,52 +139,137 @@
 		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-ADX.Core.Jsonizer.html#190-199" title="Go to source code">common.php</a><br />
+				<b>See:</b>
+				<code><a href="class-ADX.Core.Task.html#_changes">ADX\Core\Task::changes()</a></code> Pull changes from Active Directory for a given query<br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Delta.html#25-108" title="Go to source code">Delta.php</a><br />
 	</div>
 
 
 
-		<h2>Methods summary</h2>
-		<table class="summary table table-bordered table-striped" id="methods">
-		<tr data-order="json" id="_json">
 
+
+
+
+
+		<h2>Properties summary</h2>
+
+
+
+		<h3>Magic properties</h3>
+		<table class="summary table table-bordered table-striped" id="magicProperties">
+		<tr data-order="result" id="m$result">
 			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
+				public  read-only
+				<code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Delta.html#33" title="Go to source code"><var>$result</var></a>
 			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#m$result" class="anchor">#</a>
 
-			<td class="name"><div>
-			<a class="anchor" href="#_json">#</a>
-			<code><a href="source-class-ADX.Core.Jsonizer.html#192-198" title="Go to source code">json</a>( )</code>
+				<div class="description short">
+					
+<p>The data returned by the current search ( not set on unserialised instances
+)</p>
 
-			<div class="description short">
-				
-			</div>
+				</div>
 
-			<div class="description detailed hidden">
-				
-
-
-
+				<div class="description detailed hidden">
+					
+<p>The data returned by the current search ( not set on unserialised instances
+)</p>
 
 
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="filter" id="m$filter">
+			<td class="attributes"><code>
+				public  read-only
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Delta.html#34" title="Go to source code"><var>$filter</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#m$filter" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>The filter used for the search</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>The filter used for the search</p>
 
 
-			</div>
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="attributes" id="m$attributes">
+			<td class="attributes"><code>
+				public  read-only
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Delta.html#35" title="Go to source code"><var>$attributes</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#m$attributes" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Attributes that you requested to be loaded from server for the returned
+objects</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Attributes that you requested to be loaded from server for the returned
+objects</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="server" id="m$server">
+			<td class="attributes"><code>
+				public  read-only
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Core.Delta.html#36" title="Go to source code"><var>$server</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#m$server" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>The server name that this search query was run on</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>The server name that this search query was run on</p>
+
+
+				</div>
 			</div></td>
 		</tr>
 		</table>
-
-
-
-		<h3>Magic methods summary</h3>
-
-
-
-
-
 
 
 

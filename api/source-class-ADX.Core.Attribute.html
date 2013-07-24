@@ -8,7 +8,7 @@
 	<title>File Attribute.php | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1582746296"></script>
+	<script type="text/javascript" src="elementlist.js?2465905656"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -74,6 +74,7 @@
 			<ul>
 				<li class="active"><a href="class-ADX.Core.Attribute.html">Attribute</a></li>
 				<li><a href="class-ADX.Core.Converter.html">Converter</a></li>
+				<li><a href="class-ADX.Core.Delta.html">Delta</a></li>
 				<li><a href="class-ADX.Core.Link.html">Link</a></li>
 				<li><a href="class-ADX.Core.Object.html">Object</a></li>
 				<li><a href="class-ADX.Core.Query.html">Query</a></li>
@@ -186,13 +187,13 @@
 </span><span id="73" class="l"><a class="l" href="#73"> 73 </a>        {
 </span><span id="74" class="l"><a class="l" href="#74"> 74 </a>            <span class="php-var">$this</span>-&gt;attributeSyntax  = <span class="php-var">$schema</span>[<span class="php-quote">'attributesyntax'</span>][<span class="php-num">0</span>];
 </span><span id="75" class="l"><a class="l" href="#75"> 75 </a>            <span class="php-var">$this</span>-&gt;omSyntax         = <span class="php-var">$schema</span>[<span class="php-quote">'omsyntax'</span>][<span class="php-num">0</span>];
-</span><span id="76" class="l"><a class="l" href="#76"> 76 </a>            <span class="php-var">$this</span>-&gt;isSingleValued   = <span class="php-var">$schema</span>[<span class="php-quote">'issinglevalued'</span>][<span class="php-num">0</span>] == <span class="php-quote">'TRUE'</span> ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;    <span class="php-comment">// I have to do manual conversion here</span>
-</span><span id="77" class="l"><a class="l" href="#77"> 77 </a>            <span class="php-var">$this</span>-&gt;isConstructed    = <span class="php-keyword1">isset</span>( <span class="php-var">$schema</span>[<span class="php-quote">'systemflags'</span>] ) ? (bool)( <span class="php-var">$schema</span>[<span class="php-quote">'systemflags'</span>][<span class="php-num">0</span>] &amp; Enums\SystemFlags::AttrIsConstructed ) : <span class="php-keyword1">false</span>;
-</span><span id="78" class="l"><a class="l" href="#78"> 78 </a>            <span class="php-var">$this</span>-&gt;isResolvable     = <span class="php-var">$this</span>-&gt;attributeSyntax === Enums\<span class="php-keyword2">Syntax</span>::DnString ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;
+</span><span id="76" class="l"><a class="l" href="#76"> 76 </a>            <span class="php-var">$this</span>-&gt;isSingleValued   = <span class="php-keyword1">isset</span>( <span class="php-var">$schema</span>[<span class="php-quote">'issinglevalued'</span>] )    ? ( <span class="php-var">$schema</span>[<span class="php-quote">'issinglevalued'</span>][<span class="php-num">0</span>] == <span class="php-quote">'TRUE'</span> ) : <span class="php-keyword1">false</span>;   <span class="php-comment">// I have to do manual conversion here</span>
+</span><span id="77" class="l"><a class="l" href="#77"> 77 </a>            <span class="php-var">$this</span>-&gt;isConstructed    = <span class="php-keyword1">isset</span>( <span class="php-var">$schema</span>[<span class="php-quote">'systemflags'</span>] )       ? (bool)( <span class="php-var">$schema</span>[<span class="php-quote">'systemflags'</span>][<span class="php-num">0</span>] &amp; Enums\SystemFlags::AttrIsConstructed ) : <span class="php-keyword1">false</span>;
+</span><span id="78" class="l"><a class="l" href="#78"> 78 </a>            <span class="php-var">$this</span>-&gt;isResolvable     = <span class="php-var">$this</span>-&gt;attributeSyntax === Enums\<span class="php-keyword2">Syntax</span>::DnString;
 </span><span id="79" class="l"><a class="l" href="#79"> 79 </a>        }
 </span><span id="80" class="l"><a class="l" href="#80"> 80 </a>
 </span><span id="81" class="l"><a class="l" href="#81"> 81 </a>        <span class="php-comment">// Ensure we have the values in an array</span>
-</span><span id="82" class="l"><a class="l" href="#82"> 82 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">is_array</span>( <span class="php-var">$values</span> ) ) <span class="php-var">$values</span> = [<span class="php-var">$values</span>];
+</span><span id="82" class="l"><a class="l" href="#82"> 82 </a>        <span class="php-var">$values</span> = (<span class="php-keyword1">array</span>)<span class="php-var">$values</span>;
 </span><span id="83" class="l"><a class="l" href="#83"> 83 </a>
 </span><span id="84" class="l"><a class="l" href="#84"> 84 </a>        <span class="php-comment">// Convert the value to a valid php value ( bool, timestamp conversions etc. )</span>
 </span><span id="85" class="l"><a class="l" href="#85"> 85 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$shouldConvert</span> ) <span class="php-var">$values</span> = Converter::from_ldap( <span class="php-var">$this</span>, <span class="php-var">$values</span> );
@@ -258,7 +259,7 @@
 </span><span id="145" class="l"><a class="l" href="#145">145 </a>        <span class="php-var">$ignoreChanges</span> = <span class="php-keyword1">isset</span>( <span class="php-var">$args</span>[<span class="php-num">1</span>] ) ? <span class="php-var">$args</span>[<span class="php-num">1</span>] : <span class="php-keyword1">false</span>;  <span class="php-comment">// This parameter is hidden</span>
 </span><span id="146" class="l"><a class="l" href="#146">146 </a>
 </span><span id="147" class="l"><a class="l" href="#147">147 </a>        <span class="php-comment">// Add new value or values to the attribute</span>
-</span><span id="148" class="l"><a class="l" href="#148">148 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">is_array</span>( <span class="php-var">$values</span> ) ) <span class="php-var">$values</span> = [<span class="php-var">$values</span>];
+</span><span id="148" class="l"><a class="l" href="#148">148 </a>        <span class="php-var">$values</span> = (<span class="php-keyword1">array</span>)<span class="php-var">$values</span>;
 </span><span id="149" class="l"><a class="l" href="#149">149 </a>
 </span><span id="150" class="l"><a class="l" href="#150">150 </a>        <span class="php-keyword1">foreach</span> ( <span class="php-var">$values</span> <span class="php-keyword1">as</span> <span class="php-var">$value</span> ) <span class="php-var">$this</span>-&gt;_set_value( <span class="php-var">$value</span>, <span class="php-keyword1">null</span>, <span class="php-var">$ignoreChanges</span> );
 </span><span id="151" class="l"><a class="l" href="#151">151 </a>
