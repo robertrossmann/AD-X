@@ -85,6 +85,7 @@ class Link
 	 * These attributes ( represented as {@link Attribute} ) are available by default:<br>
 	 * - dnshostname
 	 * - defaultnamingcontext
+	 * - highestcommittedusn
 	 * - supportedcontrol
 	 * - supportedldapversion
 	 * - supportedsaslmechanisms
