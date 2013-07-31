@@ -21,6 +21,7 @@
 
 
 namespace ADX\Core;
+use ADX\Core\Schema;
 use ADX\Enums;
 
 /**
@@ -308,6 +309,16 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 			// If someone does something like $adxObject->samaccountname->set('val') but samaccountname is not
 			// set in the object this will ensure that the script will not fail
 			// and data modification can continue as necessary.
+			// However, if we have the directory schema cached and user tries to retrieve an attribute
+			// that does not exist in the schema, we want to throw an exception instead of creating
+			// a new Attribute ( an exception would have been thrown during update process - AD would
+			// complain about non-existent attribute ).
+			if ( Schema::isCached() && Schema::get( $attribute ) === null )
+			{
+				throw new IncorrectParameterException( "Attribute $attribute does not exist in the Directory schema" );
+			}
+
+			// Either Schema is not cached or the attribute exists in the schema - let's continue
 			$attribute = new Attribute( $attribute );
 			$attribute->belongs_to( $this );
 
