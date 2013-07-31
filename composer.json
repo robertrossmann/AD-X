@@ -1,6 +1,6 @@
 {
 	"name": "alaneor/ad-x",
-	"description": "X-tremely powerful intefrace to Active Directory",
+	"description": "X-tremely powerful interface to Active Directory",
 	"keywords": ["Active Directory", "ldap"],
 	"homepage": "https://github.com/Alaneor/AD-X",
 	"license": "MIT",
