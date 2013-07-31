@@ -76,6 +76,17 @@ class Schema
 
 	final private function __construct() {}
 
+
+	/**
+	 * Is the Directory schema currently cached?
+	 *
+	 * @return		boolean		A boolean value identifying the presence or absence of the schema cache
+	 */
+	public static function isCached()
+	{
+		return file_exists( ADX_ROOT_PATH . static::$schema_dir . ADX_DS . '.lockfile' ) ? true : false;
+	}
+
 	/**
 	 * Build the local schema from server, using provided {@link Link}
 	 *
@@ -135,6 +146,9 @@ class Schema
 			}
 			while ( ! $task->complete );
 		}
+
+		// Generate a lockfile to identify the fact that the Schema is present
+		file_put_contents( $schemaDir . ADX_DS . '.lockfile', time() );
 	}
 
 	/**
