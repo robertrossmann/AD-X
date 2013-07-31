@@ -75,7 +75,8 @@ Please submit your bugs to the Github's [issue tracker](https://github.com/Alane
 
 #### Via Composer:
 
-`composer require alaneor/ad-x`
+`composer require alaneor/ad-x:dev-master`
+( visit [Packagist](https://packagist.org/packages/alaneor/ad-x) for list of all available versions )
 
 #### Manually:
 

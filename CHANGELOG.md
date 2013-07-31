@@ -1,5 +1,17 @@
 # Changelog
 
+### Version 0.2.1 ( 2013-07-31 )
+
+#### New features / changes
+
+ - Schema::isCached() returns the current state of the Schema cache
+
+#### Fixes
+
+ - Throw if the Schema cache is present and trying to work with Attribute not defined in Schema
+ - Fix conversion of timestamp-like attributes ( pwdLastSet, accountExpires etc. )
+ - Throw if Object::read does not receive a string as the first parameter
+
 ### Version 0.2 ( 2013-07-15 )
 
 #### New features / changes
