@@ -85,6 +85,7 @@ class Link
 	 * These attributes ( represented as {@link Attribute} ) are available by default:<br>
 	 * - dnshostname
 	 * - defaultnamingcontext
+	 * - highestcommittedusn
 	 * - supportedcontrol
 	 * - supportedldapversion
 	 * - supportedsaslmechanisms
@@ -291,7 +292,7 @@ class Link
 		}
 
 		// Successfully bound anonymously!
-		if ( ! is_array( $attributes ) ) $attributes = [$attributes];
+		$attributes = (array)$attributes;
 
 		// Read the rootDSE
 		$rootDSE = Object::read( '', $attributes, $this );
