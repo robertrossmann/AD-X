@@ -109,7 +109,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 			$result = $task->run();
 
-			if ( count( $result ) > 1 ) throw new Exception( 'Ambiguous results returned - please refine your search filter' );
+			if ( count( $result ) > 1 ) throw new Exception( "Ambiguous results returned - please refine your search filter ( $dnOrFilter )" );
 
 			return $result->first();
 		}
