@@ -190,10 +190,15 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 			// some strings and whatnot.
 
 			// Search for the specified value by typecasting it into string
+			$valueOrIndex = strtolower( (string)$valueOrIndex );
+
 			foreach ( $this->value as $i => $item )
 			{
-				if ( strtolower( (string)$item ) == strtolower( (string)$valueOrIndex ) ) $index = $i;
-				break;
+				if ( strtolower( (string)$item ) == $valueOrIndex )
+				{
+					$index = $i;
+					break;
+				}
 			}
 		}
 
