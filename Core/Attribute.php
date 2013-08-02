@@ -146,8 +146,18 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 
 		// Add new value or values to the attribute
 		$values = (array)$values;
+		$lowercase_values = array_map( 'strtolower', $this->value );
 
-		foreach ( $values as $value ) $this->_set_value( $value, null, $ignoreChanges );
+		foreach ( $values as $value )
+		{
+			// First, check if this object is a DnString and then check if we are trying to add a DN that
+			// is already present in the attribute
+			if ( $this->attributeSyntax == Enums\Syntax::DnString &&
+				! in_array( strtolower( $value ), $lowercase_values ) )
+			{
+				$this->_set_value( $value, null, $ignoreChanges );
+			}
+		}
 
 		return $this;
 	}
