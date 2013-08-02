@@ -113,7 +113,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		$this->_reindex();
 
 		// Special case - if negative index is specified, it returns data from the end of the Object
-		if ( $index < 0 && $this->count() !== 0 ) return $this->value( $this->count() - $index );
+		if ( $index < abs( $index ) ) return $this->value( $this->count() - abs( $index ) );
 
 		if ( isset( $this->value[$index] ) ) return $this->value[$index];	// The value at specified index exists - return it
 		if ( $index !== null && $this->count() === 0 ) return null;			// The value at specified index does NOT exist - return NULL
@@ -146,8 +146,18 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 
 		// Add new value or values to the attribute
 		$values = (array)$values;
+		$lowercase_values = array_map( 'strtolower', $this->value );
 
-		foreach ( $values as $value ) $this->_set_value( $value, null, $ignoreChanges );
+		foreach ( $values as $value )
+		{
+			// First, check if this object is a DnString and then check if we are trying to add a DN that
+			// is already present in the attribute
+			if ( $this->attributeSyntax == Enums\Syntax::DnString &&
+				! in_array( strtolower( $value ), $lowercase_values ) )
+			{
+				$this->_set_value( $value, null, $ignoreChanges );
+			}
+		}
 
 		return $this;
 	}
@@ -180,10 +190,15 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 			// some strings and whatnot.
 
 			// Search for the specified value by typecasting it into string
+			$valueOrIndex = strtolower( (string)$valueOrIndex );
+
 			foreach ( $this->value as $i => $item )
 			{
-				if ( strtolower( (string)$item ) == strtolower( (string)$valueOrIndex ) ) $index = $i;
-				break;
+				if ( strtolower( (string)$item ) == $valueOrIndex )
+				{
+					$index = $i;
+					break;
+				}
 			}
 		}
 

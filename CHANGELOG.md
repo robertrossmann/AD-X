@@ -1,5 +1,13 @@
 # Changelog
 
+### Version 0.2.2 ( 2013-08-02 )
+
+#### Fixes
+
+ - Fix accessing values from the end in Attribute::value() using negative indexes
+ - The Attribute::remove() method was not removing items passed as values
+ - Do not add the same distinguished name to a DN-syntax-based attribute more than once
+
 ### Version 0.2.1 ( 2013-07-31 )
 
 #### New features / changes
