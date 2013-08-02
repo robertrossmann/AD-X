@@ -113,7 +113,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		$this->_reindex();
 
 		// Special case - if negative index is specified, it returns data from the end of the Object
-		if ( $index < 0 && $this->count() !== 0 ) return $this->value( $this->count() - $index );
+		if ( $index < abs( $index ) ) return $this->value( $this->count() - abs( $index ) );
 
 		if ( isset( $this->value[$index] ) ) return $this->value[$index];	// The value at specified index exists - return it
 		if ( $index !== null && $this->count() === 0 ) return null;			// The value at specified index does NOT exist - return NULL
