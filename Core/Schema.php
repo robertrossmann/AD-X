@@ -139,7 +139,7 @@ class Schema
 						$filename = $object->ldapDisplayName(0) . ".json";
 						$data = $object->json();
 
-						file_put_contents( $schemaDir. ADX_DS . "$filename", $data );
+						file_put_contents( $schemaDir. ADX_DS . strtolower( $filename ), $data );
 					}
 				}
 				else throw new Exception( 'Maximum number of referrals reached' );
