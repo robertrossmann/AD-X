@@ -153,10 +153,12 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 			// First, check if this object is a DnString and then check if we are trying to add a DN that
 			// is already present in the attribute
 			if ( $this->attributeSyntax == Enums\Syntax::DnString &&
-				! in_array( strtolower( $value ), $lowercase_values ) )
+				in_array( strtolower( $value ), $lowercase_values ) )
 			{
-				$this->_set_value( $value, null, $ignoreChanges );
+				continue;	// Nothing to be done here - this DN is already there
 			}
+
+			$this->_set_value( $value, null, $ignoreChanges );
 		}
 
 		return $this;
