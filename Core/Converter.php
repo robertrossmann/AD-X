@@ -115,8 +115,12 @@ class Converter
 				break;
 
 			case 'unicodepwd':					// A password always needs special treatment
-			case 'objectguid':					// I want objectguid shown as AD tools show it ( like Powershell )
 				$method = $attribute;
+				break;
+
+			case 'objectguid':					// I want objectguid and msExchMailboxGuid shown
+			case 'msexchmailboxguid':			// as AD tools show it ( like Powershell )
+				$method = 'guid';
 				break;
 
 			// These attributes have LargeInt as syntax, but their meaning is different ( they represent a time )
@@ -235,7 +239,7 @@ class Converter
 		return $pwd;
 	}
 
-	protected static function _to_p_objectguid( $guid )
+	protected static function _to_p_guid( $guid )
 	{
 		// An interesting piece of code I have found that converts
 		// the objectguid exactly to what standard Powershell or other MS-based
@@ -254,7 +258,7 @@ class Converter
 		return $guid;
 	}
 
-	protected static function _to_l_objectguid( $guid )
+	protected static function _to_l_guid( $guid )
 	{
 		$guid = str_replace( '-', '', $guid );
 
