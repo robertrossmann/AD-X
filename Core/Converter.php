@@ -131,9 +131,9 @@ class Converter
 		// If a conversion method has been found, call it for all values in $value
 		$method = '_'.$direction.'_'.$method;
 
-		if ( is_callable( [$class, $method]) )
+		if ( is_callable( [$class, $method] ) )
 		{
-			foreach ( $values as $value ) $converted[] = call_user_func( [ $class, $method], $value );
+			foreach ( $values as $value ) $converted[] = call_user_func( [$class, $method], $value );
 		}
 		else $converted = $values;	// No conversion has been found - use the raw data
 
@@ -212,7 +212,7 @@ class Converter
 
 	protected static function _to_l_object( $object )
 	{
-		if ( $object instanceof Object && ! $object->dn )	throw new InvalidOperationException( "The object $object is not stored on server - please save your object first, then retry the action" );
+		if ( $object instanceof Object && ! $object->dn ) throw new InvalidOperationException( "The object $object is not stored on server - please save your object first, then retry the action" );
 
 		return ( $object instanceof object ) ? $object->dn : (string)$object;
 	}
