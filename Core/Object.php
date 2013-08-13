@@ -178,6 +178,13 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 			unset( $attributes['dn'] );
 		}
 
+		// Check if we are instantiating an objectclass override - in that case use the class' name
+		// as the objectclass attribute
+		if ( ! $comesFromLdap && stristr( get_class( $this ), 'ADX\\Classes\\' ) )
+		{
+			$attributes['objectclass'] = [ strtolower( str_ireplace( 'ADX\\Classes\\', "", get_class( $this ) ) ) ];
+		}
+
 		// Check for presence of the schema definition for the current class
 		if ( isset( $attributes['objectclass'] ) )
 		{

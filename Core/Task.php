@@ -431,7 +431,19 @@ class Task
 		$data = array();
 
 		// Create new objects from result, converting the values to php-compatible data formats on the way
-		foreach ( $result as $objectData ) $data[] = new Object( $this->adxLink, $objectData, true );
+		foreach ( $result as $objectData )
+		{
+			// Is there a special class defined for this particular object class ( under ADX\Classes namespace )?
+			// Use 'Object' if the objectClass attribute is either not present or there is no class override
+			if ( isset( $objectData['objectclass'] ) )
+			{
+				$class = 'ADX\\Classes\\' . end( $objectData['objectclass'] );
+				$class = class_exists( $class ) ? $class : 'ADX\Core\Object';
+			}
+			else $class = 'ADX\Core\Object';
+
+			$data[] = new $class( $this->adxLink, $objectData, true );
+		}
 
 		$this->complete = ! $this->cookie;	// As long as cookie is present, the result cannot be complete
 
