@@ -61,6 +61,14 @@ namespace ADX\Core;
  */
 class Query
 {
+	protected static $escapeMap = [
+		'\\'	=> '\5c',
+		'/'		=> '\2f',
+		'('		=> '\28',
+		')'		=> '\29',
+	//	'*'		=> '\2a', // Not escaping the asterisk because its primary use is to denote a wildcard; escape it yourself if you have to
+	];
+
 	/**
 	 * Build a logical AND filter - (&(attribute=value))
 	 *
@@ -151,6 +159,22 @@ class Query
 	 */
 	protected static function _stringify( $key, $value, $logic = null )
 	{
-		return "($key" . ( $logic ? ":$logic:" : "" ) . "=$value)";
+		return "($key" . ( $logic ? ":$logic:" : "" ) . "=" . static::_escape( $value ) . ")";
+	}
+
+	/**
+	 * Replace all characters that are not allowed in a ldap query's value with their escaped equivalents
+	 *
+	 * @param		string		The value to be escaped
+	 * @return		string		The escaped value
+	 */
+	protected static function _escape( $value )
+	{
+		$keys	= array_keys( static::$escapeMap );
+		$values	= array_values( static::$escapeMap );
+
+		$value	= str_ireplace( $keys, $values, $value );
+
+		return $value;
 	}
 }
