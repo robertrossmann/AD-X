@@ -25,7 +25,6 @@ namespace ADX\Core;
 use ADX\Enums;
 use ADX\Core\Query as q;
 
-
 /**
  * Performs lookup operations on ldap server
  *

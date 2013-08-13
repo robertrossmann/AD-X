@@ -21,6 +21,7 @@
 
 
 namespace ADX\Core;
+
 use ADX\Enums;
 
 /**
