@@ -150,7 +150,9 @@ class Converter
 
 	protected static function _to_l_timestamp( $timestamp )
 	{
-		if ( $timestamp === 0 ) return 0;
+		// 0 should always be, well, 0
+		// -1 is a special treatment for pwdLastSet ( -1 is used to disable password change requirement )
+		if ( $timestamp === 0 || $timestamp === -1 ) return $timestamp;
 
 		return ( ( $timestamp * 10000000 ) + 11644473600 );
 	}
