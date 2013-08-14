@@ -147,7 +147,7 @@ class Converter
 	{
 		if ( $timestamp === 0 ) return 0;
 
-		return ( ( $timestamp * 10000000 ) - 11644473600 );
+		return ( ( $timestamp * 10000000 ) + 11644473600 );
 	}
 
 	protected static function _to_p_timestamp( $timestamp )
@@ -158,7 +158,7 @@ class Converter
 		// Hopefully, this will not have any side effects...
 		if ( $timestamp === 0 || $timestamp === hexdec('0x7FFFFFFFFFFFFFFF') ) return 0;
 
-		return ( floor( $timestamp / 10000000 ) + 11644473600 );
+		return ( floor( $timestamp / 10000000 ) - 11644473600 );
 	}
 
 	protected static function _to_l_bool( $bool )
