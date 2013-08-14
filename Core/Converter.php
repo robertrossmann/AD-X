@@ -150,6 +150,8 @@ class Converter
 
 	protected static function _to_l_timestamp( $timestamp )
 	{
+		$timestamp = (int)$timestamp;
+
 		// 0 should always be, well, 0
 		// -1 is a special treatment for pwdLastSet ( -1 is used to disable password change requirement )
 		if ( $timestamp === 0 || $timestamp === -1 ) return $timestamp;
@@ -159,11 +161,13 @@ class Converter
 
 	protected static function _to_p_timestamp( $timestamp )
 	{
+		$timestamp = (int)$timestamp;
+
 		// The second part of the conditiona takes care of some crazy behaviour
 		// ( documented, though ) of accountExpires, which can be zero
 		// or 0x7FFFFFFFFFFFFFFF when the account is set to never expire.
 		// Hopefully, this will not have any side effects...
-		if ( $timestamp === 0 || $timestamp === hexdec('0x7FFFFFFFFFFFFFFF') ) return 0;
+		if ( $timestamp === 0 || $timestamp === hexdec( 0x7FFFFFFFFFFFFFFF ) ) return 0;
 
 		return ( floor( $timestamp / 10000000 ) - 11644473600 );
 	}
