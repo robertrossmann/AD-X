@@ -163,7 +163,7 @@ class Converter
 	{
 		$timestamp = (int)$timestamp;
 
-		// The second part of the conditiona takes care of some crazy behaviour
+		// The second part of the condition takes care of some crazy behaviour
 		// ( documented, though ) of accountExpires, which can be zero
 		// or 0x7FFFFFFFFFFFFFFF when the account is set to never expire.
 		// Hopefully, this will not have any side effects...
