@@ -36,7 +36,7 @@ function autoload( $class )
 	$class = str_ireplace( '\\', ADX_DS, $class );					// Convert the namespace path to file path
 	$class = str_ireplace( __NAMESPACE__ . ADX_DS, '', $class );	// Remove the current namespace from the path
 
-	$file = ADX_ROOT_PATH . ADX_DS . $class . '.php';				// Build the full file string by including current directory and file suffix
+	$file = ADX_ROOT_PATH . 'src' . ADX_DS . $class . '.php';		// Build the full file string by including current directory and file suffix
 
 	file_exists( $file ) && include_once $file;						// Include the file if it exists
 }
@@ -44,4 +44,4 @@ function autoload( $class )
 spl_autoload_register( 'ADX\autoload' );							// Register the autoloader
 
 // This little bugger is the only exception.:)
-require_once( ADX_ROOT_PATH . 'common.php' );
+require_once( ADX_ROOT_PATH . 'src' . ADX_DS . 'common.php' );
