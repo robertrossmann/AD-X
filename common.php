@@ -156,7 +156,6 @@ class UAC extends TypedefEnum
 	const TrustedToAuthenticateForDelegation	= 16777216;
 }
 
-
 class GroupType extends TypedefEnum
 {
 	const GlobalGroup		= 2;
