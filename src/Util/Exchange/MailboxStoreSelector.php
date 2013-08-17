@@ -68,4 +68,18 @@ class MailboxStoreSelector extends Selector
 
 		return $this->where( $serverFilter );
 	}
+
+	/**
+	 * Randomly pick one mailbox store from all available stores
+	 *
+	 * @return		Object		A single matched object from the original resultset
+	 */
+	public function pick()
+	{
+		$result = $this->all();
+
+		$item = array_rand( $result->to_array() );	// Randomly pick one item from the array
+
+		return $result[$item];
+	}
 }
