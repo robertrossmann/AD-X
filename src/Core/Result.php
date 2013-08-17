@@ -72,12 +72,12 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Create an instance of the class using provided data as array
 	 *
-	 * @param		array		The data to be used in the object ( usually, the array contains instances of {@link Object} )
+	 * @param		array|mixed		The data to be used in the object ( usually, an array that contains instances of {@link Object} or a single Object )
 	 */
 	public function __construct( $data )
 	{
-		$this->data		= $data;
-		$this->count	= count( $data );
+		$this->data		= (array)$data;
+		$this->count	= count( $this->data );
 	}
 
 	/**
