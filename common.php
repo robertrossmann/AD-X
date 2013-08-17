@@ -183,6 +183,13 @@ class SystemFlags extends TypedefEnum
 	const PartOfBaseSchema			= 16;
 }
 
+class ExchangeVersion extends TypedefEnum
+{
+	const v2007	= 4535486012416;
+	const v2010	= 44220983382016;
+	const v2013	= 88218628259840;
+}
+
 // http://blogs.technet.com/b/benw/archive/2007/04/05/exchange-2007-and-recipient-type-details.aspx
 class RecipientTypeDetails extends TypedefEnum
 {
