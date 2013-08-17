@@ -183,6 +183,34 @@ class SystemFlags extends TypedefEnum
 	const PartOfBaseSchema			= 16;
 }
 
+// http://blogs.technet.com/b/benw/archive/2007/04/05/exchange-2007-and-recipient-type-details.aspx
+class RecipientTypeDetails extends TypedefEnum
+{
+	const UserMailbox						= 1;
+	const LinkedMailbox						= 2;
+	const SharedMailbox						= 4;
+	const LegacyMailbox						= 8;
+	const RoomMailbox						= 16;
+	const EquipmentMailbox					= 32;
+	const MailContact						= 64;
+	const MailUser							= 128;
+	const MailUniversalDistributionGroup	= 256;
+	const MailNonUniversalGroup				= 512;
+	const MailUniversalSecurityGroup		= 1024;
+	const DynamicDistributionGroup			= 2048;
+	const PublicFolder						= 4096;
+	const SystemAttendantMailbox			= 8192;
+	const SystemMailbox						= 16384;
+	const MailForestContact					= 32768;
+	const User								= 65536;
+	const Contact							= 131072;
+	const UniversalDistributionGroup		= 262144;
+	const UniversalSecurityGroup			= 524288;
+	const NonUniversalGroup					= 1048576;
+	const DisabledUser						= 2097152;
+	const MicrosoftExchange					= 4194304;
+}
+
 
 namespace ADX\Core;
 
