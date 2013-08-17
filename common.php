@@ -211,6 +211,20 @@ class RecipientTypeDetails extends TypedefEnum
 	const MicrosoftExchange					= 4194304;
 }
 
+class RecipientDisplayType extends TypedefEnum
+{
+	const DistributionGroup			= 1;
+	const RemoteMailUser			= 2;
+	const DynamicDistributionGroup	= 3;
+	const Organization				= 4;
+	const PrivateDistributionList	= 5;
+	const MailUser					= 6;
+	const ConferenceRoomMailbox		= 7;
+	const EquipmentMailbox			= 8;
+	const ACLableMailboxUser		= 1073741824;
+	const SecurityDistributionGroup	= 1073741833;
+}
+
 
 namespace ADX\Core;
 
