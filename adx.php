@@ -33,7 +33,7 @@ namespace ADX;
 // have to write in order to have my classes autoloaded.
 function autoload( $class )
 {
-	$class = str_ireplace('\\', ADX_DS, $class );					// Convert the namespace path to file path
+	$class = str_ireplace( '\\', ADX_DS, $class );					// Convert the namespace path to file path
 	$class = str_ireplace( __NAMESPACE__ . ADX_DS, '', $class );	// Remove the current namespace from the path
 
 	$file = ADX_ROOT_PATH . ADX_DS . $class . '.php';				// Build the full file string by including current directory and file suffix
