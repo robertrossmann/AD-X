@@ -707,7 +707,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		if ( isset( $this->dn ) ) return $this->dn;
 		if ( isset( $this->data[$this->rdnAttId] ) ) return $this->data[$this->rdnAttId];
 
-		return get_called_class();
+		return get_class( $this );
 	}
 
 	/**
