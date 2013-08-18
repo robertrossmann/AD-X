@@ -1,6 +1,6 @@
 {
 	"name": "alaneor/ad-x",
-	"description": "X-tremely powerful interface to Active Directory",
+	"description": "X-tremely powerful Active Directory interface for php",
 	"keywords": ["Active Directory", "ldap"],
 	"homepage": "https://github.com/Alaneor/AD-X",
 	"license": "BSD-3",
