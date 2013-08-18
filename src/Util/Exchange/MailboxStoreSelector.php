@@ -69,7 +69,7 @@ class MailboxStoreSelector extends Selector
 	 */
 	public function pick()
 	{
-		$result = $this->all();
+		$result = $this->result instanceof \ADX\Core\Result ? $this->result : $this->all();
 
 		$item = array_rand( $result->to_array() );	// Randomly pick one item from the array
 
