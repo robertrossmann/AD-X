@@ -31,6 +31,9 @@ use ADX\Enums\Syntax;
  * internally to convert data automatically to php as it is received from
  * ldap server and also to convert data to ldap when data is being written
  * to ldap server.
+ *
+ * <p class="alert">The Converter <b>requires</b> the directory schema cache
+ * to be present, otherwise no conversion will be made.</p>
  */
 class Converter
 {
@@ -38,11 +41,27 @@ class Converter
 	final private function __construct() {}
 
 
+	/**
+	 * Convert a php-based value into ldap-compatible value
+	 *
+	 * @param		Attribute|string		The attribute's name the value belongs to
+	 * @param		array|mixed				An array of values or a single value to be converted of any type
+	 *
+	 * @return		array|mixed				The converted data, ready for writing into server
+	 */
 	public static function to_ldap( $attribute, $values )
 	{
 		return static::_convert( 'to_l', $attribute, $values );
 	}
 
+	/**
+	 * Convert an ldap-based value into php-compatible value
+	 *
+	 * @param		Attribute|string		The attribute's name the value belongs to
+	 * @param		array|mixed				An array of values or a single value to be converted of any type
+	 *
+	 * @return		array|mixed				The converted data, ready for usage in php
+	 */
 	public static function from_ldap( $attribute, $values )
 	{
 		return static::_convert( 'to_p', $attribute, $values );
