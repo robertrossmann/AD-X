@@ -29,7 +29,7 @@ class MailboxStoreSelector extends Selector
 	protected static $filter		= '(objectCategory=msExchPrivateMDB)';
 
 	protected static $base			= null;
-	protected static $attributes	= ['cn', 'msExchHomePublicMDB', 'msExchOwningServer', 'msExchUseOAB'];
+	protected static $attributes	= ['cn', 'msExchHomePublicMDB', 'msExchOwningServer', 'msExchUseOAB', 'msExchVersion'];
 	protected static $paged_search	= true;
 	protected static $sizelimit		= 1000;
 
