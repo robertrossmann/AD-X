@@ -232,6 +232,12 @@ class RecipientDisplayType extends TypedefEnum
 	const SecurityDistributionGroup	= 1073741833;
 }
 
+class ExchangeCommon extends TypedefEnum
+{
+	const AdminGroupLDN		= '/o=TietoEnator/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)';
+	const DefaultPolicyGUID	= '{26491cfc-9e50-4857-861b-0cb8df22b5d7}';
+}
+
 
 namespace ADX\Core;
 
