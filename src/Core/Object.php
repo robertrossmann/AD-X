@@ -34,7 +34,8 @@ use ADX\Enums;
  *
  * @see		{@link Attribute} - Attributes of an entity / object are represented by this class
  *
- * @property-read		string	$dn			The Distinguished name of the object ( available only for objects already stored in ldap database )
+ * @property-read		string	$dn			The Distinguished name of the object
+ * 											( available only for objects already stored in ldap database )
  */
 class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 {
@@ -87,6 +88,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * @param		string			The distinguished name of the entity to be loaded or an ldap filter that reaturns exactly one object
 	 * @param		array			Array of attributes to be loaded from the server
 	 * @param		Link			The configured and bound Link to server
+	 *
 	 * @return		self			Object containing the requested attributes
 	 */
 	public static function read( $dnOrFilter, $attributes, Link $adxLink )
@@ -132,6 +134,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @param		string		The json string, as returned by {@link self::json()}
 	 * @param		Link		The Link to be used for later server-side operations
+	 *
 	 * @return		Object		The restored object
 	 */
 	public static function restore( $json, Link $adxLink )
@@ -164,6 +167,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @param		Link		A configured and bound {@link Link} object
 	 * @param		array		A named array containing the attribute names as indexes and their values
+	 *
 	 * @return		self		A new instance of this class
 	 */
 	public function __construct( Link $adxLink, $attributes = array() )
@@ -215,6 +219,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * more information.
 	 *
 	 * @param		string		The distinguished name of the parent container where this object should be stored
+	 *
 	 * @return		self
 	 */
 	public function create( $dn )
@@ -298,6 +303,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * </code>
 	 *
 	 * @param		string			The name of the attribute, as defined on the ldap server
+	 *
 	 * @return		Attribute		An instance of Attribute class, holding the attribute's value(s)
 	 */
 	public function get( $attribute )
@@ -347,6 +353,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @param		string						The name of the attribute to be modified
 	 * @param		string|array|Attribute		The value(s) to be set on the attribute
+	 *
 	 * @return		self
 	 */
 	public function set( $attribute, $value )
@@ -369,6 +376,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * or an array with either the names or instances to be removed.
 	 *
 	 * @param		string|array|Attribute		The attribute(s) to be removed
+	 *
 	 * @return		self
 	 */
 	public function remove( $attributes = array() )
@@ -437,6 +445,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @param		string				The ldap name of the attribute to be resolved
 	 * @param		string|array		The attribute(s) the resolved objects should have
+	 *
 	 * @return		Result				The objects, contained within the Result class
 	 */
 	public function resolve( $attribute, $attributes = null )
@@ -700,7 +709,8 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * is returned if present on the object. If not, the name of the class
 	 * is returned.
 	 *
-	 * @return		string		Either a DN of the object, the value of the RDN attribute ( if present ) or class name, respectively
+	 * @return		string		Either a DN of the object, the value of the RDN attribute
+	 * 							( if present ) or class name, respectively
 	 */
 	public function __toString()
 	{

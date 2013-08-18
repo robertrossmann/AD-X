@@ -50,7 +50,8 @@ use ADX\Enums;
  * next batch of results.<br>
  * <br>
  * <p class="alert">Make sure you import the class into current namespace before trying to use it:<br>
- * <code>use ADX\Core\Link;</code><br>
+ * `use ADX\Core\Link;`
+ * <br>
  * To simplify the examples, the above line is not present in the examples but it is assumed you have
  * it in your implementation.</p>
  *
@@ -191,8 +192,10 @@ class Link
 	 * $link->bind( 'user@example.com', 'MySecretPassword' );	// Perform authenticated bind attempt
 	 * </code>
 	 *
-	 * @param		string		The username to be used for binding ( Visit <a href="http://msdn.microsoft.com/en-us/library/cc223499.aspx">MSDN</a> for possible formats )
+	 * @param		string		The username to be used for binding
+	 * 							( Visit <a href="http://msdn.microsoft.com/en-us/library/cc223499.aspx">MSDN</a> for possible formats )
 	 * @param		string		The password to be used for binding
+	 *
 	 * @return		self
 	 *
 	 * @see			<a href="http://php.net/manual/en/function.ldap-bind.php">PHP - ldap_bind()</a>
@@ -216,6 +219,7 @@ class Link
 	 * Bind to the directory using a sasl mechanism
 	 *
 	 * @todo		Implementation is missing at this moment; keeping the method here for future development
+	 *
 	 * @return		self
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-sasl-bind.php">PHP - ldap_sasl_bind()</a>
@@ -274,9 +278,11 @@ class Link
 	 *
 	 * @uses		Object::read()
 	 * @param		array		Array with the attributes you wish to have retrieved
+	 *
 	 * @return		Object		The Object representing the RootDSE entry with requested attributes
 	 *
-	 * @todo		Make the information requested via this method available in the {@link self::$rootDSE} property for subsequent reuse
+	 * @todo		Make the information requested via this method available in
+	 * 				the {@link self::$rootDSE} property for subsequent reuse
 	 */
 	public function rootDSE( $attributes = ['*', '+'] )
 	{
@@ -314,11 +320,14 @@ class Link
 	 *
 	 * @uses		self::use_extended_control()
 	 * @uses		Enums\ServerControl::ShowDeleted
-	 * @param		bool		If set to true, the feature is critical and server will not perform any operation if the feature is not available
+	 * @param		bool		If set to true, the feature is critical and server
+	 * 							will not perform any operation if the feature is not available
+	 *
 	 * @return		self
 	 *
 	 * @see			self::use_extended_control()
-	 * @see			<a href="http://www.php.net/manual/en/function.ldap-set-option.php">PHP - ldap_set_option()</a> ( LDAP_OPT_SERVER_CONTROLS )
+	 * @see			<a href="http://www.php.net/manual/en/function.ldap-set-option.php">PHP - ldap_set_option()</a>
+	 * 				( LDAP_OPT_SERVER_CONTROLS )
 	 */
 	public function show_deleted( $critical = false )
 	{
@@ -336,8 +345,10 @@ class Link
 	 * due to lack of knowledge about BER encoding in php...
 	 *
 	 * @param		string		The control OID of the server control to be used
-	 * @param		bool		If set to true, the feature is critical and server will not perform any operation if the feature is not available
+	 * @param		bool		If set to true, the feature is critical and server will
+	 * 							not perform any operation if the feature is not available
 	 * @param		mixed		Value to be sent along the control ( not supported yet )
+	 *
 	 * @return		self|false	Returns FALSE if the feature could not be enabled
 	 *
 	 * @see			Enums\ServerControl
@@ -387,6 +398,7 @@ class Link
 	 *
 	 * @internal
 	 * @param		string		The DNS domain name, as returned by directory server
+	 *
 	 * @return		self		The new Link object pointing to the new server
 	 */
 	public function _redirect( $domain )
@@ -484,6 +496,7 @@ class Link
 	 * </code>
 	 *
 	 * @internal
+	 *
 	 * @return		string		The domain name this link is connected to
 	 */
 	public function __toString()
@@ -501,6 +514,7 @@ class Link
 	 * Serialising a Link renders the object unusable!
 	 *
 	 * @internal
+	 *
 	 * @return		array		The object's properties to be serialised
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/language.oop5.magic.php#object.sleep">PHP - __sleep()</a>
@@ -528,6 +542,7 @@ class Link
 	 * @internal
 	 * @uses		self::$rootDSE
 	 * @uses		self::use_tls()
+	 *
 	 * @return		void
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/language.oop5.magic.php#object.wakeup">PHP - __wakeup()</a>
@@ -544,6 +559,7 @@ class Link
 	 * Unbinds from directory server when the object is destroyed
 	 *
 	 * @internal
+	 *
 	 * @return		void
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-unbind.php">PHP - ldap_unbind()</a>

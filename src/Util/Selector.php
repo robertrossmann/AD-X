@@ -68,7 +68,8 @@ abstract class Selector
 	/**
 	 * Get all objects that match the Selector
 	 *
-	 * @return		ADX\Core\Result|mixed		The Result containing all the matched objects or whatever the {@link self::_process_result()} returns
+	 * @return		ADX\Core\Result|mixed		The Result containing all the matched objects or
+	 * 											whatever the {@link self::_process_result()} returns
 	 */
 	public function all()
 	{
@@ -82,6 +83,19 @@ abstract class Selector
 		return $this->_lookup();
 	}
 
+	/**
+	 * Further customise the Selector by providing additional filter
+	 *
+	 * This is very useful if you want to write a generic Selector for all users,
+	 * but sometimes you only need to get disabled users. So, instead of writing
+	 * a new Selector for that purpose, you can use the `where()` method to refine
+	 * the search results.
+	 *
+	 * @param		string						A valid ldap filter. This will be added to the main filter using '&' logic
+	 *
+	 * @return		ADX\Core\Result|mixed		The Result containing all the matched objects or
+	 * 											whatever the {@link self::_process_result()} returns
+	 */
 	public function where( $filter )
 	{
 		// Build the search filter

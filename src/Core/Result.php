@@ -72,7 +72,8 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Create an instance of the class using provided data as array
 	 *
-	 * @param		array|mixed		The data to be used in the object ( usually, an array that contains instances of {@link Object} or a single Object )
+	 * @param		array|mixed		The data to be used in the object ( usually,
+	 * 								an array that contains instances of {@link Object} or a single Object )
 	 */
 	public function __construct( $data )
 	{
@@ -93,7 +94,8 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Return the first item in the resultset
 	 *
-	 * @return		mixed|null		The first item in the resultset, as returned from the directory server or null if the resultset is empty
+	 * @return		mixed|null		The first item in the resultset, as returned from the directory
+	 * 								server or null if the resultset is empty
 	 */
 	public function first()
 	{
@@ -103,7 +105,8 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Loop through all objects in the resultset, applying a callback on it
 	 *
-	 * @param		\Object		An optional object that the callback will be bound to ( the object will be assigned to $this )
+	 * @param		\Object		An optional object that the callback will be bound to
+	 * 							( the object will be assigned to $this )
 	 * @param		function	The callback function to be applied on each object
 	 */
 	public function each( $newthis = null, $callback = null )
@@ -117,8 +120,10 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	 * Use this function to loop through the objects in the resultset, evaluate each object
 	 * in turn and return the objects that you want to have in a new Result object.
 	 *
-	 * @param		\Object		An optional object that the callback will be bound to ( the object will be assigned to $this )
+	 * @param		\Object		An optional object that the callback will be bound to
+	 * 							( the object will be assigned to $this )
 	 * @param		function	The callback function to be applied on each object
+	 *
 	 * @return		self		A subset of items that your callbacks returned, encapsulated in the Result class
 	 */
 	public function filter( $newthis = null, $callback = null )
@@ -130,6 +135,7 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	 * Get an array of all unique values of a specified attribute within the resultset
 	 *
 	 * @param		string		The ldap name of the attribute to be uniquified
+	 *
 	 * @return		array		The array of all unique items within the resultset
 	 */
 	public function unique( $attribute )

@@ -39,7 +39,8 @@ use ADX\Core\Query as q;
  * together return the {@link self} object to avoid issues. See the example code below.<br>
  * <br>
  * <p class="alert">Make sure you import the class into current namespace before trying to use it:<br>
- * <code>use ADX\Core\Task;</code><br>
+ * `use ADX\Core\Task;`
+ * <br>
  * To simplify the examples, the above line is not present in the examples but it is assumed you have
  * it in your implementation.</p>
  *
@@ -64,7 +65,9 @@ use ADX\Core\Query as q;
  * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms678001%28v=vs.85%29.aspx">MSDN - Deciding Where To Search</a>
  *
  * @todo		Move all lookup error checking from {@link Object} to {@link self}
- * @todo		The connection pooling feature might need a rewrite - if I start a lookup operation with an account that has lower access rights than the one I used previously, AD-X might fail to perform the requested operation.
+ * @todo		The connection pooling feature might need a rewrite - if I start a lookup
+ * 				operation with an account that has lower access rights than the one I used
+ * 				previously, AD-X might fail to perform the requested operation.
  */
 class Task
 {
@@ -254,7 +257,9 @@ class Task
 	 *
 	 * @uses		Link
 	 * @uses		Enums\Operation
-	 * @param		string		The type of lookup operation you wish to perform, defined in {@link Enums\Operation}. While you can pass an explicit string as an argument, you are strongly discouraged from doing that.
+	 * @param		string		The type of lookup operation you wish to perform, defined
+	 * 							in {@link Enums\Operation}. While you can pass an explicit
+	 * 							string as an argument, you are strongly discouraged from doing that.
 	 * @param		Link		The Link the operation will be performed on
 	 */
 	public function __construct( $operationType, Link $adxLink )
@@ -278,6 +283,7 @@ class Task
 	 * @uses		Enums\ServerControl::PagedResults
 	 * @param		int		Number of objects in a single page ( default is 1000 )
 	 * @param		string		Base64-encoded pagination cookie to be re-used. If not specified, an empty cookie will be used
+	 *
 	 * @return		self
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-control-paged-result.php">PHP - ldap_control_paged_result()</a>
@@ -351,7 +357,9 @@ class Task
 	 * you will receive {@link Enums\ServerResponse::NoSuchObject} error when executing the
 	 * lookup operation.</p>
 	 *
-	 * @param		string		The distinguished name of an existing directory object / container<br><b>Default:</b> the base DN of the current domain
+	 * @param		string		The distinguished name of an existing directory object / container
+	 * 							<br><b>Default:</b> the base DN of the current domain
+	 *
 	 * @return		self
 	 */
 	public function base( $dn = null )
@@ -372,6 +380,7 @@ class Task
 	 * again on the object, without modifying the lookup criteria.
 	 *
 	 * @uses		Link::$rootDSE		to get the domain base dn ( from <i>defaultnamingcontext</i> ) if no override has been specified
+	 *
 	 * @return		Result|false		The Result object with returned Objects or FALSE if maximum number of referrals was chased
 	 */
 	public function run()
@@ -455,6 +464,7 @@ class Task
 	 * Use this method to get a complete resultset with all pages at once.
 	 *
 	 * @param		int			Optional size of objects per single page
+	 *
 	 * @return		Result		A Result object containing the objects on the server
 	 *
 	 * @see			self::use_pages()

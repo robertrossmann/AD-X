@@ -51,7 +51,7 @@ namespace ADX\Core;
  * // All users that do NOT have the email address set:
  * // ( notice that we pass multiple parameters to the
  * // Query::a() method - you can pass as many as you like -
- * // as long as they are hashes or strings )
+ * // as long as they are keyed arrays or strings )
  * $filter = Query::a(
  * 	['objectclass' => 'user'],
  * 	Query::n([ 'mail' => '*' ])	// We pass multiple parameters here to the Query::a() method
@@ -73,6 +73,7 @@ class Query
 	 * Build a logical AND filter - (&(attribute=value))
 	 *
 	 * @param	array|string	$data,...	Unlimited number of hash arrays or strings to be used
+	 *
 	 * @return	string						The generated ldap filter
 	 */
 	public static function a()
@@ -86,6 +87,7 @@ class Query
 	 * Build a logical OR filter - (|(attribute=value))
 	 *
 	 * @param	array|string	$data,...	Unlimited number of hash arrays or strings to be used
+	 *
 	 * @return	string						The generated ldap filter
 	 */
 	public static function o()
@@ -99,6 +101,7 @@ class Query
 	 * Build a logical NOT filter - (|(attribute=value))
 	 *
 	 * @param	array|string	$data,...	Unlimited number of hash arrays or strings to be used
+	 *
 	 * @return	string						The generated ldap filter
 	 */
 	public static function n()
@@ -127,7 +130,9 @@ class Query
 	/**
 	 * Loop through the arguments and generate a proper ldap filter using the provided operator
 	 *
-	 * @param	array	Array containing the attribute => value mappings, or a string with already generated ldap filter
+	 * @param	array	Array containing the attribute => value mappings, or a
+	 * 					string with already generated ldap filter
+	 *
 	 * @return	string	The generated ldap filter
 	 */
 	protected static function _parse( $args, $operator )
@@ -166,6 +171,7 @@ class Query
 	 * Replace all characters that are not allowed in a ldap query's value with their escaped equivalents
 	 *
 	 * @param		string		The value to be escaped
+	 *
 	 * @return		string		The escaped value
 	 */
 	protected static function _escape( $value )

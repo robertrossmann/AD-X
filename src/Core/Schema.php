@@ -96,6 +96,8 @@ class Schema
 	 * The location of the Schema is taken from the RootDSE's "schemanamingcontext" entry.
 	 *
 	 * @param		Link		The Link object to be used to connect to directory server
+	 *
+	 * @return		void
 	 */
 	public static function build( Link $adxLink )
 	{
@@ -156,6 +158,8 @@ class Schema
 	 * Clear the whole Schema cache folder
 	 *
 	 * This method clears all data from the Schema cache folder.
+	 *
+	 * @return		void
 	 */
 	public static function flush()
 	{
@@ -169,6 +173,7 @@ class Schema
 	 * for a specified attribute or object.
 	 *
 	 * @param		string		ldap name of the attribute / object you want the Schema data for
+	 *
 	 * @return		array|null	The Schema data for the specified attribute / object or null if that object is not present in the schema cache
 	 */
 	public static function get( $schema_object )

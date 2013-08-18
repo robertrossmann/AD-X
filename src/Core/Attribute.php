@@ -27,7 +27,8 @@ use ADX\Enums;
 /**
  * Contains logic for storing and manipulating the value(s) of a particular property of an {@link Object}.
  *
- * @property-read	bool	$isResolvable	If the attribute contains distinguished name(s), it is considered to be resolvable ( can be converted to an Object )
+ * @property-read	bool	$isResolvable	If the attribute contains distinguished name(s),
+ * 											it is considered to be resolvable ( the DNs can be converted to Objects )
  */
 class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializable
 {
@@ -106,6 +107,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * Get the value of the attribute, optionally at a specified index
 	 *
 	 * @param		integer			The optional index of the value
+	 *
 	 * @return		array|mixed		The array with all values ( if no index was provided ) or the value at the specified index
 	 */
 	public function value( $index = null )
@@ -138,6 +140,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * Add a value to the attribute, preserving already existing values
 	 *
 	 * @param		mixed|array		The value(s) to be added to the attribute
+	 *
 	 * @return		self
 	 */
 	public function add( $values )
@@ -173,6 +176,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * among the values ( which will also be converted to strings ).
 	 *
 	 * @param		integer|mixed		The index or other data that should be removed
+	 *
 	 * @return		self
 	 */
 	public function remove( $valueOrIndex )
@@ -219,6 +223,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * Set the value(s) of the attribute, replacing any existing values
 	 *
 	 * @param		mixed		The value(s) to be set
+	 *
 	 * @return		self
 	 */
 	public function set( $value )
@@ -231,7 +236,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	/**
 	 * Remove all values from the attribute
 	 *
-	 * @return    [type]    [description]
+	 * @return		self
 	 */
 	public function clear()
 	{
@@ -255,6 +260,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * to inform the attribute that it should belong to that Object instead.
 	 *
 	 * @param		Object		The new owner of this Attribute
+	 *
 	 * @return		self
 	 */
 	public function belongs_to( Object $object = null )

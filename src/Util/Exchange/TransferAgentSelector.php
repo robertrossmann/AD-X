@@ -56,7 +56,7 @@ class TransferAgentSelector extends Selector
 	}
 
 	/**
-	 * Get all mailbox stores for a particular Exchange server
+	 * Get all transfer agents for a particular Exchange server
 	 *
 	 * @param		Object|string		The Exchange server for which to return mailbox stores
 	 *

@@ -22,13 +22,17 @@
 
 namespace ADX\Enums;
 
-// Base class for all typedef enum imitations
+/**
+ * Base class for all enumerations
+ */
 class TypedefEnum
 {
 	final private function __construct() {}	// No instances allowed
 }
 
-// Define known ldap v3 & Active Directory errors/responses
+/**
+ * Defines known ldap v3 & Active Directory errors/responses
+ */
 class ServerResponse extends TypedefEnum
 {
 	const Success						= 0;
@@ -81,8 +85,11 @@ class ServerResponse extends TypedefEnum
 	const UserMustResetPassword			= 773;
 }
 
-// Server controls enumerator. For more info, see
-// http://msdn.microsoft.com/en-us/library/cc223320.aspx
+/**
+ * Server controls enumerator
+ *
+ * @see		<a href="http://msdn.microsoft.com/en-us/library/cc223320.aspx">LDAP Extended Controls</a>
+ */
 class ServerControl extends TypedefEnum
 {
 	const PagedResults			= '1.2.840.113556.1.4.319';		// Pagination control
@@ -94,7 +101,9 @@ class ServerControl extends TypedefEnum
 	const ShowRecycled			= '1.2.840.113556.1.4.2064';	// ( AD only ) Include recycled objects in search results ( more verbose than ShowDeleted )
 }
 
-// Library-specific. This is used when configuring Task object to perform a specific lookup operation
+/**
+ * Defines three standard lookup operations to be used with {@link Task}
+ */
 class Operation extends TypedefEnum
 {
 	const OpSearch	= 'ldap_search';
@@ -102,18 +111,27 @@ class Operation extends TypedefEnum
 	const OpRead	= 'ldap_read';
 }
 
-// This can be used to perform ldap search queries against binary attributes like useraccountcontrol
-// NOTE - this seems to be MS-only feature. In case of future plans to add compatibility with OpenLDAP,
-// it should be noted that this functionality is not available.
+/**
+ * Binary search operators to search for flags in enumerations
+ *
+ * This can be used to perform ldap search queries against binary attributes like userAccountControl.
+ * <br>
+ *
+ * <p class="alert">This seems to be MS-only feature. In case of future plans to add compatibility with OpenLDAP,
+ * it should be noted that this functionality is not available.</p>
+ */
 class BitwiseFilter extends TypedefEnum
 {
 	const B_And	= '1.2.840.113556.1.4.803';
 	const B_Or	= '1.2.840.113556.1.4.804';
 }
 
-// Defines known attribute syntaxes in Active Directory schema ( but only those worth defining )
-// See http://msdn.microsoft.com/en-us/library/windows/desktop/ms684419%28v=vs.85%29.aspx
-// or http://msdn.microsoft.com/en-us/library/cc223177.aspx
+/**
+ * Defines known attribute syntaxes in Active Directory schema ( but only those worth defining )
+ *
+ * @see		<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684419%28v=vs.85%29.aspx">Syntaxes</a>
+ * @see		<a href="http://msdn.microsoft.com/en-us/library/cc223177.aspx">LDAP Representations</a>
+ */
 class Syntax extends TypedefEnum
 {
 	const Binary			= '2.5.5.10';	// Binary data as usual - just raw ones and zeros
@@ -130,7 +148,9 @@ class Syntax extends TypedefEnum
 
 }
 
-// Enumerator for the useraccountcontrol attribute
+/**
+ * Enumerator for the infamous userAccountControl attribute
+ */
 class UAC extends TypedefEnum
 {
 	const Script								= 1;
@@ -156,6 +176,9 @@ class UAC extends TypedefEnum
 	const TrustedToAuthenticateForDelegation	= 16777216;
 }
 
+/**
+ * Enumerator for the GroupType attribute
+ */
 class GroupType extends TypedefEnum
 {
 	const GlobalGroup		= 2;
@@ -165,6 +188,9 @@ class GroupType extends TypedefEnum
 	const SecurityEnabled	= 2147483648;
 }
 
+/**
+ * Enumerator for the systemFlags attribute
+ */
 class SystemFlags extends TypedefEnum
 {
 	const DisallowDelete			= 2147483648;
@@ -183,6 +209,9 @@ class SystemFlags extends TypedefEnum
 	const PartOfBaseSchema			= 16;
 }
 
+/**
+ * Defines known MS Exchange version numbers as seen in msExchVersion attribute
+ */
 class ExchangeVersion extends TypedefEnum
 {
 	const v2007	= 4535486012416;
@@ -190,7 +219,11 @@ class ExchangeVersion extends TypedefEnum
 	const v2013	= 88218628259840;
 }
 
-// http://blogs.technet.com/b/benw/archive/2007/04/05/exchange-2007-and-recipient-type-details.aspx
+/**
+ * Defines known recpient types as per the RecipientTypeDetails attribute
+ *
+ * @see		http://blogs.technet.com/b/benw/archive/2007/04/05/exchange-2007-and-recipient-type-details.aspx
+ */
 class RecipientTypeDetails extends TypedefEnum
 {
 	const UserMailbox						= 1;
@@ -218,6 +251,9 @@ class RecipientTypeDetails extends TypedefEnum
 	const MicrosoftExchange					= 4194304;
 }
 
+/**
+ * Defines known recpient display types as per the RecipientDisplayType attribute
+ */
 class RecipientDisplayType extends TypedefEnum
 {
 	const DistributionGroup			= 1;
@@ -232,6 +268,9 @@ class RecipientDisplayType extends TypedefEnum
 	const SecurityDistributionGroup	= 1073741833;
 }
 
+/**
+ * Enumerator for some values that are statically hardcoded in MS Exchange
+ */
 class ExchangeCommon extends TypedefEnum
 {
 	const AdminGroupLDN		= '/o=TietoEnator/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)';
@@ -253,11 +292,14 @@ trait Jsonizer
 }
 
 
-// Base exception class for AD-X library
+/**
+ * Base exception class for AD-X library
+ */
 class Exception extends \Exception {}
 
-// This exception is thrown when the php's ldap library emits
-// error messages ( where taken care of in the code )
+/**
+ * This exception ( or its more specific subclass ) is thrown when any of php's ldap functions triggers errors
+ */
 class LdapNativeException extends Exception
 {
 	public function __construct( $link_id )
@@ -272,40 +314,60 @@ class LdapNativeException extends Exception
 	}
 }
 
-// This exception is thrown when trying to connect to server that does not support ldap v3 protocol
+/**
+ * Thrown when trying to connect to server that does not support ldap v3 protocol
+ */
 class UnsupportedPlatformException extends Exception
 {
 	protected $code		= 1001;
 	protected $message	= 'This domain does not support ldap v3 protocol';
 }
 
+/**
+ * Thrown when you provide an unexpected input to a method call
+ */
 class IncorrectParameterException extends Exception
 {
 	protected $code		= 1002;
 	protected $message	= 'The supplied value for the parameter is incorrect';
 }
 
+/**
+ * Thrown when the ldap attribute you are trying to modify cannot have multiple
+ * values or the maximum amount of values has been already reached
+ */
 class OutOfRangeException extends Exception
 {
 	protected $code		= 1003;
 	protected $message	= 'The supplied value is out of the range for the target attribute'; // TODO - maybe a better description?
 }
 
-// thrown when trying to modify a constructed attribute
+/**
+ * Thrown when trying to modify a constructed attribute
+ */
 class InvalidOperationException extends Exception
 {
 	protected $code		= 1004;
 	protected $message	= 'This operation is not allowed or available on the current object';
 }
 
-// Thrown if user's credentials are incorrect or if the account is not usable
-// for any reason ( locked, disabled, expired etc. )
+/**
+ * Thrown if user's credentials are incorrect or if the account is not usable
+ * for any reason ( locked, disabled, expired etc. )
+ */
 class InvalidCredentialsException extends LdapNativeException {}
 
-// Thrown when trying to set or modify an attribute that is not defined in ldap schema
+/**
+ * Thrown when trying to set or modify an attribute that is not defined in ldap schema
+ */
 class UndefinedTypeException extends LdapNativeException {}
 
+/**
+ * Thrown when the account does not have enough privileges to perform the requested operation
+ */
 class InsufficientAccessException extends LdapNativeException {}
 
-// Thrown when the ldap server is not reachable due to network issues
+/**
+ * Thrown when the ldap server is not reachable due to network issues
+ */
 class ServerUnreachableException extends LdapNativeException {}
