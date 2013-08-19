@@ -93,7 +93,7 @@ php ./vendor/bin/apigen.php
 
 ## License
 
-This software is licensed under the **MIT license**.
+This software is licensed under the **BSD (3-Clause) License**.
 See the [LICENSE](LICENSE) file for more information.
 
 ## Appreciate
