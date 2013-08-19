@@ -1,6 +1,6 @@
 # Configuration file for the ApiGen documentation builder
 
-source			: src
+source			: ADX
 destination		: docs/www
 
 charset			: utf8
