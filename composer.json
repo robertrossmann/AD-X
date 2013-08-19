@@ -23,6 +23,7 @@
 		"apigen/apigen": "~2.8.0"
 	},
 	"autoload": {
-		"files": ["adx.php"]
+		"psr-0": { "ADX\\": "src/" },
+		"files": ["src/common.php"]
 	}
 }

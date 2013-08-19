@@ -44,12 +44,6 @@ This will install the latest stable release:<br>
 `composer require alaneor/ad-x:dev-master`
 ( visit [Packagist](https://packagist.org/packages/alaneor/ad-x) for list of all available versions )
 
-#### Manually:
-
-1. Download the repository to your local storage
-1. Include the [adx.php](adx.php) file into your project
-1. Use the provided classes ( no need to include separate files )
-
 ### Post-installation ( optional, but **strongly recommended** ) :
 
 #### Generate the schema cache:

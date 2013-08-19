@@ -15,6 +15,11 @@
 
 namespace ADX\Enums;
 
+// Define path constants ( these constants are defined under global namespace )
+! defined( 'ADX_DS' )			&& define( 'ADX_DS', DIRECTORY_SEPARATOR );					// A little shortcut...
+! defined( 'ADX_ROOT_PATH' )	&& define( 'ADX_ROOT_PATH', dirname( __DIR__ ) . ADX_DS );	// Path to the main folder
+
+
 /**
  * Base class for all enumerations
  */
