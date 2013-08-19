@@ -19,7 +19,7 @@ The **AD-X** library aims to provide an easy-to-use, object-oriented and powerfu
  - *ldap v3* protocol support
  - Namespaced classes to prevent collisions
  - Exceptions-based error handling
- - Autoloading support ( either via Composer's autoloader or via standalone autoloader )
+ - Autoloading support via Composer
  - Object-to-json conversion for easy integration with your front-end
  - Optional simple ldap query builder
 
