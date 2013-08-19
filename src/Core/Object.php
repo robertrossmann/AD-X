@@ -326,7 +326,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 			}
 
 			// Either Schema is not cached or the attribute exists in the schema - let's continue
-			$attribute = new Attribute( $attribute );
+			$attribute = Attribute::make( $attribute );
 			$attribute->belongs_to( $this );
 
 			$this->data["$attribute"] = $attribute;
@@ -451,7 +451,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		foreach ( $data as $dn ) $objects[] = static::read( $dn, $attributes, $this->adxLink );
 
-		$this->data["$attribute"] = new Attribute( "$attribute", $objects, $this );
+		$this->data["$attribute"] = Attribute::make( "$attribute", $objects, $this );
 
 		return new Result( $objects );
 	}
@@ -582,7 +582,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		// Create the Attribute objects
 		foreach ( $cleanResult as $attribute => $value )
 		{
-			$result[$attribute] = new Attribute( $attribute, $value, $this, $performConversion );
+			$result[$attribute] = Attribute::make( $attribute, $value, $this, $performConversion );
 		}
 
 		// Return the clean data

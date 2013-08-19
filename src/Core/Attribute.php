@@ -44,6 +44,34 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 
 
 	/**
+	 * Create a new instance of Attribute or its defined subclass
+	 *
+	 * If you use this method to create a new instance of an Attribute, you ensure that
+	 * if there is an override defined in the ADX\Attributes namespace for a specific Attribute,
+	 * you will get instance of that class instead of the base class.
+	 *
+	 * The method accepts exactly the same parameters as {@link self::__construct()} - take
+	 * a look at that method's definition for more information.
+	 *
+	 * @param		string			The ldap display name of the attribute to be created
+	 * @param		mixed|array		The initial value(s) this attribute should have
+	 * @param		Object			An instance of {@link Object} this attribute belongs to
+	 *
+	 * @return		Attribute		An instance of the Attribute class or any of its subclasses, if defined in the ADX\Attributes namespace
+	 */
+	public static function make( $attribute, $values = array(), Object $object = null )
+	{
+		$args = func_get_args();
+		$shouldConvert = isset( $args[3] ) ? $args[3] : false;	// This parameter is hidden
+
+		$class = 'ADX\\Attributes\\' . $attribute;
+		$class = class_exists( $class ) ? $class : 'ADX\Core\Attribute';
+
+		return new $class( $attribute, $values, $object, $shouldConvert );
+	}
+
+
+	/**
 	 * Create a new instance of an attribute
 	 *
 	 * You should explicitly create new objects of this class only rarely - usually
