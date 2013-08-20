@@ -1,5 +1,13 @@
 # Changelog
 
+### Version 0.2.3 ( 2013-08-20 )
+
+#### Fixes
+
+ - Correct conversion of ldap timestamps, again... ( pwdLastSet, accountExpires etc. )
+ - Correct logic introduced in 0585fcd ( adding non-DN values to an attribute got broken )
+ - The schema cache files should be stored in lowercase filenames to ensure full compatibility with case-sensitive filesystems
+
 ### Version 0.2.2 ( 2013-08-02 )
 
 #### Fixes
