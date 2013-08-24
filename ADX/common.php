@@ -148,6 +148,9 @@ class Syntax extends TypedefEnum
 
 /**
  * Enumerator for the infamous userAccountControl attribute
+ *
+ * @see		<a href="http://support.microsoft.com/kb/305144">
+ *       	MSDN - How to use the UserAccountControl flags to manipulate user account properties</a>
  */
 class UAC extends TypedefEnum
 {
