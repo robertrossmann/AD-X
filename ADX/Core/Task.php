@@ -308,7 +308,8 @@ class Task
 	 * of the distinguished name.</p>
 	 *
 	 * @param		array|string		The attribute or attributes to be retrieved<br><b>Default:</b> <code>['*']</code>
-	 * @return		self
+	 *
+	 * @return		self|array			Self or the current set of attributes to be retrieved
 	 *
 	 */
 	public function attributes( $attributes = null )
@@ -326,8 +327,9 @@ class Task
 	/**
 	 * Get or set the ldap filter for the task
 	 *
-	 * @param		string		A valid ldap filter string<br><b>Default:</b> <code>"(objectclass=*)"</code>
-	 * @return		self
+	 * @param		string			A valid ldap filter string<br><b>Default:</b> <code>"(objectclass=*)"</code>
+	 *
+	 * @return		self|string		Self or the current search filter
 	 *
 	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx">MSDN - Search Filter Syntax</a>
 	 * @see			{@link Query}
@@ -352,10 +354,10 @@ class Task
 	 * you will receive {@link Enums\ServerResponse::NoSuchObject} error when executing the
 	 * lookup operation.</p>
 	 *
-	 * @param		string		The distinguished name of an existing directory object / container
-	 * 							<br><b>Default:</b> the base DN of the current domain
+	 * @param		string			The distinguished name of an existing directory object / container
+	 * 								<br><b>Default:</b> the base DN of the current domain
 	 *
-	 * @return		self
+	 * @return		self|string		Self or the current baseDN
 	 */
 	public function base( $dn = null )
 	{
