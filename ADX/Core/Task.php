@@ -483,6 +483,7 @@ class Task
 	public function run_paged( $page_size = null )
 	{
 		$sizelimit = $this->sizelimit;
+		$use_pages = $this->use_pages;
 
 		isset( $page_size ) ? $this->use_pages( $page_size ) : $this->use_pages();
 
@@ -500,6 +501,7 @@ class Task
 		}
 		while ( ! $this->complete );
 
+		$this->use_pages = $use_pages;
 		$this->sizelimit = $sizelimit;
 
 		return new Result( $resultset );
