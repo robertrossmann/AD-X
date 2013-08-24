@@ -33,6 +33,58 @@ use Rhumsaa\Uuid\Uuid;
 class User extends Object
 {
 	/**
+	 * Is the user's account locked?
+	 *
+	 * <p class='alert'>The attribute *lockoutTime* must be loaded from the server
+	 * in order for this method to function properly.</p>
+	 *
+	 * @return		bool
+	 */
+	public function is_locked()
+	{
+		return (bool)$this->lockoutTime(0);
+	}
+
+	/**
+	 * Is the user's account disabled?
+	 *
+	 * <p class='alert'>The attribute *userAccountControl* must be loaded from the server
+	 * in order for this method to function properly.</p>
+	 *
+	 * @return		bool
+	 */
+	public function is_disabled()
+	{
+		return $this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable );
+	}
+
+	/**
+	 * Is the user required to update the account's password?
+	 *
+	 * <p class='alert'>The attribute *pwdLastSet* must be loaded from the server
+	 * in order for this method to function properly.</p>
+	 *
+	 * @return		bool
+	 */
+	public function must_change_password()
+	{
+		return ! (bool)$this->pwdLastSet(0);
+	}
+
+	/**
+	 * Is the user's password expired?
+	 *
+	 * <p class='alert'>The attribute *userAccountControlComputed* must be loaded from the server
+	 * in order for this method to function properly.</p>
+	 *
+	 * @return		bool
+	 */
+	public function password_expired()
+	{
+		return $this->bit_state( 'userAccountControlComputed', Enums\UAC::PasswordExpired );
+	}
+
+	/**
 	 * Unlock the user's account
 	 *
 	 * @return		self
