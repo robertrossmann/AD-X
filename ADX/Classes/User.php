@@ -146,6 +146,9 @@ class User extends Object
 		// First check if we are not trying to mail-enable an already mail-enabled user
 		if ( $this->is_mailuser() || $this->has_mailbox() ) throw new Core\InvalidOperationException( "This user is already mail-enabled" );
 
+		// Tabula rasa ( clean slate )
+		$this->_remove_exchange_properties();
+
 		$store	= $this->_pick_mailbox_store( $mailboxDB );
 		$book	= $this->_pick_address_book( $showInAddressBook );
 		$server	= $store->resolve( 'msExchOwningServer', 'legacyExchangeDn' )->first();
@@ -189,6 +192,9 @@ class User extends Object
 	{
 		// First check if we are not trying to mail-enable an already mail-enabled user
 		if ( $this->is_mailuser() || $this->has_mailbox() ) throw new Core\InvalidOperationException( "This user is already mail-enabled" );
+
+		// Tabula rasa ( clean slate )
+		$this->_remove_exchange_properties();
 
 		$this->mail->set( $replyAddress ?: $externalAddress );
 
