@@ -99,6 +99,9 @@ class User extends Object
 	/**
 	 * Enable the user's account
 	 *
+	 * <p class='alert'>The attribute *userAccountControl* must be loaded from the server
+	 * in order for this method to function properly.</p>
+	 *
 	 * @return		self
 	 */
 	public function enable()
@@ -112,6 +115,9 @@ class User extends Object
 
 	/**
 	 * Disable the user's account
+	 *
+	 * <p class='alert'>The attribute *userAccountControl* must be loaded from the server
+	 * in order for this method to function properly.</p>
 	 *
 	 * @return		self
 	 */
@@ -156,7 +162,7 @@ class User extends Object
 	 * Does this user have an Exchange mailbox?
 	 *
 	 * <p class='alert'>The attribute *msExchMailboxGuid* must be loaded from the server
-	 * in order for this method to return accurate results.</p>
+	 * in order for this method to function properly.</p>
 	 *
 	 * @return		bool
 	 */
@@ -169,7 +175,7 @@ class User extends Object
 	 * Is the current user a mail user?
 	 *
 	 * <p class='alert'>The attribute *targetAddress* must be loaded from the server
-	 * in order for this method to return accurate results.</p>
+	 * in order for this method to function properly.</p>
 	 *
 	 * @return		bool
 	 */
@@ -181,7 +187,11 @@ class User extends Object
 	/**
 	 * Create an Exchange mailbox for this user
 	 *
+	 * <p class='alert'>The attribute *proxyAddresses* should be loaded from the server
+	 * to avoid unintended data loss.</p>
+	 *
 	 * @uses		self::has_mailbox()
+	 * @uses		self::is_mailuser()
 	 *
 	 * @param		string		The email address to be used with this mailbox
 	 * @param		mixed		@todo
@@ -229,7 +239,11 @@ class User extends Object
 	/**
 	 * Create an Exchange mailUser for this user
 	 *
+	 * <p class='alert'>The attribute *proxyAddresses* should be loaded from the server
+	 * to avoid unintended data loss.</p>
+	 *
 	 * @uses		self::is_mailuser()
+	 * @uses		self::has_mailbox()
 	 *
 	 * @param		string		The external email address to be associated with this mail user
 	 * @param		string		An optional reply address - this will become the primary SMTP address for the user
@@ -280,6 +294,9 @@ class User extends Object
 
 	/**
 	 * Disable the user's Exchange functionality
+	 *
+	 * <p class='alert'>The attribute *proxyAddresses* should be loaded from the server
+	 * to avoid unintended data loss.</p>
 	 *
 	 * @return		self
 	 */
