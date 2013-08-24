@@ -33,6 +33,23 @@ use Rhumsaa\Uuid\Uuid;
 class User extends Object
 {
 	/**
+	 * Use this attribute set when loading data from directory to satisfy all attribute
+	 * requirements and recommendations of the methods provided by this class
+	 *
+	 * @var		array
+	 */
+	public static $defaultAttributeSet = [
+		'userAccountControl',
+		'userAccountControlComputed',
+		'pwdLastSet',
+		'lockoutTime',
+		'msExchMailboxGuid',
+		'targetAddress',
+		'proxyAddresses',
+	];
+
+
+	/**
 	 * Is the user's account locked?
 	 *
 	 * <p class='alert'>The attribute *lockoutTime* must be loaded from the server
