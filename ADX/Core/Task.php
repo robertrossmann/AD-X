@@ -274,7 +274,7 @@ class Task
 	 * by invoking {@link Task::get_all_pages()} and you will get all the data with a single command.
 	 *
 	 * @uses		Enums\ServerControl::PagedResults
-	 * @param		int		Number of objects in a single page ( default is 1000 )
+	 * @param		int			Number of objects in a single page ( default is 1000 )
 	 * @param		string		Base64-encoded pagination cookie to be re-used. If not specified, an empty cookie will be used
 	 *
 	 * @return		self
