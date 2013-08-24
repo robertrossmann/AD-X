@@ -251,7 +251,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		if ( count( $changes ) === 0 ) return $this;	// Nothing to be updated
 
-		if ( ldap_modify( $link_id, $this->dn, $changes ) )
+		if ( @ldap_modify( $link_id, $this->dn, $changes ) )
 		{
 			// Successfully modified the object
 			$this->changedAttributes = array();
