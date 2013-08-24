@@ -302,8 +302,6 @@ class User extends Object
 	 */
 	public function mail_disable()
 	{
-		if ( ! in_array( 'proxyaddresses', $this->all_attributes() ) ) throw new Core\InvalidOperationException( "proxyAddresses attribute must be loaded from server for correct behaviour" );
-
 		$this->_remove_exchange_properties();
 
 		// Remove all Exchange related addresses from proxyAddresses list
