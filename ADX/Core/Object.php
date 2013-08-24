@@ -402,19 +402,19 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * $object = ADX\Core\Object::read( 'samaccountname=admin', ['userAccountControl'], $link );
 	 *
 	 * // Is this account disabled?
-	 * var_dump( $object->bit_state( ADX\Enums\UAC::AccountDisable, 'userAccountControl' ) );
+	 * var_dump( $object->bit_state( 'userAccountControl', ADX\Enums\UAC::AccountDisable ) );
 	 *
 	 * // Disable the user account
-	 * $object->bit_state( ADX\Enums\UAC::AccountDisable, 'userAccountControl', true );
+	 * $object->bit_state( 'userAccountControl', ADX\Enums\UAC::AccountDisable, true );
 	 * </code>
 	 *
-	 * @param		int			The bit's position to be retrieved / set ( you can use predefined values from the **ADX\Enums** namespace where applicable )
 	 * @param		string		The attribute name in which to check the bit's state
+	 * @param		int			The bit's position to be retrieved / set ( you can use predefined values from the **ADX\Enums** namespace where applicable )
 	 * @param		bool		The new value for the bit ( non-boolean values will be cast into boolean )
 	 *
 	 * @return		bool|self	The bit's state ( true / false ) or {@link self} when modifying bits
 	 */
-	public function bit_state( $bit, $attribute, $new_state = null )
+	public function bit_state( $attribute, $bit, $new_state = null )
 	{
 		if ( $new_state === null ) return (bool)( $this->$attribute(0) & $bit );
 
