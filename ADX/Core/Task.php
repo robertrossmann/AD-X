@@ -369,12 +369,14 @@ class Task
 	/**
 	 * Specify the maximum number of objects to be returned in a single lookup operation
 	 *
-	 * @param		int		The desired sizelimit
+	 * @param		int				The desired sizelimit
 	 *
-	 * @return		self
+	 * @return		self|int		Self or the current sizelimit
 	 */
-	public function sizelimit( $sizelimit )
+	public function sizelimit( $sizelimit = null )
 	{
+		if ( is_null( $sizelimit ) ) return $this->sizelimit;
+
 		$this->sizelimit = $sizelimit;
 
 		return $this;
