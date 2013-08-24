@@ -271,7 +271,7 @@ class Task
 	 * to 1000 objects by default ). Enable this functionality by invoking this
 	 * method on the Task and perform search queries using the same search criteria
 	 * using {@link Task::run()}. You can also avoid the overhead of calling this method multiple times
-	 * by invoking {@link Task::get_all_pages()} and you will get all the data with a single command.
+	 * by invoking {@link Task::run_paged()} and you will get all the data with a single command.
 	 *
 	 * @uses		Enums\ServerControl::PagedResults
 	 * @param		int			Number of objects in a single page ( default is 1000 )
