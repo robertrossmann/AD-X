@@ -129,6 +129,8 @@ class User extends Object
 	/**
 	 * Create an Exchange mailbox for this user
 	 *
+	 * @uses		self::has_mailbox()
+	 *
 	 * @param		string		The email address to be used with this mailbox
 	 * @param		mixed		@todo
 	 * @param		mixed		The address book the mail user should appear in. You can either omit this
@@ -141,6 +143,9 @@ class User extends Object
 	 */
 	public function new_mailbox( $replyAddress, $mailboxDB = null, $showInAddressBook = null )
 	{
+		// First check if we are not trying to mail-enable an already mail-enabled user
+		if ( $this->is_mailuser() || $this->has_mailbox() ) throw new Core\InvalidOperationException( "This user is already mail-enabled" );
+
 		$store	= $this->_pick_mailbox_store( $mailboxDB );
 		$book	= $this->_pick_address_book( $showInAddressBook );
 		$server	= $store->resolve( 'msExchOwningServer', 'legacyExchangeDn' )->first();
@@ -167,6 +172,8 @@ class User extends Object
 	/**
 	 * Create an Exchange mailUser for this user
 	 *
+	 * @uses		self::is_mailuser()
+	 *
 	 * @param		string		The external email address to be associated with this mail user
 	 * @param		string		An optional reply address - this will become the primary SMTP address for the user
 	 *							and the external address will be only used for forwarding
@@ -180,6 +187,9 @@ class User extends Object
 	 */
 	public function mail_enable( $externalAddress, $replyAddress = null, $showInAddressBook = null )
 	{
+		// First check if we are not trying to mail-enable an already mail-enabled user
+		if ( $this->is_mailuser() || $this->has_mailbox() ) throw new Core\InvalidOperationException( "This user is already mail-enabled" );
+
 		$this->mail->set( $replyAddress ?: $externalAddress );
 
 		if ( $replyAddress )
