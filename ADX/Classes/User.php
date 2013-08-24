@@ -53,7 +53,7 @@ class User extends Object
 	{
 		if ( ! in_array( 'useraccountcontrol', $this->all_attributes() ) ) throw new Core\InvalidOperationException( "userAccountControl attribute must be loaded from server for correct behaviour" );
 
-		$this->set( 'userAccountControl', $this->userAccountControl(0) & ~Enums\UAC::AccountDisable );
+		$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, false );
 
 		return $this;
 	}
@@ -67,7 +67,7 @@ class User extends Object
 	{
 		if ( ! in_array( 'useraccountcontrol', $this->all_attributes() ) ) throw new Core\InvalidOperationException( "userAccountControl attribute must be loaded from server for correct behaviour" );
 
-		$this->set( 'userAccountControl', $this->userAccountControl(0) | Enums\UAC::AccountDisable );
+		$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, true );
 
 		return $this;
 	}
