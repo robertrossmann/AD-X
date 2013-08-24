@@ -108,7 +108,8 @@ class Task
 	protected $attributes		= ['*'];			// Attributes to be fetched
 	protected $filter			= '(objectclass=*)';// Filter for the lookup operation
 
-	protected $page_size;							// If paged results have been enabled, this specifies the size of a single page
+	protected $sizelimit;							// The size of a single resultset
+	protected $use_pages		= false;			// Should paged search be used?
 	protected $cookie;								// If paged results have been enabled, this will contain the cookie returned by server
 
 	protected $referral_counter	= 0;				// Number of times a referral was chased
@@ -282,11 +283,12 @@ class Task
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-control-paged-result.php">PHP - ldap_control_paged_result()</a>
 	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746459%28v=vs.85%29.aspx">MSDN - Retrieving Large Results Sets</a>
 	 */
-	public function use_pages( $page_size = 1000, $encoded_cookie = '' )
+	public function use_pages( $sizelimit = null, $encoded_cookie = '' )
 	{
 		if ( in_array( Enums\ServerControl::PagedResults, $this->adxLink->rootDSE->supportedcontrol() ) )
 		{
-			$this->page_size	= $page_size;
+			$this->use_pages	= true;
+			$this->sizelimit	= $sizelimit ? $sizelimit : ( $this->sizelimit ?: 1000 );
 			$this->cookie		= $encoded_cookie === '' ? $encoded_cookie : base64_decode( $encoded_cookie );
 		}
 		else throw new Exception( "$this->adxLink does not support paged results" );
@@ -365,6 +367,20 @@ class Task
 	}
 
 	/**
+	 * Specify the maximum number of objects to be returned in a single lookup operation
+	 *
+	 * @param		int		The desired sizelimit
+	 *
+	 * @return		self
+	 */
+	public function sizelimit( $sizelimit )
+	{
+		$this->sizelimit = $sizelimit;
+
+		return $this;
+	}
+
+	/**
 	 * Perform the lookup operation on server and return the resultset
 	 *
 	 * This method sends the lookup request to the server with the
@@ -381,12 +397,12 @@ class Task
 		// Prepare the information needed for the operation
 		$link_id	= $this->adxLink->get_link();
 		$baseDN		= ( $this->dn || $this->dn === '' ) ? $this->dn : $this->adxLink->rootDSE->defaultnamingcontext(0);
-		if ( $this->page_size && $this->complete ) $this->cookie = '';	// Reset the cookie if the operation is started again
+		if ( $this->use_pages && $this->complete ) $this->cookie = '';	// Reset the cookie if the operation is started again
 		$this->complete = false;										// Reset the completion status
 
 		// Send the pagination control cookie if present
 		// I must check explicitly for NULL bcause '' also evaluates to FALSE
-		if ( $this->cookie !== null ) ldap_control_paged_result( $link_id, $this->page_size, true, $this->cookie );
+		if ( $this->cookie !== null ) ldap_control_paged_result( $link_id, $this->sizelimit, true, $this->cookie );
 
 		// Perform the lookup operation
 		// All exceptions thrown here will bubble up!
@@ -455,6 +471,8 @@ class Task
 	 * Return all pages at once when doing paged search operations
 	 *
 	 * Use this method to get a complete resultset with all pages at once.
+	 * The page size specified via this method call only applies for this lookup
+	 * operation and will be set to its previous value ( if any ).
 	 *
 	 * @param		int			Optional size of objects per single page
 	 *
@@ -464,6 +482,8 @@ class Task
 	 */
 	public function run_paged( $page_size = null )
 	{
+		$sizelimit = $this->sizelimit;
+
 		isset( $page_size ) ? $this->use_pages( $page_size ) : $this->use_pages();
 
 		$resultset = array();
@@ -479,6 +499,8 @@ class Task
 			else return false;
 		}
 		while ( ! $this->complete );
+
+		$this->sizelimit = $sizelimit;
 
 		return new Result( $resultset );
 	}
@@ -518,7 +540,7 @@ class Task
 
 		// Perform the operation
 		// Supress php errors - any error situations are handled by checking ldap error code below
-		$result_id = @$operation( $link_id, $dn, $filter, $attributes );
+		$result_id = @$operation( $link_id, $dn, $filter, $attributes, 0, ( $this->sizelimit ?: 0 ) );
 
 		if ( $result_id === false )	// Operation was unsuccessful
 		{
