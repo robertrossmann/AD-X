@@ -517,7 +517,8 @@ class Task
 		// $attributes = array_unique( $attributes );
 
 		// Perform the operation
-		$result_id = $operation( $link_id, $dn, $filter, $attributes );
+		// Supress php errors - any error situations are handled by checking ldap error code below
+		$result_id = @$operation( $link_id, $dn, $filter, $attributes );
 
 		if ( $result_id === false )	// Operation was unsuccessful
 		{
