@@ -101,6 +101,32 @@ class User extends Object
 	}
 
 	/**
+	 * Does this user have an Exchange mailbox?
+	 *
+	 * <p class='alert'>The attribute *msExchMailboxGuid* must be loaded from the server
+	 * in order for this method to return accurate results.</p>
+	 *
+	 * @return		bool
+	 */
+	public function has_mailbox()
+	{
+		return (bool)$this->msExchMailboxGuid();
+	}
+
+	/**
+	 * Is the current user a mail user?
+	 *
+	 * <p class='alert'>The attribute *targetAddress* must be loaded from the server
+	 * in order for this method to return accurate results.</p>
+	 *
+	 * @return		bool
+	 */
+	public function is_mailuser()
+	{
+		return (bool)$this->targetAddress();
+	}
+
+	/**
 	 * Create an Exchange mailbox for this user
 	 *
 	 * @param		string		The email address to be used with this mailbox
