@@ -563,6 +563,11 @@ class Task
 					throw new IncorrectParameterException( "The DN was of incorrect syntax: $dn." );
 					break;
 
+				case Enums\ServerResponse::SizelimitExceeded:
+				case Enums\ServerResponse::CompareFalse:
+				case Enums\ServerResponse::CompareTrue:
+					break;	// Not an error situation
+
 				default:
 
 					throw new LdapNativeException( $link_id );
