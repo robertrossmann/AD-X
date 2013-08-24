@@ -149,11 +149,13 @@ class User extends Object
 		// Tabula rasa ( clean slate )
 		$this->_remove_exchange_properties();
 
+		// Prepare dynamically calculated values
 		$store	= $this->_pick_mailbox_store( $mailboxDB );
 		$book	= $this->_pick_address_book( $showInAddressBook );
 		$server	= $store->resolve( 'msExchOwningServer', 'legacyExchangeDn' )->first();
 		$mta	= ( new TransferAgentSelector( $this->adxLink ) )->for_server( $server )->first();
 
+		// Set all attributes critical for a mailbox-enabled user
 		$this->mail							->set( $replyAddress );
 		$this->mailNickname					->set( explode( '@', $replyAddress )[0] );
 		$this->proxyAddresses				->add( "SMTP:" . $replyAddress );
@@ -196,8 +198,10 @@ class User extends Object
 		// Tabula rasa ( clean slate )
 		$this->_remove_exchange_properties();
 
+		// Set the correct mail address
 		$this->mail->set( $replyAddress ?: $externalAddress );
 
+		// Set the mailNickname and proxyAddresses
 		if ( $replyAddress )
 		{
 			$this->mailNickname->set( explode( '@', $replyAddress )[0] );
@@ -212,6 +216,7 @@ class User extends Object
 			$this->proxyAddresses->add( $externalAddress );
 		}
 
+		// Set or compute other critical attributes
 		$this->msExchRecipientDisplayType	->set( Enums\RecipientDisplayType::MailUser );
 		$this->targetAddress				->set( $externalAddress );
 		$this->showInAddressBook			->set( $this->_pick_address_book( $showInAddressBook ) );
