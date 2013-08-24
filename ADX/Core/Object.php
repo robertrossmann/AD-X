@@ -390,6 +390,42 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	}
 
 	/**
+	 * Get or set a bit in a bitfield attribute
+	 *
+	 * This method is useful for getting or setting bits in a bitfield attributes
+	 * like *userAccountControl*, *systemFlags* etc.
+	 *
+	 * <h2>Example:</h2>
+	 * <code>
+	 * // $link is a valid connection to a directory server
+	 * // Always load attributes you are going to modify from server first to prevent data loss
+	 * $object = ADX\Core\Object::read( 'samaccountname=admin', ['userAccountControl'], $link );
+	 *
+	 * // Is this account disabled?
+	 * var_dump( $object->bit_state( ADX\Enums\UAC::AccountDisable, 'userAccountControl' ) );
+	 *
+	 * // Disable the user account
+	 * $object->bit_state( ADX\Enums\UAC::AccountDisable, 'userAccountControl', true );
+	 * </code>
+	 *
+	 * @param		int			The bit's position to be retrieved / set ( you can use predefined values from the **ADX\Enums** namespace where applicable )
+	 * @param		string		The attribute name in which to check the bit's state
+	 * @param		bool		The new value for the bit ( non-boolean values will be cast into boolean )
+	 *
+	 * @return		bool|self	The bit's state ( true / false ) or {@link self} when modifying bits
+	 */
+	public function bit_state( $bit, $attribute, $new_state = null )
+	{
+		if ( $new_state === null ) return (bool)( $this->$attribute(0) & $bit );
+
+		$new_state = (bool)$new_state;
+		if ( $new_state === true )	$this->set( $attribute, $this->$attribute(0) | $bit );
+		if ( $new_state === false )	$this->set( $attribute, $this->$attribute(0) & ~$bit );
+
+		return $this;
+	}
+
+	/**
 	 * Resolve the attribute into individual instances of the {@link self} class
 	 *
 	 * If the attribute holds distinguished name(s) as its values, it is
