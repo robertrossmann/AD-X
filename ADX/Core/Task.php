@@ -535,6 +535,9 @@ class Task
 		$mandatory = [
 			'objectguid',
 			'objectclass',
+			// Following are not required but are used so frequently that they should be included by default
+			'cn',
+			'ou',
 		];
 
 		$attributes = array_merge( $attributes, $mandatory );
