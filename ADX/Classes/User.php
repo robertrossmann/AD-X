@@ -93,7 +93,7 @@ class User extends Object
 	 *
 	 * @return		self
 	 */
-	public function forcePasswordChange( $enable = true )
+	public function force_password_change( $enable = true )
 	{
 		$this->set( 'pwdLastSet', $enable ? 0 : -1 );
 
