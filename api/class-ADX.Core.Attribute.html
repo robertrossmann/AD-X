@@ -7,7 +7,7 @@
 	<title>Class ADX\Core\Attribute | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -140,6 +148,12 @@ property of an <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></c
 	</dl>
 
 
+	<div>
+		<h3>Direct known subclasses</h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Attributes.MsExchMailboxGuid.html">ADX\Attributes\MsExchMailboxGuid</a></code>
+		</p>
+	</div>
 
 
 
@@ -152,13 +166,68 @@ property of an <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></c
 		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-ADX.Core.Attribute.html#26-429" title="Go to source code">Attribute.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Attribute.html#20-509" title="Go to source code">Core/Attribute.php</a><br />
 	</div>
 
 
 
 		<h2>Methods summary</h2>
 		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="make" id="_make">
+
+			<td class="attributes"><code>
+				 public static
+				<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_make">#</a>
+			<code><a href="source-class-ADX.Core.Attribute.html#47-72" title="Go to source code">make</a>( <span>string <var>$attribute</var></span>, <span>mixed|array <var>$values</var> = <span class="php-keyword1">array</span>()</span>, <span><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> <var>$object</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Create a new instance of Attribute or its defined subclass</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create a new instance of Attribute or its defined subclass</p>
+
+<p>If you use this method to create a new instance of an Attribute, you ensure
+that if there is an override defined in the ADX\Attributes namespace for a
+specific Attribute, you will get instance of that class instead of the base
+class.</p>
+
+<p>The method accepts exactly the same parameters as <code><a href="class-ADX.Core.Attribute.html#___construct">ADX\Core\Attribute::__construct()</a></code>
+- take a look at that method's definition for more information.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code>string</code><br>The ldap display name of the attribute to be created</dd>
+						<dt><var>$values</var></dt>
+						<dd><code>mixed|array</code><br>The initial value(s) this attribute should have</dd>
+						<dt><var>$object</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br>An instance of <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> this attribute belongs to</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code></code><br>An instance of the Attribute class or any of its subclasses, if defined in the
+ADX\Attributes namespace<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="__construct" id="___construct">
 
 			<td class="attributes"><code>
@@ -170,7 +239,7 @@ property of an <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></c
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#51-92" title="Go to source code">__construct</a>( <span>string <var>$attribute</var></span>, <span>mixed|array <var>$values</var> = <span class="php-keyword1">array</span>()</span>, <span><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> <var>$object</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#75-116" title="Go to source code">__construct</a>( <span>string <var>$attribute</var></span>, <span>mixed|array <var>$values</var> = <span class="php-keyword1">array</span>()</span>, <span><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> <var>$object</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -216,7 +285,7 @@ Attribute class will be created for you automatically.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attribute">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#94-102" title="Go to source code">attribute</a>( )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#118-126" title="Go to source code">attribute</a>( )</code>
 
 			<div class="description short">
 				
@@ -253,7 +322,7 @@ Attribute class will be created for you automatically.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_value">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#104-121" title="Go to source code">value</a>( <span>integer <var>$index</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#128-146" title="Go to source code">value</a>( <span>integer <var>$index</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -296,7 +365,7 @@ specified index<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_ldap_data">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#123-134" title="Go to source code">ldap_data</a>( )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#148-159" title="Go to source code">ldap_data</a>( )</code>
 
 			<div class="description short">
 				
@@ -336,7 +405,7 @@ is suitable for storage in an ldap database.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_add">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#136-153" title="Go to source code">add</a>( <span>mixed|array <var>$values</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#161-191" title="Go to source code">add</a>( <span>mixed|array <var>$values</var></span> )</code>
 
 			<div class="description short">
 				
@@ -378,7 +447,7 @@ is suitable for storage in an ldap database.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_remove">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#155-198" title="Go to source code">remove</a>( <span>integer|mixed <var>$valueOrIndex</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#193-244" title="Go to source code">remove</a>( <span>integer|mixed <var>$valueOrIndex</var></span> )</code>
 
 			<div class="description short">
 				
@@ -426,7 +495,7 @@ be looked up among the values ( which will also be converted to strings ).</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#200-211" title="Go to source code">set</a>( <span>mixed <var>$value</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#246-258" title="Go to source code">set</a>( <span>mixed <var>$value</var></span> )</code>
 
 			<div class="description short">
 				
@@ -461,14 +530,14 @@ be looked up among the values ( which will also be converted to strings ).</p>
 
 			<td class="attributes"><code>
 				 public 
-				[type]
+				<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_clear">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#213-229" title="Go to source code">clear</a>( )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#260-278" title="Go to source code">clear</a>( )</code>
 
 			<div class="description short">
 				
@@ -485,7 +554,46 @@ be looked up among the values ( which will also be converted to strings ).</p>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code>[type]</code><br>[description]<br />
+						<code><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="reset" id="_reset">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_reset">#</a>
+			<code><a href="source-class-ADX.Core.Attribute.html#280-297" title="Go to source code">reset</a>( )</code>
+
+			<div class="description short">
+				
+<p>Restore the attribute's value(s) to those present at instantiation,
+discarding all changes made since</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Restore the attribute's value(s) to those present at instantiation,
+discarding all changes made since</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code></code><br />
 					</div>
 
 
@@ -505,7 +613,7 @@ be looked up among the values ( which will also be converted to strings ).</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_belongs_to">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#231-250" title="Go to source code">belongs_to</a>( <span><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> <var>$object</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#299-319" title="Go to source code">belongs_to</a>( <span><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> <var>$object</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -552,7 +660,7 @@ should belong to that Object instead.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_count">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#252-264" title="Go to source code">count</a>( )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#321-333" title="Go to source code">count</a>( )</code>
 
 			<div class="description short">
 				
@@ -593,7 +701,7 @@ should belong to that Object instead.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___toString">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#391-394" title="Go to source code">__toString</a>( )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#471-474" title="Go to source code">__toString</a>( )</code>
 
 			<div class="description short">
 				
@@ -622,7 +730,7 @@ should belong to that Object instead.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___get">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#396-414" title="Go to source code">__get</a>( <span>mixed <var>$attribute</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#476-494" title="Go to source code">__get</a>( <span>mixed <var>$attribute</var></span> )</code>
 
 			<div class="description short">
 				
@@ -651,7 +759,7 @@ should belong to that Object instead.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___invoke">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#416-419" title="Go to source code">__invoke</a>( <span>mixed <var>$index</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#496-499" title="Go to source code">__invoke</a>( <span>mixed <var>$index</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -680,7 +788,7 @@ should belong to that Object instead.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___clone">#</a>
-			<code><a href="source-class-ADX.Core.Attribute.html#421-428" title="Go to source code">__clone</a>( )</code>
+			<code><a href="source-class-ADX.Core.Attribute.html#501-508" title="Go to source code">__clone</a>( )</code>
 
 			<div class="description short">
 				
@@ -747,7 +855,7 @@ should belong to that Object instead.</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-ADX.Core.Attribute.html#29" title="Go to source code"><var>$isResolvable</var></a>
+					<a href="source-class-ADX.Core.Attribute.html#23-24" title="Go to source code"><var>$isResolvable</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>
@@ -756,14 +864,14 @@ should belong to that Object instead.</p>
 				<div class="description short">
 					
 <p>If the attribute contains distinguished name(s), it is considered to be
-resolvable ( can be converted to an Object )</p>
+resolvable ( the DNs can be converted to Objects )</p>
 
 				</div>
 
 				<div class="description detailed hidden">
 					
 <p>If the attribute contains distinguished name(s), it is considered to be
-resolvable ( can be converted to an Object )</p>
+resolvable ( the DNs can be converted to Objects )</p>
 
 
 				</div>

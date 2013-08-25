@@ -7,7 +7,7 @@
 	<title>Class ADX\Core\Object | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -143,6 +151,12 @@ the <code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> 
 	</dl>
 
 
+	<div>
+		<h3>Direct known subclasses</h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+		</p>
+	</div>
 
 
 
@@ -158,7 +172,7 @@ the <code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> 
 				<b>See:</b>
 				<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> - Attributes of an entity / object are represented by this
 class<br />
-		<b>Located at</b> <a href="source-class-ADX.Core.Object.html#27-730" title="Go to source code">Object.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Object.html#21-821" title="Go to source code">Core/Object.php</a><br />
 	</div>
 
 
@@ -176,7 +190,7 @@ class<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_read">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#53-116" title="Go to source code">read</a>( <span>string <var>$dnOrFilter</var></span>, <span>array <var>$attributes</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#48-112" title="Go to source code">read</a>( <span>string <var>$dnOrFilter</var></span>, <span>array <var>$attributes</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
 
 			<div class="description short">
 				
@@ -285,7 +299,7 @@ reaturns exactly one object</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_restore">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#118-141" title="Go to source code">restore</a>( <span>string <var>$json</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#114-138" title="Go to source code">restore</a>( <span>string <var>$json</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
 
 			<div class="description short">
 				
@@ -340,7 +354,7 @@ use this method only with modified data if you plan to call <code><a href="class
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#144-200" title="Go to source code">__construct</a>( <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>() </span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#141-212" title="Go to source code">__construct</a>( <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>() </span> )</code>
 
 			<div class="description short">
 				
@@ -362,21 +376,29 @@ the directory server.</p>
 class="php-comment">// Import the class into the current namespace</span>
 
 <span
-class="php-comment">// Create the instance and specify the 'objectclass' and 'mail' attributes immediately</span>
+class="php-comment">// Create the instance and specify the 'objectclass', 'cn' and 'samAccountName'</span>
+<span
+class="php-comment">// attributes immediately</span>
+<span
+class="php-comment">// ( $link is an instance of fully configured ADX\Core\Link )</span>
 <span
 class="php-var">$object</span> = <span
 class="php-keyword1">new</span> Object( <span
 class="php-var">$link</span>, [<span
 class="php-quote">'objectclass'</span> =&gt; <span
-class="php-quote">'user'</span>, <span
-class="php-quote">'mail'</span> =&gt; <span
-class="php-quote">'robert@company.com'</span>] );
+class="php-quote">'user'</span>, <span class="php-quote">'cn'</span> =&gt; <span
+class="php-quote">'Rossmann Robert'</span>, <span
+class="php-quote">'samAccountName'</span> =&gt; <span
+class="php-quote">'robertrossmann'</span>] );
 
 <span
 class="php-comment">// Optionally, further modify the object as needed</span>
 <span
 class="php-var">$object</span>-&gt;givenName-&gt;set( <span
 class="php-quote">'Robert'</span> );
+<span
+class="php-var">$object</span>-&gt;sn-&gt;set( <span
+class="php-quote">'Rossmann'</span> );
 
 <span
 class="php-comment">// Save the object to the server</span>
@@ -384,6 +406,9 @@ class="php-comment">// Save the object to the server</span>
 class="php-var">$object</span>-&gt;create( <span
 class="php-quote">'OU=admins,DC=corp,DC=company,DC=com'</span> );
 </pre>
+
+<p class="alert">To create users in Active Directory, you should use the <code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code> class for best usability. The axample above is just to
+demonstrate the basic usage.</p>
 
 
 
@@ -417,7 +442,7 @@ class="php-quote">'OU=admins,DC=corp,DC=company,DC=com'</span> );
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#202-229" title="Go to source code">create</a>( <span>string <var>$dn</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#214-242" title="Go to source code">create</a>( <span>string <var>$dn</var></span> )</code>
 
 			<div class="description short">
 				
@@ -464,7 +489,7 @@ stored</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_update">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#231-256" title="Go to source code">update</a>( )</code>
+			<code><a href="source-class-ADX.Core.Object.html#244-269" title="Go to source code">update</a>( )</code>
 
 			<div class="description short">
 				
@@ -504,7 +529,7 @@ server.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#258-274" title="Go to source code">delete</a>( )</code>
+			<code><a href="source-class-ADX.Core.Object.html#271-287" title="Go to source code">delete</a>( )</code>
 
 			<div class="description short">
 				
@@ -529,6 +554,48 @@ and not use it again to prevent unexpected errors.</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="move" id="_move">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_move">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#289-311" title="Go to source code">move</a>( <span><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>|string <var>$new_parent</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Move the object to a new parent container</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Move the object to a new parent container</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$new_parent</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>|string</code><br>The new container to hold the object</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="get" id="_get">
 
 			<td class="attributes"><code>
@@ -540,7 +607,7 @@ and not use it again to prevent unexpected errors.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#276-329" title="Go to source code">get</a>( <span>string <var>$attribute</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#313-367" title="Go to source code">get</a>( <span>string <var>$attribute</var></span> )</code>
 
 			<div class="description short">
 				
@@ -607,7 +674,7 @@ class="php-quote">'mail'</span> )-&gt;value() );
 
 			<td class="name"><div>
 			<a class="anchor" href="#_set">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#331-355" title="Go to source code">set</a>( <span>string <var>$attribute</var></span>, <span>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$value</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#369-394" title="Go to source code">set</a>( <span>string <var>$attribute</var></span>, <span>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$value</var></span> )</code>
 
 			<div class="description short">
 				
@@ -656,7 +723,7 @@ instance will be replaced.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_remove">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#357-381" title="Go to source code">remove</a>( <span>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$attributes</var> = <span class="php-keyword1">array</span>() </span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#396-421" title="Go to source code">remove</a>( <span>string|array|<code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code> <var>$attributes</var> = <span class="php-keyword1">array</span>() </span> )</code>
 
 			<div class="description short">
 				
@@ -690,6 +757,84 @@ class or an array with either the names or instances to be removed.</p>
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="bit_state" id="_bit_state">
+
+			<td class="attributes"><code>
+				 public 
+				boolean|<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_bit_state">#</a>
+			<code><a href="source-class-ADX.Core.Object.html#423-457" title="Go to source code">bit_state</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$bit</var></span>, <span>boolean <var>$new_state</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Get or set a bit in a bitfield attribute</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get or set a bit in a bitfield attribute</p>
+
+<p>This method is useful for getting or setting bits in a bitfield attributes
+like <em>userAccountControl</em>, <em>systemFlags</em> etc.</p>
+
+<h2>Example:</h2>
+
+<pre>
+<span
+class="php-comment">// $link is a valid connection to a directory server</span>
+<span
+class="php-comment">// Always load attributes you are going to modify from server first to prevent data loss</span>
+<span
+class="php-var">$object</span> = ADX\Core\Object::read( <span
+class="php-quote">'samaccountname=admin'</span>, [<span
+class="php-quote">'userAccountControl'</span>], <span
+class="php-var">$link</span> );
+
+<span
+class="php-comment">// Is this account disabled?</span>
+<span
+class="php-keyword2">var_dump</span>( <span
+class="php-var">$object</span>-&gt;bit_state( <span
+class="php-quote">'userAccountControl'</span>, ADX\Enums\UAC::AccountDisable ) );
+
+<span
+class="php-comment">// Disable the user account</span>
+<span
+class="php-var">$object</span>-&gt;bit_state( <span
+class="php-quote">'userAccountControl'</span>, ADX\Enums\UAC::AccountDisable, <span
+class="php-keyword1">true</span> );
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code>string</code><br>The attribute name in which to check the bit's state</dd>
+						<dt><var>$bit</var></dt>
+						<dd><code>integer</code><br>The bit's position to be retrieved / set ( you can use predefined values from
+the <strong>ADX\Enums</strong> namespace where applicable )</dd>
+						<dt><var>$new_state</var></dt>
+						<dd><code>boolean</code><br>The new value for the bit ( non-boolean values will be cast into boolean )</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean|<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code></code><br>The bit's state ( true / false ) or <code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> when modifying bits<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="resolve" id="_resolve">
 
 			<td class="attributes"><code>
@@ -701,7 +846,7 @@ class or an array with either the names or instances to be removed.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_resolve">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#383-447" title="Go to source code">resolve</a>( <span>string <var>$attribute</var></span>, <span>string|array <var>$attributes</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Object.html#459-524" title="Go to source code">resolve</a>( <span>string <var>$attribute</var></span>, <span>string|array <var>$attributes</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -824,7 +969,7 @@ class="php-comment">// Use a shorter syntax to print the same information</span>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_parent">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#449-466" title="Go to source code">parent</a>( )</code>
+			<code><a href="source-class-ADX.Core.Object.html#526-543" title="Go to source code">parent</a>( )</code>
 
 			<div class="description short">
 				
@@ -864,7 +1009,7 @@ if created locally. Otherwise, the parent cannot be known.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_count">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#468-476" title="Go to source code">count</a>( )</code>
+			<code><a href="source-class-ADX.Core.Object.html#545-553" title="Go to source code">count</a>( )</code>
 
 			<div class="description short">
 				
@@ -903,7 +1048,7 @@ if created locally. Otherwise, the parent cannot be known.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_all_attributes">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#478-486" title="Go to source code">all_attributes</a>( )</code>
+			<code><a href="source-class-ADX.Core.Object.html#555-563" title="Go to source code">all_attributes</a>( )</code>
 
 			<div class="description short">
 				
@@ -940,7 +1085,7 @@ if created locally. Otherwise, the parent cannot be known.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___toString">#</a>
-			<code><a href="source-class-ADX.Core.Object.html#687-703" title="Go to source code">__toString</a>( )</code>
+			<code><a href="source-class-ADX.Core.Object.html#777-794" title="Go to source code">__toString</a>( )</code>
 
 			<div class="description short">
 				
@@ -1020,7 +1165,7 @@ class name, respectively<br />
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-ADX.Core.Object.html#36" title="Go to source code"><var>$dn</var></a>
+					<a href="source-class-ADX.Core.Object.html#30-31" title="Go to source code"><var>$dn</var></a>
 			</td>
 			<td class="value"><code></code></td>
 			<td class="description"><div>

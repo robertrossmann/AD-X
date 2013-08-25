@@ -7,7 +7,7 @@
 	<title>Class ADX\Core\Converter | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -123,6 +131,9 @@ internally to convert data automatically to php as it is received from ldap
 server and also to convert data to ldap when data is being written to ldap
 server.</p>
 
+<p class="alert">The Converter <b>requires</b> the directory schema cache to be
+present, otherwise no conversion will be made.</p>
+
 	</div>
 
 
@@ -139,7 +150,7 @@ server.</p>
 		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Core.html">Core</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-ADX.Core.Converter.html#26-280" title="Go to source code">Converter.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Converter.html#20-303" title="Go to source code">Core/Converter.php</a><br />
 	</div>
 
 
@@ -150,24 +161,39 @@ server.</p>
 
 			<td class="attributes"><code>
 				 public static
-				
+				array|mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_to_ldap">#</a>
-			<code><a href="source-class-ADX.Core.Converter.html#40-43" title="Go to source code">to_ldap</a>( <span>mixed <var>$attribute</var></span>, <span>mixed <var>$values</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Converter.html#37-48" title="Go to source code">to_ldap</a>( <span><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>|string <var>$attribute</var></span>, <span>array|mixed <var>$values</var></span> )</code>
 
 			<div class="description short">
 				
+<p>Convert a php-based value into ldap-compatible value</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>Convert a php-based value into ldap-compatible value</p>
 
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>|string</code><br>The attribute's name the value belongs to</dd>
+						<dt><var>$values</var></dt>
+						<dd><code>array|mixed</code><br>An array of values or a single value to be converted of any type</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array|mixed</code><br>The converted data, ready for writing into server<br />
+					</div>
 
 
 
@@ -179,24 +205,39 @@ server.</p>
 
 			<td class="attributes"><code>
 				 public static
-				
+				array|mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_from_ldap">#</a>
-			<code><a href="source-class-ADX.Core.Converter.html#45-48" title="Go to source code">from_ldap</a>( <span>mixed <var>$attribute</var></span>, <span>mixed <var>$values</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Converter.html#50-61" title="Go to source code">from_ldap</a>( <span><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>|string <var>$attribute</var></span>, <span>array|mixed <var>$values</var></span> )</code>
 
 			<div class="description short">
 				
+<p>Convert an ldap-based value into php-compatible value</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>Convert an ldap-based value into php-compatible value</p>
 
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Attribute.html">ADX\Core\Attribute</a></code>|string</code><br>The attribute's name the value belongs to</dd>
+						<dt><var>$values</var></dt>
+						<dd><code>array|mixed</code><br>An array of values or a single value to be converted of any type</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array|mixed</code><br>The converted data, ready for usage in php<br />
+					</div>
 
 
 

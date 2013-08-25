@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Attributes\MsExchMailboxGuid | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Attributes.html" title="Summary of ADX\Attributes"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
+				<li><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-ADX.Attributes.MsExchMailboxGuid.html">MsExchMailboxGuid</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class MsExchMailboxGuid</h1>
+
+
+	<div class="description">
+	
+<p>Overrides the msExchMailboxGuid attribute behaviour</p>
+
+<p>This class provides special functionality when converting the raw data into
+ldap-compatible value. The problem is that ldap refuses to accept a hex string
+as an input for writing into this attribute - it has to be converted to a binary
+string.</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-ADX.Core.Attribute.html"><span>ADX\Core\Attribute</span></a>
+			
+			 <code>implements</code> 
+				<a href="class-Iterator.html"><span>Iterator</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>, 
+			
+				<a href="class-JsonSerializable.html"><span>JsonSerializable</span></a>
+			
+			 <code>uses</code> 
+				<a href="class-ADX.Core.Jsonizer.html"><span>ADX\Core\Jsonizer</span></a>
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>ADX\Attributes\MsExchMailboxGuid</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Attributes.html">Attributes</a><br />
+		
+
+		<b>Located at</b> <a href="source-class-ADX.Attributes.MsExchMailboxGuid.html#17-38" title="Go to source code">Attributes/MsExchMailboxGuid.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="ldap_data" id="_ldap_data">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_ldap_data">#</a>
+			<code><a href="source-class-ADX.Attributes.MsExchMailboxGuid.html#26-37" title="Go to source code">ldap_data</a>( )</code>
+
+			<div class="description short">
+				
+<p>Convert the raw ldap data into binary string instead of keeping it as
+hexadecimal value</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Convert the raw ldap data into binary string instead of keeping it as
+hexadecimal value</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br>The data in binary format<br />
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-ADX.Core.Attribute.html#_ldap_data">ADX\Core\Attribute::ldap_data</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-ADX.Core.Attribute.html#methods">ADX\Core\Attribute</a></h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Core.Attribute.html#___clone">__clone()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#___construct">__construct()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#___get">__get()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#___invoke">__invoke()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#___toString">__toString()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_add">add()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_attribute">attribute()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_belongs_to">belongs_to()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_clear">clear()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_count">count()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_make">make()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_remove">remove()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_reset">reset()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_set">set()</a></code>, 
+			<code><a href="class-ADX.Core.Attribute.html#_value">value()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-JsonSerializable.html#methods">JsonSerializable</a></h3>
+		<p class="elementList">
+			<code><a href="class-JsonSerializable.html#_jsonSerialize">jsonSerialize()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-ArrayAccess.html#methods">ArrayAccess</a></h3>
+		<p class="elementList">
+			<code><a href="class-ArrayAccess.html#_offsetExists">offsetExists()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetGet">offsetGet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetSet">offsetSet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetUnset">offsetUnset()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-Iterator.html#methods">Iterator</a></h3>
+		<p class="elementList">
+			<code><a href="class-Iterator.html#_current">current()</a></code>, 
+			<code><a href="class-Iterator.html#_key">key()</a></code>, 
+			<code><a href="class-Iterator.html#_next">next()</a></code>, 
+			<code><a href="class-Iterator.html#_rewind">rewind()</a></code>, 
+			<code><a href="class-Iterator.html#_valid">valid()</a></code>
+		</p>
+
+		<h3>Methods used from <a href="class-ADX.Core.Jsonizer.html#methods">ADX\Core\Jsonizer</a></h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Core.Jsonizer.html#_json">json()</a></code>
+		</p>
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+
+
+
+
+		<h3>Magic properties inherited from <a href="class-ADX.Core.Attribute.html#properties">ADX\Core\Attribute</a></h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Core.Attribute.html#m$isResolvable"><var>$isResolvable</var></a></code>
+		</p>
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

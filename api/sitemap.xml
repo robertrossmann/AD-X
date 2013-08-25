@@ -7,16 +7,34 @@
 	<loc>http://alaneor.github.io/AD-X/api/namespace-ADX.html</loc>
 </url>
 <url>
+	<loc>http://alaneor.github.io/AD-X/api/namespace-ADX.Attributes.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/namespace-ADX.Classes.html</loc>
+</url>
+<url>
 	<loc>http://alaneor.github.io/AD-X/api/namespace-ADX.Core.html</loc>
 </url>
 <url>
 	<loc>http://alaneor.github.io/AD-X/api/namespace-ADX.Enums.html</loc>
 </url>
 <url>
+	<loc>http://alaneor.github.io/AD-X/api/namespace-ADX.Util.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/namespace-ADX.Util.Exchange.html</loc>
+</url>
+<url>
 	<loc>http://alaneor.github.io/AD-X/api/namespace-PHP.html</loc>
 </url>
 
 
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Attributes.MsExchMailboxGuid.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Classes.User.html</loc>
+</url>
 <url>
 	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Core.Attribute.html</loc>
 </url>
@@ -48,10 +66,22 @@
 	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.BitwiseFilter.html</loc>
 </url>
 <url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.ExchangeCommon.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.ExchangeVersion.html</loc>
+</url>
+<url>
 	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.GroupType.html</loc>
 </url>
 <url>
 	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.Operation.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.RecipientDisplayType.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.RecipientTypeDetails.html</loc>
 </url>
 <url>
 	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.ServerControl.html</loc>
@@ -70,6 +100,21 @@
 </url>
 <url>
 	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Enums.UAC.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Util.Exchange.AddressListSelector.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Util.Exchange.ExchangeServerSelector.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Util.Exchange.MailboxStoreSelector.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Util.Exchange.TransferAgentSelector.html</loc>
+</url>
+<url>
+	<loc>http://alaneor.github.io/AD-X/api/class-ADX.Util.Selector.html</loc>
 </url>
 <url>
 	<loc>http://alaneor.github.io/AD-X/api/class-ArrayAccess.html</loc>

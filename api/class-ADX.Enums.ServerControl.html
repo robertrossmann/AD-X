@@ -7,7 +7,7 @@
 	<title>Class ADX\Enums\ServerControl | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li class="active"><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -71,8 +79,12 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-ADX.Enums.BitwiseFilter.html">BitwiseFilter</a></li>
+				<li><a href="class-ADX.Enums.ExchangeCommon.html">ExchangeCommon</a></li>
+				<li><a href="class-ADX.Enums.ExchangeVersion.html">ExchangeVersion</a></li>
 				<li><a href="class-ADX.Enums.GroupType.html">GroupType</a></li>
 				<li><a href="class-ADX.Enums.Operation.html">Operation</a></li>
+				<li><a href="class-ADX.Enums.RecipientDisplayType.html">RecipientDisplayType</a></li>
+				<li><a href="class-ADX.Enums.RecipientTypeDetails.html">RecipientTypeDetails</a></li>
 				<li class="active"><a href="class-ADX.Enums.ServerControl.html">ServerControl</a></li>
 				<li><a href="class-ADX.Enums.ServerResponse.html">ServerResponse</a></li>
 				<li><a href="class-ADX.Enums.Syntax.html">Syntax</a></li>
@@ -97,6 +109,11 @@
 	<h1>Class ServerControl</h1>
 
 
+	<div class="description">
+	
+<p>Server controls enumerator</p>
+
+	</div>
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
@@ -126,7 +143,10 @@
 		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Enums.html">Enums</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-ADX.Enums.ServerControl.html#86-95" title="Go to source code">common.php</a><br />
+				<b>See:</b>
+				<a href="http://msdn.microsoft.com/en-us/library/cc223320.aspx">LDAP Extended
+Controls</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Enums.ServerControl.html#86-100" title="Go to source code">common.php</a><br />
 	</div>
 
 
@@ -139,7 +159,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerControl.html#88" title="Go to source code"><b>PagedResults</b></a>
+					<a href="source-class-ADX.Enums.ServerControl.html#93" title="Go to source code"><b>PagedResults</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'1.2.840.113556.1.4.319'</span></code></td>
 			<td class="description"><div>
@@ -163,7 +183,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerControl.html#89" title="Go to source code"><b>ShowDeleted</b></a>
+					<a href="source-class-ADX.Enums.ServerControl.html#94" title="Go to source code"><b>ShowDeleted</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'1.2.840.113556.1.4.417'</span></code></td>
 			<td class="description"><div>
@@ -187,7 +207,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerControl.html#90" title="Go to source code"><b>LazyCommit</b></a>
+					<a href="source-class-ADX.Enums.ServerControl.html#95" title="Go to source code"><b>LazyCommit</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'1.2.840.113556.1.4.619'</span></code></td>
 			<td class="description"><div>
@@ -207,7 +227,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerControl.html#91" title="Go to source code"><b>PermissiveModify</b></a>
+					<a href="source-class-ADX.Enums.ServerControl.html#96" title="Go to source code"><b>PermissiveModify</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'1.2.840.113556.1.4.1413'</span></code></td>
 			<td class="description"><div>
@@ -227,7 +247,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerControl.html#92" title="Go to source code"><b>TreeDelete</b></a>
+					<a href="source-class-ADX.Enums.ServerControl.html#97" title="Go to source code"><b>TreeDelete</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'1.2.840.113556.1.4.805'</span></code></td>
 			<td class="description"><div>
@@ -247,7 +267,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerControl.html#93" title="Go to source code"><b>CrossDomMoveTarget</b></a>
+					<a href="source-class-ADX.Enums.ServerControl.html#98" title="Go to source code"><b>CrossDomMoveTarget</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'1.2.840.113556.1.4.521'</span></code></td>
 			<td class="description"><div>
@@ -267,7 +287,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerControl.html#94" title="Go to source code"><b>ShowRecycled</b></a>
+					<a href="source-class-ADX.Enums.ServerControl.html#99" title="Go to source code"><b>ShowRecycled</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'1.2.840.113556.1.4.2064'</span></code></td>
 			<td class="description"><div>

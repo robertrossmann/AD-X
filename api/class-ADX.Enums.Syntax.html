@@ -7,7 +7,7 @@
 	<title>Class ADX\Enums\Syntax | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li class="active"><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -71,8 +79,12 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-ADX.Enums.BitwiseFilter.html">BitwiseFilter</a></li>
+				<li><a href="class-ADX.Enums.ExchangeCommon.html">ExchangeCommon</a></li>
+				<li><a href="class-ADX.Enums.ExchangeVersion.html">ExchangeVersion</a></li>
 				<li><a href="class-ADX.Enums.GroupType.html">GroupType</a></li>
 				<li><a href="class-ADX.Enums.Operation.html">Operation</a></li>
+				<li><a href="class-ADX.Enums.RecipientDisplayType.html">RecipientDisplayType</a></li>
+				<li><a href="class-ADX.Enums.RecipientTypeDetails.html">RecipientTypeDetails</a></li>
 				<li><a href="class-ADX.Enums.ServerControl.html">ServerControl</a></li>
 				<li><a href="class-ADX.Enums.ServerResponse.html">ServerResponse</a></li>
 				<li class="active"><a href="class-ADX.Enums.Syntax.html">Syntax</a></li>
@@ -97,6 +109,12 @@
 	<h1>Class Syntax</h1>
 
 
+	<div class="description">
+	
+<p>Defines known attribute syntaxes in Active Directory schema ( but only those
+worth defining )</p>
+
+	</div>
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
@@ -126,7 +144,13 @@
 		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Enums.html">Enums</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-ADX.Enums.Syntax.html#117-131" title="Go to source code">common.php</a><br />
+				<b>See:</b>
+				<a
+href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684419%28v=vs.85%29.aspx">Syntaxes</a><br />
+				<b>See:</b>
+				<a href="http://msdn.microsoft.com/en-us/library/cc223177.aspx">LDAP
+Representations</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Enums.Syntax.html#127-147" title="Go to source code">common.php</a><br />
 	</div>
 
 
@@ -139,7 +163,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#119" title="Go to source code"><b>Binary</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#135" title="Go to source code"><b>Binary</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.10'</span></code></td>
 			<td class="description"><div>
@@ -159,7 +183,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#120" title="Go to source code"><b>Boolean</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#136" title="Go to source code"><b>Boolean</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.8'</span></code></td>
 			<td class="description"><div>
@@ -179,7 +203,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#121" title="Go to source code"><b>Integer</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#137" title="Go to source code"><b>Integer</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.9'</span></code></td>
 			<td class="description"><div>
@@ -199,7 +223,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#122" title="Go to source code"><b>LargeInt</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#138" title="Go to source code"><b>LargeInt</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.16'</span></code></td>
 			<td class="description"><div>
@@ -219,7 +243,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#123" title="Go to source code"><b>DnString</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#139" title="Go to source code"><b>DnString</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.1'</span></code></td>
 			<td class="description"><div>
@@ -239,7 +263,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#124" title="Go to source code"><b>UnicodeString</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#140" title="Go to source code"><b>UnicodeString</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.12'</span></code></td>
 			<td class="description"><div>
@@ -259,7 +283,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#125" title="Go to source code"><b>TeletexString</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#141" title="Go to source code"><b>TeletexString</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.4'</span></code></td>
 			<td class="description"><div>
@@ -279,7 +303,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#126" title="Go to source code"><b>PrintableString</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#142" title="Go to source code"><b>PrintableString</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.5'</span></code></td>
 			<td class="description"><div>
@@ -299,7 +323,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#127" title="Go to source code"><b>NumericString</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#143" title="Go to source code"><b>NumericString</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.6'</span></code></td>
 			<td class="description"><div>
@@ -319,7 +343,7 @@
 
 			<td class="attributes"><code>string</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.Syntax.html#128" title="Go to source code"><b>Time</b></a>
+					<a href="source-class-ADX.Enums.Syntax.html#144" title="Go to source code"><b>Time</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-quote">'2.5.5.11'</span></code></td>
 			<td class="description"><div>

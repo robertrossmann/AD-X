@@ -7,7 +7,7 @@
 	<title>Class ADX\Core\Result | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -222,7 +230,7 @@ class="php-quote">&quot;\n&quot;</span>;
 				<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
 				<b>See:</b>
 				<a href="http://www.php.net/manual/en/class.closure.php">PHP - Closure</a><br />
-		<b>Located at</b> <a href="source-class-ADX.Core.Result.html#25-264" title="Go to source code">Result.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Result.html#18-263" title="Go to source code">Core/Result.php</a><br />
 	</div>
 
 
@@ -240,7 +248,7 @@ class="php-quote">&quot;\n&quot;</span>;
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-ADX.Core.Result.html#72-81" title="Go to source code">__construct</a>( <span>array <var>$data</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Result.html#65-75" title="Go to source code">__construct</a>( <span>array|mixed <var>$data</var></span> )</code>
 
 			<div class="description short">
 				
@@ -257,8 +265,8 @@ class="php-quote">&quot;\n&quot;</span>;
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$data</var></dt>
-						<dd><code>array</code><br>The data to be used in the object ( usually, the array contains instances of
-<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> )</dd>
+						<dd><code>array|mixed</code><br>The data to be used in the object ( usually, an array that contains instances of
+<code><a href="class-ADX.Core.Object.html">ADX\Core\Object</a></code> or a single Object )</dd>
 					</dl></div>
 
 
@@ -279,7 +287,7 @@ class="php-quote">&quot;\n&quot;</span>;
 
 			<td class="name"><div>
 			<a class="anchor" href="#_to_array">#</a>
-			<code><a href="source-class-ADX.Core.Result.html#83-91" title="Go to source code">to_array</a>( )</code>
+			<code><a href="source-class-ADX.Core.Result.html#77-85" title="Go to source code">to_array</a>( )</code>
 
 			<div class="description short">
 				
@@ -316,7 +324,7 @@ class="php-quote">&quot;\n&quot;</span>;
 
 			<td class="name"><div>
 			<a class="anchor" href="#_first">#</a>
-			<code><a href="source-class-ADX.Core.Result.html#93-101" title="Go to source code">first</a>( )</code>
+			<code><a href="source-class-ADX.Core.Result.html#87-96" title="Go to source code">first</a>( )</code>
 
 			<div class="description short">
 				
@@ -354,7 +362,7 @@ if the resultset is empty<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_each">#</a>
-			<code><a href="source-class-ADX.Core.Result.html#103-112" title="Go to source code">each</a>( <span>Object <var>$newthis</var> = <span class="php-keyword1">null</span></span>, <span>function <var>$callback</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Result.html#98-108" title="Go to source code">each</a>( <span>Object <var>$newthis</var> = <span class="php-keyword1">null</span></span>, <span>function <var>$callback</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -395,7 +403,7 @@ assigned to $this )</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_filter">#</a>
-			<code><a href="source-class-ADX.Core.Result.html#114-127" title="Go to source code">filter</a>( <span>Object <var>$newthis</var> = <span class="php-keyword1">null</span></span>, <span>function <var>$callback</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Result.html#110-125" title="Go to source code">filter</a>( <span>Object <var>$newthis</var> = <span class="php-keyword1">null</span></span>, <span>function <var>$callback</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -446,7 +454,7 @@ assigned to $this )</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_unique">#</a>
-			<code><a href="source-class-ADX.Core.Result.html#129-153" title="Go to source code">unique</a>( <span>string <var>$attribute</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Result.html#127-152" title="Go to source code">unique</a>( <span>string <var>$attribute</var></span> )</code>
 
 			<div class="description short">
 				

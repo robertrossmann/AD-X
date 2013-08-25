@@ -7,7 +7,7 @@
 	<title>Class ADX\Enums\ServerResponse | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li class="active"><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -71,8 +79,12 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-ADX.Enums.BitwiseFilter.html">BitwiseFilter</a></li>
+				<li><a href="class-ADX.Enums.ExchangeCommon.html">ExchangeCommon</a></li>
+				<li><a href="class-ADX.Enums.ExchangeVersion.html">ExchangeVersion</a></li>
 				<li><a href="class-ADX.Enums.GroupType.html">GroupType</a></li>
 				<li><a href="class-ADX.Enums.Operation.html">Operation</a></li>
+				<li><a href="class-ADX.Enums.RecipientDisplayType.html">RecipientDisplayType</a></li>
+				<li><a href="class-ADX.Enums.RecipientTypeDetails.html">RecipientTypeDetails</a></li>
 				<li><a href="class-ADX.Enums.ServerControl.html">ServerControl</a></li>
 				<li class="active"><a href="class-ADX.Enums.ServerResponse.html">ServerResponse</a></li>
 				<li><a href="class-ADX.Enums.Syntax.html">Syntax</a></li>
@@ -97,6 +109,11 @@
 	<h1>Class ServerResponse</h1>
 
 
+	<div class="description">
+	
+<p>Defines known ldap v3 &amp; Active Directory errors/responses</p>
+
+	</div>
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
@@ -126,7 +143,7 @@
 		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Enums.html">Enums</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-ADX.Enums.ServerResponse.html#32-82" title="Go to source code">common.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Enums.ServerResponse.html#31-84" title="Go to source code">common.php</a><br />
 	</div>
 
 
@@ -139,7 +156,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#34" title="Go to source code"><b>Success</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#36" title="Go to source code"><b>Success</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">0</span></code></td>
 			<td class="description"><div>
@@ -159,7 +176,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#35" title="Go to source code"><b>OperationsError</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#37" title="Go to source code"><b>OperationsError</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">1</span></code></td>
 			<td class="description"><div>
@@ -179,7 +196,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#36" title="Go to source code"><b>ProtocolError</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#38" title="Go to source code"><b>ProtocolError</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">2</span></code></td>
 			<td class="description"><div>
@@ -199,7 +216,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#37" title="Go to source code"><b>TimelimitExceeded</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#39" title="Go to source code"><b>TimelimitExceeded</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">3</span></code></td>
 			<td class="description"><div>
@@ -219,7 +236,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#38" title="Go to source code"><b>SizelimitExceeded</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#40" title="Go to source code"><b>SizelimitExceeded</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">4</span></code></td>
 			<td class="description"><div>
@@ -239,7 +256,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#39" title="Go to source code"><b>CompareFalse</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#41" title="Go to source code"><b>CompareFalse</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">5</span></code></td>
 			<td class="description"><div>
@@ -259,7 +276,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#40" title="Go to source code"><b>CompareTrue</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#42" title="Go to source code"><b>CompareTrue</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">6</span></code></td>
 			<td class="description"><div>
@@ -279,7 +296,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#41" title="Go to source code"><b>AuthMethodNotSupported</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#43" title="Go to source code"><b>AuthMethodNotSupported</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">7</span></code></td>
 			<td class="description"><div>
@@ -299,7 +316,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#42" title="Go to source code"><b>StrongAuthRequired</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#44" title="Go to source code"><b>StrongAuthRequired</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">8</span></code></td>
 			<td class="description"><div>
@@ -319,7 +336,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#43" title="Go to source code"><b>Referral</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#45" title="Go to source code"><b>Referral</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">10</span></code></td>
 			<td class="description"><div>
@@ -339,7 +356,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#44" title="Go to source code"><b>AdminlimitExceeded</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#46" title="Go to source code"><b>AdminlimitExceeded</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">11</span></code></td>
 			<td class="description"><div>
@@ -359,7 +376,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#45" title="Go to source code"><b>UnavailableCriticalExtension</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#47" title="Go to source code"><b>UnavailableCriticalExtension</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">12</span></code></td>
 			<td class="description"><div>
@@ -379,7 +396,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#46" title="Go to source code"><b>ConfidentialityRequired</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#48" title="Go to source code"><b>ConfidentialityRequired</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">13</span></code></td>
 			<td class="description"><div>
@@ -399,7 +416,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#47" title="Go to source code"><b>SaslBindInProgress</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#49" title="Go to source code"><b>SaslBindInProgress</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">14</span></code></td>
 			<td class="description"><div>
@@ -419,7 +436,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#48" title="Go to source code"><b>NoSuchAttribute</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#50" title="Go to source code"><b>NoSuchAttribute</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">16</span></code></td>
 			<td class="description"><div>
@@ -439,7 +456,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#49" title="Go to source code"><b>UndefinedType</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#51" title="Go to source code"><b>UndefinedType</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">17</span></code></td>
 			<td class="description"><div>
@@ -459,7 +476,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#50" title="Go to source code"><b>InappropriateMatching</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#52" title="Go to source code"><b>InappropriateMatching</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">18</span></code></td>
 			<td class="description"><div>
@@ -479,7 +496,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#51" title="Go to source code"><b>ConstraintViolation</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#53" title="Go to source code"><b>ConstraintViolation</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">19</span></code></td>
 			<td class="description"><div>
@@ -499,7 +516,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#52" title="Go to source code"><b>TypeOrValueExists</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#54" title="Go to source code"><b>TypeOrValueExists</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">20</span></code></td>
 			<td class="description"><div>
@@ -519,7 +536,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#53" title="Go to source code"><b>InvalidSyntax</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#55" title="Go to source code"><b>InvalidSyntax</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">21</span></code></td>
 			<td class="description"><div>
@@ -539,7 +556,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#54" title="Go to source code"><b>NoSuchObject</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#56" title="Go to source code"><b>NoSuchObject</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">32</span></code></td>
 			<td class="description"><div>
@@ -559,7 +576,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#55" title="Go to source code"><b>AliasProblem</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#57" title="Go to source code"><b>AliasProblem</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">33</span></code></td>
 			<td class="description"><div>
@@ -579,7 +596,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#56" title="Go to source code"><b>InvalidDnSyntax</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#58" title="Go to source code"><b>InvalidDnSyntax</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">34</span></code></td>
 			<td class="description"><div>
@@ -599,7 +616,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#57" title="Go to source code"><b>InappropriateAuth</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#59" title="Go to source code"><b>InappropriateAuth</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">48</span></code></td>
 			<td class="description"><div>
@@ -619,7 +636,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#58" title="Go to source code"><b>InvalidCredentials</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#60" title="Go to source code"><b>InvalidCredentials</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">49</span></code></td>
 			<td class="description"><div>
@@ -639,7 +656,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#59" title="Go to source code"><b>ErrorTooManyContextIds</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#61" title="Go to source code"><b>ErrorTooManyContextIds</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">49</span></code></td>
 			<td class="description"><div>
@@ -659,7 +676,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#60" title="Go to source code"><b>InsufficientAccess</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#62" title="Go to source code"><b>InsufficientAccess</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">50</span></code></td>
 			<td class="description"><div>
@@ -679,7 +696,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#61" title="Go to source code"><b>Busy</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#63" title="Go to source code"><b>Busy</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">51</span></code></td>
 			<td class="description"><div>
@@ -699,7 +716,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#62" title="Go to source code"><b>Unavailable</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#64" title="Go to source code"><b>Unavailable</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">52</span></code></td>
 			<td class="description"><div>
@@ -719,7 +736,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#63" title="Go to source code"><b>UnwillingToPerform</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#65" title="Go to source code"><b>UnwillingToPerform</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">53</span></code></td>
 			<td class="description"><div>
@@ -739,7 +756,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#64" title="Go to source code"><b>LoopDetect</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#66" title="Go to source code"><b>LoopDetect</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">54</span></code></td>
 			<td class="description"><div>
@@ -759,7 +776,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#65" title="Go to source code"><b>NamingViolation</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#67" title="Go to source code"><b>NamingViolation</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">64</span></code></td>
 			<td class="description"><div>
@@ -779,7 +796,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#66" title="Go to source code"><b>ObjectClassViolation</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#68" title="Go to source code"><b>ObjectClassViolation</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">65</span></code></td>
 			<td class="description"><div>
@@ -799,7 +816,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#67" title="Go to source code"><b>NotAllowedOnNonleaf</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#69" title="Go to source code"><b>NotAllowedOnNonleaf</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">66</span></code></td>
 			<td class="description"><div>
@@ -819,7 +836,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#68" title="Go to source code"><b>NotAllowedOnRdn</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#70" title="Go to source code"><b>NotAllowedOnRdn</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">67</span></code></td>
 			<td class="description"><div>
@@ -839,7 +856,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#69" title="Go to source code"><b>AlreadyExists</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#71" title="Go to source code"><b>AlreadyExists</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">68</span></code></td>
 			<td class="description"><div>
@@ -859,7 +876,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#70" title="Go to source code"><b>NoObjectClassMods</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#72" title="Go to source code"><b>NoObjectClassMods</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">69</span></code></td>
 			<td class="description"><div>
@@ -879,7 +896,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#71" title="Go to source code"><b>ResultsTooLarge</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#73" title="Go to source code"><b>ResultsTooLarge</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">70</span></code></td>
 			<td class="description"><div>
@@ -899,7 +916,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#72" title="Go to source code"><b>AffectsMultipleDsas</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#74" title="Go to source code"><b>AffectsMultipleDsas</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">71</span></code></td>
 			<td class="description"><div>
@@ -919,7 +936,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#73" title="Go to source code"><b>Other</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#75" title="Go to source code"><b>Other</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">80</span></code></td>
 			<td class="description"><div>
@@ -939,7 +956,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#75" title="Go to source code"><b>UserNotFound</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#77" title="Go to source code"><b>UserNotFound</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">525</span></code></td>
 			<td class="description"><div>
@@ -959,7 +976,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#76" title="Go to source code"><b>NotPermittedToLogonAtThisTime</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#78" title="Go to source code"><b>NotPermittedToLogonAtThisTime</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">530</span></code></td>
 			<td class="description"><div>
@@ -979,7 +996,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#77" title="Go to source code"><b>RestrictedToSpecificMachines</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#79" title="Go to source code"><b>RestrictedToSpecificMachines</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">531</span></code></td>
 			<td class="description"><div>
@@ -999,7 +1016,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#78" title="Go to source code"><b>PasswordExpired</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#80" title="Go to source code"><b>PasswordExpired</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">532</span></code></td>
 			<td class="description"><div>
@@ -1019,7 +1036,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#79" title="Go to source code"><b>AccountDisabled</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#81" title="Go to source code"><b>AccountDisabled</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">533</span></code></td>
 			<td class="description"><div>
@@ -1039,7 +1056,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#80" title="Go to source code"><b>AccountExpired</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#82" title="Go to source code"><b>AccountExpired</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">701</span></code></td>
 			<td class="description"><div>
@@ -1059,7 +1076,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.ServerResponse.html#81" title="Go to source code"><b>UserMustResetPassword</b></a>
+					<a href="source-class-ADX.Enums.ServerResponse.html#83" title="Go to source code"><b>UserMustResetPassword</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">773</span></code></td>
 			<td class="description"><div>

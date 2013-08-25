@@ -7,7 +7,7 @@
 	<title>Class ADX\Enums\UAC | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li class="active"><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -71,8 +79,12 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-ADX.Enums.BitwiseFilter.html">BitwiseFilter</a></li>
+				<li><a href="class-ADX.Enums.ExchangeCommon.html">ExchangeCommon</a></li>
+				<li><a href="class-ADX.Enums.ExchangeVersion.html">ExchangeVersion</a></li>
 				<li><a href="class-ADX.Enums.GroupType.html">GroupType</a></li>
 				<li><a href="class-ADX.Enums.Operation.html">Operation</a></li>
+				<li><a href="class-ADX.Enums.RecipientDisplayType.html">RecipientDisplayType</a></li>
+				<li><a href="class-ADX.Enums.RecipientTypeDetails.html">RecipientTypeDetails</a></li>
 				<li><a href="class-ADX.Enums.ServerControl.html">ServerControl</a></li>
 				<li><a href="class-ADX.Enums.ServerResponse.html">ServerResponse</a></li>
 				<li><a href="class-ADX.Enums.Syntax.html">Syntax</a></li>
@@ -97,6 +109,11 @@
 	<h1>Class UAC</h1>
 
 
+	<div class="description">
+	
+<p>Enumerator for the infamous userAccountControl attribute</p>
+
+	</div>
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
@@ -126,7 +143,10 @@
 		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Enums.html">Enums</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-ADX.Enums.UAC.html#134-157" title="Go to source code">common.php</a><br />
+				<b>See:</b>
+				<a href="http://support.microsoft.com/kb/305144"> MSDN - How to use the
+UserAccountControl flags to manipulate user account properties</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Enums.UAC.html#149-178" title="Go to source code">common.php</a><br />
 	</div>
 
 
@@ -139,7 +159,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#136" title="Go to source code"><b>Script</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#157" title="Go to source code"><b>Script</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">1</span></code></td>
 			<td class="description"><div>
@@ -159,7 +179,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#137" title="Go to source code"><b>AccountDisable</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#158" title="Go to source code"><b>AccountDisable</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">2</span></code></td>
 			<td class="description"><div>
@@ -179,7 +199,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#138" title="Go to source code"><b>HomedirRequired</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#159" title="Go to source code"><b>HomedirRequired</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">8</span></code></td>
 			<td class="description"><div>
@@ -199,7 +219,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#139" title="Go to source code"><b>Lockout</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#160" title="Go to source code"><b>Lockout</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">16</span></code></td>
 			<td class="description"><div>
@@ -215,15 +235,15 @@
 				</div>
 			</div></td>
 		</tr>
-		<tr data-order="PasswdNotreqd" id="PasswdNotreqd">
+		<tr data-order="PasswdNotReqd" id="PasswdNotReqd">
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#140" title="Go to source code"><b>PasswdNotreqd</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#161" title="Go to source code"><b>PasswdNotReqd</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">32</span></code></td>
 			<td class="description"><div>
-				<a href="#PasswdNotreqd" class="anchor">#</a>
+				<a href="#PasswdNotReqd" class="anchor">#</a>
 
 				<div class="description short">
 					
@@ -239,7 +259,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#141" title="Go to source code"><b>PasswdCantChange</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#162" title="Go to source code"><b>PasswdCantChange</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">64</span></code></td>
 			<td class="description"><div>
@@ -259,7 +279,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#142" title="Go to source code"><b>EncryptedTextPasswordAllowed</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#163" title="Go to source code"><b>EncryptedTextPasswordAllowed</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">128</span></code></td>
 			<td class="description"><div>
@@ -279,7 +299,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#143" title="Go to source code"><b>TempDuplicateAccount</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#164" title="Go to source code"><b>TempDuplicateAccount</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">256</span></code></td>
 			<td class="description"><div>
@@ -299,7 +319,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#144" title="Go to source code"><b>NormalAccount</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#165" title="Go to source code"><b>NormalAccount</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">512</span></code></td>
 			<td class="description"><div>
@@ -319,7 +339,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#145" title="Go to source code"><b>InterdomainTrustAccount</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#166" title="Go to source code"><b>InterdomainTrustAccount</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">2048</span></code></td>
 			<td class="description"><div>
@@ -339,7 +359,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#146" title="Go to source code"><b>WorkstationTrustAccount</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#167" title="Go to source code"><b>WorkstationTrustAccount</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">4096</span></code></td>
 			<td class="description"><div>
@@ -359,7 +379,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#147" title="Go to source code"><b>ServerTrustAccount</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#168" title="Go to source code"><b>ServerTrustAccount</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">8192</span></code></td>
 			<td class="description"><div>
@@ -379,7 +399,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#148" title="Go to source code"><b>DontExpirePasswd</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#169" title="Go to source code"><b>DontExpirePasswd</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">65536</span></code></td>
 			<td class="description"><div>
@@ -399,7 +419,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#149" title="Go to source code"><b>MnsLogonAccount</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#170" title="Go to source code"><b>MnsLogonAccount</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">131072</span></code></td>
 			<td class="description"><div>
@@ -419,7 +439,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#150" title="Go to source code"><b>SmartcardRequired</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#171" title="Go to source code"><b>SmartcardRequired</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">262144</span></code></td>
 			<td class="description"><div>
@@ -439,7 +459,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#151" title="Go to source code"><b>TrustedForDelegation</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#172" title="Go to source code"><b>TrustedForDelegation</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">524288</span></code></td>
 			<td class="description"><div>
@@ -459,7 +479,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#152" title="Go to source code"><b>NotDelegated</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#173" title="Go to source code"><b>NotDelegated</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">1048576</span></code></td>
 			<td class="description"><div>
@@ -479,7 +499,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#153" title="Go to source code"><b>UseDesKeyOnly</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#174" title="Go to source code"><b>UseDesKeyOnly</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">2097152</span></code></td>
 			<td class="description"><div>
@@ -499,7 +519,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#154" title="Go to source code"><b>DontRequirePreauth</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#175" title="Go to source code"><b>DontRequirePreauth</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">4194304</span></code></td>
 			<td class="description"><div>
@@ -519,7 +539,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#155" title="Go to source code"><b>PasswordExpired</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#176" title="Go to source code"><b>PasswordExpired</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">8388608</span></code></td>
 			<td class="description"><div>
@@ -539,7 +559,7 @@
 
 			<td class="attributes"><code>integer</code></td>
 			<td class="name"><code>
-					<a href="source-class-ADX.Enums.UAC.html#156" title="Go to source code"><b>TrustedToAuthenticateForDelegation</b></a>
+					<a href="source-class-ADX.Enums.UAC.html#177" title="Go to source code"><b>TrustedToAuthenticateForDelegation</b></a>
 			</code></td>
 			<td class="value"><code><span class="php-num">16777216</span></code></td>
 			<td class="description"><div>

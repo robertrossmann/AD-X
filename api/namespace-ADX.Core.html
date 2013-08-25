@@ -7,7 +7,7 @@
 	<title>Namespace ADX\Core | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -55,11 +55,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -169,43 +177,48 @@ way</td>
 <table class="summary table table-bordered table-striped" id="exceptions">
 <tr>
 	<td class="name"><a href="class-ADX.Core.Exception.html">Exception</a></td>
-	<td></td>
+	<td>Base exception class for AD-X library</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.IncorrectParameterException.html">IncorrectParameterException</a></td>
-	<td></td>
+	<td>Thrown when you provide an unexpected input to a method call</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.InsufficientAccessException.html">InsufficientAccessException</a></td>
-	<td></td>
+	<td>Thrown when the account does not have enough privileges to perform the requested
+operation</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.InvalidCredentialsException.html">InvalidCredentialsException</a></td>
-	<td></td>
+	<td>Thrown if user's credentials are incorrect or if the account is not usable for
+any reason ( locked, disabled, expired etc. )</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.InvalidOperationException.html">InvalidOperationException</a></td>
-	<td></td>
+	<td>Thrown when trying to modify a constructed attribute</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.LdapNativeException.html">LdapNativeException</a></td>
-	<td></td>
+	<td>This exception ( or its more specific subclass ) is thrown when any of php's
+ldap functions triggers errors</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></td>
-	<td></td>
+	<td>Thrown when the ldap attribute you are trying to modify cannot have multiple
+values or the maximum amount of values has been already reached</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></td>
-	<td></td>
+	<td>Thrown when the ldap server is not reachable due to network issues</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></td>
-	<td></td>
+	<td>Thrown when trying to set or modify an attribute that is not defined in ldap
+schema</td>
 </tr>
 <tr>
 	<td class="name"><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></td>
-	<td></td>
+	<td>Thrown when trying to connect to server that does not support ldap v3 protocol</td>
 </tr>
 </table>
 

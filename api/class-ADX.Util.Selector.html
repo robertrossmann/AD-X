@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Util\Selector | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Util.html" title="Summary of ADX\Util"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
+				<li><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+				<li class="active"><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-ADX.Util.Selector.html">Selector</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Selector</h1>
+
+
+	<div class="description">
+	
+<p>Abstract class to provide unified behaviour for classes that list ( select )
+specific items from Active Directory</p>
+
+<p>Subclass the Selector to create a simple, easy to use search task for your
+code. While subclassing, you only need to provide the operation to be performed
+( scope subtree by default ) and the ldap filter to be executed. Then, in your
+code, you only need to instantiate your Selector and call <code><a href="class-ADX.Util.Selector.html#_all">ADX\Util\Selector::all()</a></code> on
+it to get all the objects that match the search query. You can also perform
+additional processing by implementing the self::_process_result()
+method.</p>
+
+	</div>
+
+
+
+	<div>
+		<h3>Direct known subclasses</h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Util.Exchange.AddressListSelector.html">ADX\Util\Exchange\AddressListSelector</a></code>, 
+			<code><a href="class-ADX.Util.Exchange.ExchangeServerSelector.html">ADX\Util\Exchange\ExchangeServerSelector</a></code>, 
+			<code><a href="class-ADX.Util.Exchange.MailboxStoreSelector.html">ADX\Util\Exchange\MailboxStoreSelector</a></code>, 
+			<code><a href="class-ADX.Util.Exchange.TransferAgentSelector.html">ADX\Util\Exchange\TransferAgentSelector</a></code>
+		</p>
+	</div>
+
+
+
+
+
+
+	<div class="alert alert-info">
+		<b>Abstract</b><br />
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Util.html">Util</a><br />
+		
+
+		<b>Located at</b> <a href="source-class-ADX.Util.Selector.html#24-142" title="Go to source code">Util/Selector.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-ADX.Util.Selector.html#51-59" title="Go to source code">__construct</a>( <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$link</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Create a new instance of the Selector class</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create a new instance of the Selector class</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$link</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br>The Link to a directory server to operate on</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="all" id="_all">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>|mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_all">#</a>
+			<code><a href="source-class-ADX.Util.Selector.html#61-77" title="Go to source code">all</a>( )</code>
+
+			<div class="description short">
+				
+<p>Get all objects that match the Selector</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get all objects that match the Selector</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>|mixed</code><br>The Result containing all the matched objects or whatever the self::_process_result() returns<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="where" id="_where">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>|mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_where">#</a>
+			<code><a href="source-class-ADX.Util.Selector.html#79-105" title="Go to source code">where</a>( <span>string <var>$filter</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Further customise the Selector by providing additional filter</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Further customise the Selector by providing additional filter</p>
+
+<p>This is very useful if you want to write a generic Selector for all users,
+but sometimes you only need to get disabled users. So, instead of writing a new
+Selector for that purpose, you can use the <code>where()</code> method to refine
+the search results.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$filter</var></dt>
+						<dd><code>string</code><br>A valid ldap filter. This will be added to the main filter using '&amp;' logic</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Result.html">ADX\Core\Result</a></code>|mixed</code><br>The Result containing all the matched objects or whatever the self::_process_result() returns<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

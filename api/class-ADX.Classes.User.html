@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class ADX\Classes\User | AD-X Library</title>
+
+	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">AD-X Library</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-ADX.Classes.html" title="Summary of ADX\Classes"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li class="active"><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
+				<li><a href="namespace-ADX.Core.html">Core</a>
+						</li>
+				<li><a href="namespace-ADX.Enums.html">Enums</a>
+						</li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-ADX.Classes.User.html">User</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class User</h1>
+
+
+	<div class="description">
+	
+<p>Class representing a 'user' objectClass in Active Directory</p>
+
+<p>This class provides user-class-specific methods to simplify user creation and
+manipulation in Active Directory. It also provides some MS Exchange-related
+functionality like managing mailboxes and mail users.</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-ADX.Core.Object.html"><span>ADX\Core\Object</span></a>
+			
+			 <code>implements</code> 
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Iterator.html"><span>Iterator</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>, 
+			
+				<a href="class-JsonSerializable.html"><span>JsonSerializable</span></a>
+			
+			 <code>uses</code> 
+				<a href="class-ADX.Core.Jsonizer.html"><span>ADX\Core\Jsonizer</span></a>
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>ADX\Classes\User</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ADX.html">ADX</a>\<a href="namespace-ADX.Classes.html">Classes</a><br />
+		
+
+		<b>Located at</b> <a href="source-class-ADX.Classes.User.html#26-547" title="Go to source code">Classes/User.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#52-109" title="Go to source code">__construct</a>( <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$link</var></span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>() </span> )</code>
+
+			<div class="description short">
+				
+<p>Create a new instance of the user</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create a new instance of the user</p>
+
+<p>In order to successfully create a new user account you <strong>must</strong>
+provide the following attributes the moment you instantiate a new object:</p>
+
+<ul>
+	<li><code>cn</code> - the user's cn forms part of the distinguished name and
+	cannot be omitted</li>
+
+	<li><code>samAccountName</code> - the username used to log in</li>
+</ul>
+
+<p><br />
+The following attributes are calculated automatically for you:</p>
+
+<ul>
+	<li><code>name</code>, <code>displayName</code> - equals to <code>cn</code></li>
+
+	<li><code>userPrincipalName</code> - equals to <code>samAccountName</code> +
+	<em>@</em> + <em>domain name</em> ( <em>domain name</em> is generated from
+	rootDSE's defaultNamingContext )</li>
+
+	<li><code>userAccountControl</code> - if you provide user's password at this
+	moment, it will include only the <code><a href="class-ADX.Enums.UAC.html#NormalAccount">ADX\Enums\UAC::<b>NormalAccount</b></a></code> bit; if no
+	password is present, it will also include <code><a href="class-ADX.Enums.UAC.html#PasswdNotReqd">ADX\Enums\UAC::<b>PasswdNotReqd</b></a></code>
+	and <code><a href="class-ADX.Enums.UAC.html#AccountDisable">ADX\Enums\UAC::<b>AccountDisable</b></a></code> bits. This is default behaviour of
+	Active Directory.</li>
+</ul>
+<br />
+
+<p class="alert">If you set the user's password before creating the account, it
+will be created <strong>without</strong> the requirement to reset the password
+upon next logon. To force user to change the password next time he/she logs in,
+use the <code><a href="class-ADX.Classes.User.html#_force_password_change">ADX\Classes\User::force_password_change()</a></code> method before calling <code><a href="class-ADX.Classes.User.html#_create">ADX\Classes\User::create()</a></code>.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$link</var></dt>
+						<dd><code><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code></code><br>A configured and bound <code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> object</dd>
+						<dt><var>$attributes</var></dt>
+						<dd><code>array</code><br>A named array containing the attribute names as indexes and their values</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br>A new instance of this class<br />
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-ADX.Core.Object.html#___construct">ADX\Core\Object::__construct</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create" id="_create">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#111-145" title="Go to source code">create</a>( <span>string <var>$dn</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Create the user on the server</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create the user on the server</p>
+
+<p>This method provides some extra functionality to the standard <code><a href="class-ADX.Core.Object.html#_create">ADX\Core\Object::create()</a></code> method.</p>
+
+<p>If you have set the user's password then the following updates will be made
+to the user account:</p>
+
+<ul>
+	<li>The <code><a href="class-ADX.Enums.UAC.html#PasswdNotReqd">ADX\Enums\UAC::<b>PasswdNotReqd</b></a></code> bit will be turned
+	<strong>off</strong></li>
+
+	<li>The user account will be created as <strong>enabled</strong></li>
+
+	<li>The user will <strong>not</strong> be forced to change the password unless
+	you have explicitly forced a password change with <code><a href="class-ADX.Classes.User.html#_force_password_change">ADX\Classes\User::force_password_change()</a></code></li>
+</ul>
+
+<p><br />
+If, for whatever reason you need any of the above
+<code>userAccountControl</code> bits to be different you must override the
+values <strong>after</strong> the user has been created on the server, meaning,
+after you have called the <code>create()</code> method on the object.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$dn</var></dt>
+						<dd><code>string</code><br>The distinguished name of the parent container where this user should be stored</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-ADX.Core.Object.html#_create">ADX\Core\Object::create</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="is_locked" id="_is_locked">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_is_locked">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#147-158" title="Go to source code">is_locked</a>( )</code>
+
+			<div class="description short">
+				
+<p>Is the user's account locked?</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Is the user's account locked?</p>
+
+<p class="alert">The attribute <em>lockoutTime</em> must be loaded from the
+server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="is_disabled" id="_is_disabled">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_is_disabled">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#160-171" title="Go to source code">is_disabled</a>( )</code>
+
+			<div class="description short">
+				
+<p>Is the user's account disabled?</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Is the user's account disabled?</p>
+
+<p class="alert">The attribute <em>userAccountControl</em> must be loaded from
+the server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="must_change_password" id="_must_change_password">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_must_change_password">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#173-184" title="Go to source code">must_change_password</a>( )</code>
+
+			<div class="description short">
+				
+<p>Is the user required to update the account's password?</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Is the user required to update the account's password?</p>
+
+<p class="alert">The attribute <em>pwdLastSet</em> must be loaded from the
+server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="password_expired" id="_password_expired">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_password_expired">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#186-197" title="Go to source code">password_expired</a>( )</code>
+
+			<div class="description short">
+				
+<p>Is the user's password expired?</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Is the user's password expired?</p>
+
+<p class="alert">The attribute <em>userAccountControlComputed</em> must be
+loaded from the server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="unlock" id="_unlock">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_unlock">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#199-209" title="Go to source code">unlock</a>( )</code>
+
+			<div class="description short">
+				
+<p>Unlock the user's account</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Unlock the user's account</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="enable" id="_enable">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_enable">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#211-226" title="Go to source code">enable</a>( )</code>
+
+			<div class="description short">
+				
+<p>Enable the user's account</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Enable the user's account</p>
+
+<p class="alert">The attribute <em>userAccountControl</em> must be loaded from
+the server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="disable" id="_disable">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_disable">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#228-243" title="Go to source code">disable</a>( )</code>
+
+			<div class="description short">
+				
+<p>Disable the user's account</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Disable the user's account</p>
+
+<p class="alert">The attribute <em>userAccountControl</em> must be loaded from
+the server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_password" id="_set_password">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_password">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#245-261" title="Go to source code">set_password</a>( <span>string <var>$newPassword</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Set the user's password to a new value</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Set the user's password to a new value</p>
+
+<p class="alert">Note that Active Directory will not allow you to reset users'
+passwords over unencrypted connection - you must connect with SSL or TLS
+encryption in order for this method to work.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$newPassword</var></dt>
+						<dd><code>string</code><br>The new password the user's account should receive</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="force_password_change" id="_force_password_change">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_force_password_change">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#263-275" title="Go to source code">force_password_change</a>( <span>boolean <var>$enable</var> = <span class="php-keyword1">true</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Require the user to change password on next logon, or turn this requirement
+off</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Require the user to change password on next logon, or turn this requirement
+off</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$enable</var></dt>
+						<dd><code>boolean</code><br>If set to false, this requirement will be turned off</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="has_mailbox" id="_has_mailbox">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_has_mailbox">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#277-288" title="Go to source code">has_mailbox</a>( )</code>
+
+			<div class="description short">
+				
+<p>Does this user have an Exchange mailbox?</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Does this user have an Exchange mailbox?</p>
+
+<p class="alert">The attribute <em>msExchMailboxGuid</em> must be loaded from
+the server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Classes.User.html#_new_mailbox">ADX\Classes\User::new_mailbox()</a></code></code> <br />
+							<code><code><a href="class-ADX.Classes.User.html#_mail_enable">ADX\Classes\User::mail_enable()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="is_mailuser" id="_is_mailuser">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_is_mailuser">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#290-301" title="Go to source code">is_mailuser</a>( )</code>
+
+			<div class="description short">
+				
+<p>Is the current user a mail user?</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Is the current user a mail user?</p>
+
+<p class="alert">The attribute <em>targetAddress</em> must be loaded from the
+server in order for this method to function properly.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br />
+					</div>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Classes.User.html#_new_mailbox">ADX\Classes\User::new_mailbox()</a></code></code> <br />
+							<code><code><a href="class-ADX.Classes.User.html#_mail_enable">ADX\Classes\User::mail_enable()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="new_mailbox" id="_new_mailbox">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_new_mailbox">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#303-353" title="Go to source code">new_mailbox</a>( <span>string <var>$replyAddress</var></span>, <span>mixed <var>$mailboxDB</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$showInAddressBook</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Create an Exchange mailbox for this user</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create an Exchange mailbox for this user</p>
+
+<p class="alert">The attribute <em>proxyAddresses</em> should be loaded from the
+server to avoid unintended data loss.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$replyAddress</var></dt>
+						<dd><code>string</code><br>The email address to be used with this mailbox</dd>
+						<dt><var>$mailboxDB</var></dt>
+						<dd><code>mixed</code><br>@todo</dd>
+						<dt><var>$showInAddressBook</var></dt>
+						<dd><code>mixed</code><br>The address book the mail user should appear in. You can either omit this value
+( then default will be used ), pass an instance of Object or a distinguished
+name of an address book or provide an AddressListSelector from which the default
+value will be used ( this is primarily useful for performance reasons as
+omitting the value will cause that the default Address Book be loaded from
+server for each method call )</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Classes.User.html#_has_mailbox">ADX\Classes\User::has_mailbox()</a></code></code> <br />
+							<code><code><a href="class-ADX.Classes.User.html#_is_mailuser">ADX\Classes\User::is_mailuser()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="mail_enable" id="_mail_enable">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_mail_enable">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#355-412" title="Go to source code">mail_enable</a>( <span>string <var>$externalAddress</var></span>, <span>string <var>$replyAddress</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$showInAddressBook</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Create an Exchange mailUser for this user</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Create an Exchange mailUser for this user</p>
+
+<p class="alert">The attribute <em>proxyAddresses</em> should be loaded from the
+server to avoid unintended data loss.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$externalAddress</var></dt>
+						<dd><code>string</code><br>The external email address to be associated with this mail user</dd>
+						<dt><var>$replyAddress</var></dt>
+						<dd><code>string</code><br>An optional reply address - this will become the primary SMTP address for the
+user and the external address will be only used for forwarding</dd>
+						<dt><var>$showInAddressBook</var></dt>
+						<dd><code>mixed</code><br>The address book the mail user should appear in. You can either omit this value
+( then default will be used ), pass an instance of Object or a distinguished
+name of an address book or provide an AddressListSelector from which the default
+value will be used ( this is primarily useful for performance reasons as
+omitting the value will cause that the default Address Book be loaded from
+server for each method call )</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><code><a href="class-ADX.Classes.User.html#_is_mailuser">ADX\Classes\User::is_mailuser()</a></code></code> <br />
+							<code><code><a href="class-ADX.Classes.User.html#_has_mailbox">ADX\Classes\User::has_mailbox()</a></code></code> <br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="mail_disable" id="_mail_disable">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_mail_disable">#</a>
+			<code><a href="source-class-ADX.Classes.User.html#414-434" title="Go to source code">mail_disable</a>( )</code>
+
+			<div class="description short">
+				
+<p>Disable the user's Exchange functionality</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Disable the user's Exchange functionality</p>
+
+<p class="alert">The attribute <em>proxyAddresses</em> should be loaded from the
+server to avoid unintended data loss.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Classes.User.html">ADX\Classes\User</a></code></code><br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-ADX.Core.Object.html#methods">ADX\Core\Object</a></h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Core.Object.html#___toString">__toString()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_all_attributes">all_attributes()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_bit_state">bit_state()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_count">count()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_delete">delete()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_get">get()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_move">move()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_parent">parent()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_read">read()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_remove">remove()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_resolve">resolve()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_restore">restore()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_set">set()</a></code>, 
+			<code><a href="class-ADX.Core.Object.html#_update">update()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-JsonSerializable.html#methods">JsonSerializable</a></h3>
+		<p class="elementList">
+			<code><a href="class-JsonSerializable.html#_jsonSerialize">jsonSerialize()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-Iterator.html#methods">Iterator</a></h3>
+		<p class="elementList">
+			<code><a href="class-Iterator.html#_current">current()</a></code>, 
+			<code><a href="class-Iterator.html#_key">key()</a></code>, 
+			<code><a href="class-Iterator.html#_next">next()</a></code>, 
+			<code><a href="class-Iterator.html#_rewind">rewind()</a></code>, 
+			<code><a href="class-Iterator.html#_valid">valid()</a></code>
+		</p>
+		<h3>Methods inherited from <a href="class-ArrayAccess.html#methods">ArrayAccess</a></h3>
+		<p class="elementList">
+			<code><a href="class-ArrayAccess.html#_offsetExists">offsetExists()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetGet">offsetGet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetSet">offsetSet()</a></code>, 
+			<code><a href="class-ArrayAccess.html#_offsetUnset">offsetUnset()</a></code>
+		</p>
+
+		<h3>Methods used from <a href="class-ADX.Core.Jsonizer.html#methods">ADX\Core\Jsonizer</a></h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Core.Jsonizer.html#_json">json()</a></code>
+		</p>
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="defaultAttributeSet" id="$defaultAttributeSet">
+			<td class="attributes"><code>
+				public static 
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-ADX.Classes.User.html#35-49" title="Go to source code"><var>$defaultAttributeSet</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$defaultAttributeSet" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Use this attribute set when loading data from directory to satisfy all
+attribute requirements and recommendations of the methods provided by this
+class</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Use this attribute set when loading data from directory to satisfy all
+attribute requirements and recommendations of the methods provided by this
+class</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+		<h3>Magic properties inherited from <a href="class-ADX.Core.Object.html#properties">ADX\Core\Object</a></h3>
+		<p class="elementList">
+			<code><a href="class-ADX.Core.Object.html#m$dn"><var>$dn</var></a></code>
+		</p>
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		AD-X Library API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

@@ -7,7 +7,7 @@
 	<title>Class ADX\Core\Task | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1717341563"></script>
+	<script type="text/javascript" src="elementlist.js?1307753119"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -56,11 +56,19 @@
 			<ul>
 				<li class="active"><a href="namespace-ADX.html">ADX<span></span></a>
 						<ul>
+				<li><a href="namespace-ADX.Attributes.html">Attributes</a>
+						</li>
+				<li><a href="namespace-ADX.Classes.html">Classes</a>
+						</li>
 				<li class="active"><a href="namespace-ADX.Core.html">Core</a>
 						</li>
 				<li><a href="namespace-ADX.Enums.html">Enums</a>
 						</li>
-							</ul></li>
+				<li><a href="namespace-ADX.Util.html">Util<span></span></a>
+						<ul>
+				<li><a href="namespace-ADX.Util.Exchange.html">Exchange</a>
+						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -133,8 +141,7 @@ issues. See the example code below.<br />
 
 <p class="alert">Make sure you import the class into current namespace before
 trying to use it:<br />
-<code>&lt;span class="php-keyword1"&gt;use&lt;/span&gt; ADX\Core\Task;</code><br
-/>
+<code>use ADX\Core\Task;</code><br />
 To simplify the examples, the above line is not present in the examples but it
 is assumed you have it in your implementation.</p>
 
@@ -212,7 +219,7 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms678001%28v=vs.85
 				The connection pooling feature might need a rewrite - if I start a lookup
 operation with an account that has lower access rights than the one I used
 previously, AD-X might fail to perform the requested operation.<br />
-		<b>Located at</b> <a href="source-class-ADX.Core.Task.html#29-530" title="Go to source code">Task.php</a><br />
+		<b>Located at</b> <a href="source-class-ADX.Core.Task.html#21-581" title="Go to source code">Core/Task.php</a><br />
 	</div>
 
 
@@ -230,7 +237,7 @@ previously, AD-X might fail to perform the requested operation.<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_changes">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#122-240" title="Go to source code">changes</a>( )</code>
+			<code><a href="source-class-ADX.Core.Task.html#118-236" title="Go to source code">changes</a>( )</code>
 
 			<div class="description short">
 				
@@ -413,7 +420,7 @@ for changes using usnChanged</a><br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#243-267" title="Go to source code">__construct</a>( <span>string <var>$operationType</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#239-265" title="Go to source code">__construct</a>( <span>string <var>$operationType</var></span>, <span><code><a href="class-ADX.Core.Link.html">ADX\Core\Link</a></code> <var>$adxLink</var></span> )</code>
 
 			<div class="description short">
 				
@@ -480,7 +487,7 @@ strongly discouraged from doing that.</dd>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_use_pages">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#269-297" title="Go to source code">use_pages</a>( <span>integer <var>$page_size</var> = <span class="php-num">1000</span></span>, <span>string <var>$encoded_cookie</var> = <span class="php-quote">''</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#267-297" title="Go to source code">use_pages</a>( <span>integer <var>$sizelimit</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$encoded_cookie</var> = <span class="php-quote">''</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -497,14 +504,14 @@ otherwise hit the maximum limit for a single search ( Active Directory limits a
 single non-paged search to 1000 objects by default ). Enable this functionality
 by invoking this method on the Task and perform search queries using the same
 search criteria using <code><a href="class-ADX.Core.Task.html#_run">ADX\Core\Task::run()</a></code>. You can also avoid the overhead of
-calling this method multiple times by invoking Task::get_all_pages() and
-you will get all the data with a single command.</p>
+calling this method multiple times by invoking <code><a href="class-ADX.Core.Task.html#_run_paged">ADX\Core\Task::run_paged()</a></code> and you
+will get all the data with a single command.</p>
 
 
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
-						<dt><var>$page_size</var></dt>
+						<dt><var>$sizelimit</var></dt>
 						<dd><code>integer</code><br>Number of objects in a single page ( default is 1000 )</dd>
 						<dt><var>$encoded_cookie</var></dt>
 						<dd><code>string</code><br>Base64-encoded pagination cookie to be re-used. If not specified, an empty
@@ -539,14 +546,14 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746459%28v=vs.85
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|array
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attributes">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#299-324" title="Go to source code">attributes</a>( <span>array|string <var>$attributes</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#299-325" title="Go to source code">attributes</a>( <span>array|string <var>$attributes</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -577,7 +584,7 @@ containing the string representation of the distinguished name.</p>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|array</code><br>Self or the current set of attributes to be retrieved<br />
 					</div>
 
 
@@ -590,14 +597,14 @@ containing the string representation of the distinguished name.</p>
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_filter">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#326-343" title="Go to source code">filter</a>( <span>string <var>$filter</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#327-345" title="Go to source code">filter</a>( <span>string <var>$filter</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -621,7 +628,7 @@ class="php-quote"&gt;"(objectclass=*)"&lt;/span&gt;</code></dd>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|string</code><br>Self or the current search filter<br />
 					</div>
 
 
@@ -645,14 +652,14 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85
 
 			<td class="attributes"><code>
 				 public 
-				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_base">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#345-365" title="Go to source code">base</a>( <span>string <var>$dn</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#347-369" title="Go to source code">base</a>( <span>string <var>$dn</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -681,7 +688,51 @@ the lookup operation.</p>
 
 					<h4>Returns</h4>
 					<div class="list">
-						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code></code><br />
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|string</code><br>Self or the current baseDN<br />
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="sizelimit" id="_sizelimit">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_sizelimit">#</a>
+			<code><a href="source-class-ADX.Core.Task.html#371-385" title="Go to source code">sizelimit</a>( <span>integer <var>$sizelimit</var> = <span class="php-keyword1">null</span> </span> )</code>
+
+			<div class="description short">
+				
+<p>Specify the maximum number of objects to be returned in a single lookup
+operation</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Specify the maximum number of objects to be returned in a single lookup
+operation</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sizelimit</var></dt>
+						<dd><code>integer</code><br>The desired sizelimit</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-ADX.Core.Task.html">ADX\Core\Task</a></code>|integer</code><br>Self or the current sizelimit<br />
 					</div>
 
 
@@ -701,7 +752,7 @@ the lookup operation.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#367-439" title="Go to source code">run</a>( )</code>
+			<code><a href="source-class-ADX.Core.Task.html#387-472" title="Go to source code">run</a>( )</code>
 
 			<div class="description short">
 				
@@ -748,7 +799,7 @@ was chased<br />
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run_paged">#</a>
-			<code><a href="source-class-ADX.Core.Task.html#441-470" title="Go to source code">run_paged</a>( <span>integer <var>$page_size</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-ADX.Core.Task.html#474-512" title="Go to source code">run_paged</a>( <span>integer <var>$page_size</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -760,7 +811,9 @@ was chased<br />
 				
 <p>Return all pages at once when doing paged search operations</p>
 
-<p>Use this method to get a complete resultset with all pages at once.</p>
+<p>Use this method to get a complete resultset with all pages at once. The page
+size specified via this method call only applies for this lookup operation and
+will be set to its previous value ( if any ).</p>
 
 
 
@@ -807,7 +860,7 @@ was chased<br />
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-ADX.Core.Task.html#79-92" title="Go to source code"><var>$max_referrals</var></a>
+					<a href="source-class-ADX.Core.Task.html#74-87" title="Go to source code"><var>$max_referrals</var></a>
 			</td>
 			<td class="description"><div>
 				<a href="#$max_referrals" class="anchor">#</a>
@@ -845,7 +898,7 @@ href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms677913%28v=vs.85
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-ADX.Core.Task.html#94-106" title="Go to source code"><var>$complete</var></a>
+					<a href="source-class-ADX.Core.Task.html#89-101" title="Go to source code"><var>$complete</var></a>
 			</td>
 			<td class="description"><div>
 				<a href="#$complete" class="anchor">#</a>
