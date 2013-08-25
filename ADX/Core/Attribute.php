@@ -31,6 +31,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 
 	protected $attribute;					// The name of the ldap attribute
 	protected $value			= array();	// The value or values of the ldap attribute, converted to php-compatible format where applicable
+	protected $originalValue;				// The original value(s) of the attribute at the moment of instantiation
 	protected $needsReindex		= false;	// Determines whether the values should be reindexed upon retrieval to keep the array keys continuous
 	// Schema-loaded properties of the attribute
 	protected $attributeSyntax;				// Determines the syntax of the current attribute
@@ -205,6 +206,8 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		// Make sure this attribute is not constructed
 		if ( $this->isConstructed ) throw new InvalidOperationException();
 
+		$this->_save_state();
+
 		$index = false;
 
 		// If we have a numeric index, then it's easy...
@@ -264,10 +267,31 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		// Make sure this attribute is not constructed
 		if ( $this->isConstructed ) throw new InvalidOperationException();
 
+		$this->_save_state();
+
 		$this->value		= array();
 		$this->needsReindex	= false;
 
 		$this->adxObject->_register_change( $this );
+
+		return $this;
+	}
+
+	/**
+	 * Restore the attribute's value(s) to those present at instantiation,
+	 * discarding all changes made since
+	 *
+	 * @return		self
+	 */
+	public function reset()
+	{
+		// Make sure this attribute is not constructed
+		if ( $this->isConstructed ) throw new InvalidOperationException();
+
+		$this->value		= $this->originalValue;
+		$this->needsReindex	= false;
+
+		$this->adxObject->_unregister_change( $this );
 
 		return $this;
 	}
@@ -318,10 +342,21 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return $this;
 	}
 
+	protected function _save_state()
+	{
+		if ( $this->originalValue !== null ) return;	// State already saved, nothing to do
+
+		$this->originalValue = $this->value;
+
+		return $this;
+	}
+
 	protected function _set_value( $value, $offset = null, $ignoreChanges = false )
 	{
 		// Make sure this attribute is not constructed
 		if ( ! $ignoreChanges && $this->isConstructed ) throw new InvalidOperationException();
+
+		! $ignoreChanges && $this->_save_state();
 
 		// Make sure this attribute can have multiple values
 		if ( $this->isSingleValued && $this->count() > 0 ) throw new OutOfRangeException( 'This attribute cannot have multiple values' );

@@ -565,6 +565,17 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		if ( ! in_array( $attribute, $this->changedAttributes ) ) $this->changedAttributes[] = $attribute;
 	}
 
+	/**
+	 * @internal
+	 */
+	public function _unregister_change( Attribute $attribute )
+	{
+		$attribute = (string)$attribute;
+
+		$key = array_search( $attribute, $this->changedAttributes );
+		if ( $key !== false ) unset( $this->changedAttributes[$key] );
+	}
+
 
 	/**
 	 * Get the changed data since retrieval from ldap or since object's creation
