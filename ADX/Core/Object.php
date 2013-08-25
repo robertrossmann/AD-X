@@ -280,6 +280,30 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	}
 
 	/**
+	 * Move the object to a new parent container
+	 *
+	 * @param		Object|string		The new container to hold the object
+	 *
+	 * @return		self
+	 */
+	public function move( $new_parent )
+	{
+		$new_parent		= (string)$new_parent;		// Make sure the DN is a string
+		$rdnAttId	= $this->rdnAttId;				// Which attribute is the relative distinguished name attribute?
+		$rdn		= $this->$rdnAttId(0);			// Use the RDN attribute to get its value
+		$link_id	= $this->adxLink->get_link();
+
+		if ( ! $rdn ) throw new InvalidOperationException( "The attribute '$rdn' must be present when moving objects of this class" );
+
+		if ( ! @ldap_rename( $link_id, $this->dn, "$rdnAttId=$rdn", $new_parent, true ) ) $this->_handle_last_error();	// Could not move object
+
+		// Update the local distinguished name associated with this object
+		$this->dn = "$rdnAttId=$rdn,$new_parent";
+
+		return $this;
+	}
+
+	/**
 	 * Get the specified attribute of the object
 	 *
 	 * This is one of the many ways how to access an object's attribute.
