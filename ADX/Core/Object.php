@@ -148,11 +148,14 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * <code>
 	 * use ADX\Core\Object;	// Import the class into the current namespace
 	 *
-	 * // Create the instance and specify the 'objectclass' and 'mail' attributes immediately
-	 * $object = new Object( $link, ['objectclass' => 'user', 'mail' => 'robert@company.com'] );
+	 * // Create the instance and specify the 'objectclass', 'cn' and 'samAccountName'
+	 * // attributes immediately
+	 * // ( $link is an instance of fully configured ADX\Core\Link )
+	 * $object = new Object( $link, ['objectclass' => 'user', 'cn' => 'Rossmann Robert', 'samAccountName' => 'robertrossmann'] );
 	 *
 	 * // Optionally, further modify the object as needed
 	 * $object->givenName->set( 'Robert' );
+	 * $object->sn->set( 'Rossmann' );
 	 *
 	 * // Save the object to the server
 	 * $object->create( 'OU=admins,DC=corp,DC=company,DC=com' );
