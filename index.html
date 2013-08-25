@@ -1,206 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <title>AD-X by Alaneor</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>AD-X by Alaneor</title>
   </head>
-
   <body>
-    <div id="container">
-      <div class="inner">
+    <div class="wrapper">
+      <header>
+        <h1>AD-X</h1>
+        <p>Active Directory library for php</p>
 
-        <header>
-          <h1>AD-X</h1>
-          <h2>Active Directory library for php</h2>
-        </header>
+        <p class="view"><a href="https://github.com/Alaneor/AD-X">View the Project on GitHub <small>Alaneor/AD-X</small></a></p>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/Alaneor/AD-X/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/Alaneor/AD-X/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/Alaneor/AD-X" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
 
-        <hr>
+        <ul>
+          <li><a href="https://github.com/Alaneor/AD-X/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Alaneor/AD-X/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Alaneor/AD-X">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="ad-x--active-directory-library-for-php" class="anchor" href="#ad-x--active-directory-library-for-php"><span class="octicon octicon-link"></span></a>AD-X :: Active Directory library for php</h1>
 
-        <section id="main_content">
-          <h1>AD-X :: Active Directory library for php</h1>
+<p>The <strong>AD-X</strong> library aims to provide an easy-to-use, object-oriented and powerful tool to work with Active Directory and related components, like Exchange.</p>
 
-<p>The <strong>AD-X</strong> library aims to provide an easy-to-use, object-oriented and extremely powerful access to an Active Directory database.</p>
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
 
-<h2>Features</h2>
+<h3>
+<a name="the-important-ones" class="anchor" href="#the-important-ones"><span class="octicon octicon-link"></span></a>The important ones</h3>
 
-<h3>The important ones</h3>
+<hr><ul>
+<li>An understandable, object-oriented API to work with Active Directory</li>
+<li>
+<strong>Automatic data conversion</strong> - with this library, you won't encounter a value that has to be converted to something else before you can work with it in php ( like <code>unicodePwd</code> or <code>lastLogonTimestamp</code> ) - you simply use the values and the library will take care of the conversion</li>
+<li>
+<a href="http://alaneor.github.io/AD-X/api/class-ADX.Classes.User.html">User management</a> / <strong>Microsoft Exchange mailbox management</strong> ( yes, you can create Exchange mailboxes / mail users with this! )</li>
+<li>Support for paged searches</li>
+<li>Support for referrals - useful if you operate on multiple domains in a forest</li>
+<li>TLS or SSL encryption support</li>
+<li>Directory Schema caching allows to perform checks, validations and provide guidance before you even attempt to modify anything on the server</li>
+<li>Simple <a href="http://alaneor.github.io/AD-X/api/class-ADX.Core.Task.html#_changes">change tracking</a> on your directory server</li>
+<li>
+<a href="http://alaneor.github.io/AD-X/api/class-ADX.Util.Selector.html">Selectors</a> - a simple and elegant way to retrieve objects</li>
+</ul><h3>
+<a name="the-nice-to-have-ones" class="anchor" href="#the-nice-to-have-ones"><span class="octicon octicon-link"></span></a>The nice to have ones</h3>
 
-<hr><h4>Object-oriented API</h4>
+<hr><ul>
+<li>
+<em>ldap v3</em> protocol support</li>
+<li>Namespaced classes to prevent collisions</li>
+<li>Exceptions-based error handling</li>
+<li>Autoloading support via Composer</li>
+<li>Object-to-json conversion for easy integration with your front-end</li>
+<li>Optional simple ldap query builder</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Use a nice, understandable, object-oriented API to work with Active Directory.</p>
-
-<h4>Support for paged results</h4>
-
-<p>Need to fetch more objects than the maximum configured limit for a single request? No problem - just enable paged searching and off you go!</p>
-
-<h4>Support for referrals</h4>
-
-<p>If you use more domains in your Active Directory infrastructure, modifying objects across all domains could be a real pain. <strong>AD-X</strong> supports referrals, so if you hit one, the library will try to connect to the other domain and perform the operation there.</p>
-
-<h4>TLS or SSL encryption</h4>
-
-<p>You can use either TLS or SSL encryptions with the library. Just make sure you have the proper certificates installed and you are ready to go.</p>
-
-<h4>Automatic data conversion</h4>
-
-<p>Ever tried to find out when a user logged in to the system last time, only to discover that the <code>lastlogontimestamp</code> attribute is not a standard unix timestamp you know from <em>php</em>? Well, those days are over - when accessing any such attribute via <strong>AD-X</strong>, you get a unix timestamp. Free of charge.  </p>
-
-<p>And it does not end with just timestamps. Need to reset someone's password? Just set the attribute's value and you are done. The library will handle proper attribute formatting for you.<br>
-You can even convert attributes like <code>member</code> or <code>manager</code> into real objects with just one method call!</p>
-
-<h4>No assumptions: use the RootDSE and the directory schema</h4>
-
-<p>The library makes extensive use of the <em>rootDSE</em> entry and the directory schema to determine the nature of the current environment.</p>
-
-<h3>The nice to have ones</h3>
-
-<hr><h4>
-<em>ldap v3</em> protocol support</h4>
-
-<p>Using the ldap v3 protocol, you can get the most out of a directory server by using the newest available technologies.</p>
-
-<h4>Namespaces all over the place</h4>
-
-<p>The library is fully namespaced to ensure 100% compatibility with any other libraries / frameworks you might need to use.</p>
-
-<h4>Exceptions-based error handling</h4>
-
-<p>Handle your exceptions flexibly by utilising exceptions. No more checking if a method returns <code>FALSE</code> or <code>NULL</code>!</p>
-
-<h4>Autoloading support</h4>
-
-<p>No need to include the library files - just include one file and the autoloader will take care of the rest.</p>
-
-<h4>Local directory schema cache</h4>
-
-<p>By caching the directory schema, the library can take advantage of the information present on the schema without the need to query the server for it, saving the execution time and speeding your application up.</p>
-
-<h4>Object to json string conversion</h4>
-
-<p>Using a javascript front-end and need to send the ldap data to the browser using json? No problem - just one method call and you have your json string ready.</p>
-
-<h4>Optional ldap query builder</h4>
-
-<p>If you like, you can use the provided ldap query builder that makes building ldap filters simple. You can even combine the query builder with hand-written filters.</p>
-
-<h2>Stability</h2>
-
-<p>The library is to be considered of a <strong>release candidate</strong> stability level. The library has been tested extensively in a real-world environment, but some non-thought-of edge cases and outstanding non-critical known issues might need fixing.</p>
-
-<p>Please submit your bugs to the Github's <a href="https://github.com/Alaneor/AD-X/issues">issue tracker</a>.</p>
-
-<h2>Installation</h2>
-
-<h3>Requirements</h3>
+<h3>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
 
 <ul>
-<li>PHP &gt;= 5.4.0</li>
-<li>PHP with LDAP support ( <a href="http://www.php.net/manual/en/ldap.installation.php">setup instructions</a> )</li>
-<li>PHP with OpenSSL for SSL / TLS encrypted connections ( <a href="http://cz1.php.net/manual/en/openssl.installation.php">setup instructions</a> )</li>
-</ul><h3>Install:</h3>
+<li>PHP 5.4.0 and newer with LDAP support ( <a href="http://www.php.net/manual/en/ldap.installation.php">setup instructions</a> )</li>
+<li>OpenSSL module for SSL / TLS connections ( <a href="http://cz1.php.net/manual/en/openssl.installation.php">setup instructions</a> )</li>
+</ul><h3>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install:</h3>
 
-<h4>Via Composer:</h4>
+<h4>
+<a name="via-composer" class="anchor" href="#via-composer"><span class="octicon octicon-link"></span></a>Via Composer:</h4>
 
-<p><code>composer require alaneor/ad-x</code></p>
+<p>This will install the latest stable release:<br><code>composer require alaneor/ad-x:dev-master</code>
+( visit <a href="https://packagist.org/packages/alaneor/ad-x">Packagist</a> for list of all available versions )</p>
 
-<h4>Manually:</h4>
+<h3>
+<a name="post-installation--optional-but-strongly-recommended--" class="anchor" href="#post-installation--optional-but-strongly-recommended--"><span class="octicon octicon-link"></span></a>Post-installation ( optional, but <strong>strongly recommended</strong> ) :</h3>
 
-<ol>
-<li>Download the repository to your drive</li>
-<li>Include the <a href="adx.php">adx.php</a> file into your project</li>
-</ol><h4>Post-installation:</h4>
+<h4>
+<a name="generate-the-schema-cache" class="anchor" href="#generate-the-schema-cache"><span class="octicon octicon-link"></span></a>Generate the schema cache:</h4>
 
-<ol>
-<li>
-<p>Generate the schema cache:  </p>
+<p>Create a new php script with the following contents, providing relevant information like domain and your domain credentials:</p>
 
-<div class="highlight"><pre><span class="nv">$link</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ADX\Core\Link</span><span class="p">(</span> <span class="s1">'company.com'</span><span class="p">,</span> <span class="mi">389</span> <span class="p">);</span> <span class="c1">// Connect to server on default port  </span>
-<span class="nv">$link</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span> <span class="s1">'username'</span><span class="p">,</span> <span class="s1">'password'</span> <span class="p">);</span> <span class="c1">// Authenticate to the server  </span>
-<span class="nx">ADX\Core\Schema</span><span class="o">::</span><span class="na">build</span><span class="p">(</span> <span class="nv">$link</span> <span class="p">);</span> <span class="c1">// Build the local schema cache ( takes some time, go get a coffee )</span>
+<div class="highlight"><pre>    <span class="k">include</span> <span class="s1">'./vendor/autoload.php'</span><span class="p">;</span> <span class="c1">// Include Composer's autoloader</span>
+
+    <span class="nv">$link</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ADX\Core\Link</span><span class="p">(</span> <span class="s1">'company.com'</span><span class="p">,</span> <span class="mi">389</span> <span class="p">);</span> <span class="c1">// Connect to server on default port</span>
+    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span> <span class="s1">'username@company.com'</span><span class="p">,</span> <span class="s1">'password'</span> <span class="p">);</span> <span class="c1">// Authenticate to the server</span>
+    <span class="nx">ADX\Core\Schema</span><span class="o">::</span><span class="na">build</span><span class="p">(</span> <span class="nv">$link</span> <span class="p">);</span> <span class="c1">// Build the local schema cache ( takes some time, go get a coffee )</span>
 </pre></div>
-</li>
+
+<p>A future release will include a wizard-like script to guide you through the process right after installation.</p>
+
+<p>Depending on the stability of your Active Directory environment, you might need to re-build the schema cache occasionally, especially after upgrading to a newer Active Directory functional level or after installing new directory-related components, like MS Exchange, OCS Services or similar.</p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>Documentation is currently available for the API only, but it includes a lot of examples and explanations.
+I recommend that you read the documentation in the following order:</p>
+
+<ul>
 <li>
-<p>Optionally include the namespaced objects into current namespace for easy usage:</p>
-
-<div class="highlight"><pre><span class="k">use</span> <span class="nx">ADX\Core\Link</span><span class="p">;</span> <span class="c1">// To include the Link class</span>
-<span class="c1">// … Include more as needed</span>
-</pre></div>
-</li>
-<li><p>Start using the library!</p></li>
-</ol><p>Depending on the stability of your Active Directory environment, you might need to re-build the schema cache occasionally.</p>
-
-<h2>Documentation</h2>
-
-<p>Documentation is currently available for the API only, but it includes a lot of examples and explanations.</p>
-
-<h3>Read online: <a href="http://alaneor.github.io/AD-X/api">API documentation</a>
+<a href="http://alaneor.github.io/AD-X/api/class-ADX.Core.Link.html">Link</a> : How to connect to the directory and perform authentication</li>
+<li>
+<a href="http://alaneor.github.io/AD-X/api/class-ADX.Core.Task.html">Task</a> : How to search the directory and retrieve data</li>
+<li>
+<a href="http://alaneor.github.io/AD-X/api/class-ADX.Core.Object.html">Object</a> : How to work with retrieved objects and read/manipulate its attributes</li>
+<li>
+<a href="http://alaneor.github.io/AD-X/api/class-ADX.Core.Attribute.html">Attribute</a> : How to manipulate individual attributes and read/manipulate its values</li>
+<li>
+<a href="http://alaneor.github.io/AD-X/api/class-ADX.Classes.User.html">User</a> : How to work with users and manage Exchange mailboxes / mail users</li>
+</ul><h3>
+<a name="read-online-api-documentation" class="anchor" href="#read-online-api-documentation"><span class="octicon octicon-link"></span></a>Read online: <a href="http://alaneor.github.io/AD-X/api">API documentation</a>
 </h3>
 
-<h3>Generate the documentation locally:</h3>
+<h3>
+<a name="generate-the-documentation-locally" class="anchor" href="#generate-the-documentation-locally"><span class="octicon octicon-link"></span></a>Generate the documentation locally:</h3>
 
 <ol>
 <li>Download the library</li>
-<li>Install the dependencies using <a href="http://getcomposer.org/">Composer</a>:<br><code>
+<li>Install the dependencies using <a href="http://getcomposer.org/">Composer</a>:
+<code>
 composer install --dev
 </code>
 </li>
-<li>Generate the API documentation using <a href="http://apigen.org/">ApiGen</a> ( installed by Composer ):<br><code>
-php ./vendor/apigen/apigen/apigen.php
+<li>Generate the API documentation using <a href="http://apigen.org/">ApiGen</a> ( installed by Composer ):
+<code>
+php ./vendor/bin/apigen.php
 </code>
 </li>
 <li>Generated documentation will be available at <em>./docs/www/index.html</em>
 </li>
-</ol><h2>Known limitations</h2>
+</ol><h2>
+<a name="known-limitations" class="anchor" href="#known-limitations"><span class="octicon octicon-link"></span></a>Known limitations</h2>
 
 <ul>
 <li>The <em>ldap v2</em> protocol is not supported and never will be. Pull requests to provide backwards-compatibility will be refused.</li>
 <li>The library has been built <strong>specifically for Active Directory</strong>. Compatibility with standards-based ldap servers like <a href="http://openldap.org">OpenLDAP</a> is likely broken. I have no plans to address this at the moment but a future release might make such thing possible.</li>
 <li>Unit tests are missing completely. I realise this might be a serious issue for future development and plan to address this with a future update. Any help with writing tests is much appreciated.</li>
-</ul><h2>Future to-dos</h2>
+</ul><h2>
+<a name="future-to-dos" class="anchor" href="#future-to-dos"><span class="octicon octicon-link"></span></a>Future to-dos</h2>
 
 <ul>
 <li>Improve the API documentation</li>
+<li>Provide "helper" classes to simplify working with computers, groups, contacts etc.</li>
 <li>Write unit tests</li>
 <li>Write tutorials</li>
-<li>Provide standards-ldap compatibility?</li>
-</ul><h2>License</h2>
+</ul><h2>
+<a name="found-an-issue--have-idea" class="anchor" href="#found-an-issue--have-idea"><span class="octicon octicon-link"></span></a>Found an issue / have idea?</h2>
 
-<p>This software is licensed under the <strong>MIT license</strong>.
+<p>Please submit issues and ideas to the Github's <a href="https://github.com/Alaneor/AD-X/issues">issue tracker</a>.</p>
+
+<p>Contributing rules will be provided in a future update - for now, please try to match the programming style currently used in the code when submitting pull requests.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This software is licensed under the <strong>BSD (3-Clause) License</strong>.
 See the <a href="LICENSE">LICENSE</a> file for more information.</p>
 
-<h2>Appreciate</h2>
+<h2>
+<a name="appreciate" class="anchor" href="#appreciate"><span class="octicon octicon-link"></span></a>Appreciate</h2>
 
 <p>If you like this project and enjoy using it, feel free to spread the word about it wherever you wish.</p>
 
-<p>If this library helped you earn some money, please consider donating ( any amount is greatly appreciated! ).
-If you work for a company and the library saved you a lot of time / effort in your project, please consider donating a larger amount. :)</p>
+<p>You may also consider donating.</p>
 
-<h3>Via Flattr:</h3>
+<h3>
+<a name="via-flattr" class="anchor" href="#via-flattr"><span class="octicon octicon-link"></span></a>Via Flattr:</h3>
 
 <p><a href="http://flattr.com/thing/1301881/" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a></p>
-        </section>
-
-        <footer>
-          AD-X is maintained by <a href="https://github.com/Alaneor">Alaneor</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Alaneor">Alaneor</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
