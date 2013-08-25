@@ -1,5 +1,36 @@
 # Changelog
 
+### Version 0.3 ( 2013-08-25 )
+
+The 0.3 is a major release aimed primarily at User management / Exchange support and at adding long-missing functionality. A lot of internal work has been done on the code and a fair amount of new features have been introduced.
+
+Take a look at the changelog to see what's new.
+
+#### New features / changes
+ - AD-X is now licensed under [BSD-3 license](http://choosealicense.com/licenses/bsd-3-clause)
+ - [User management](http://alaneor.github.io/AD-X/api/class-ADX.Classes.User.html) / Exchange management support
+ - Improved API documentation
+ - A new `ADX\Util\Selector` class to simplify lookup operations
+ - `Attribute::reset()` : Allows you to reset the attribute to its original state at instantiation
+ - `Object::move()` : Move objects across containers in a domain
+ - The **CN** and **OU** attributes are now returned for all lookup operations by default ( when present )
+ - `Object::bit_state()` : Easily check & manipulate bitfield attributes like **userAccountControl**
+ - `Task::sizelimit()` : Set your own sizelimit per search query
+ - Do not require **ext-openssl** since using SSL / TLS is optional
+ - Ditch the internal autoloader in favour of **Composer**
+ - Query builder now performs basic escaping on values provided in a search filter
+
+#### Fixes
+
+ - **msExchMailboxGuid** is now displayed properly
+ - Capitalise `UAC::PasswdNotReqd` correctly ( was `PasswdNotreqd` )
+ - Fixed `Object::create()` to actually work
+ - Do not throw on non-erroneous, non-zero ldap responses ( like *Sizelimit exceeded* etc. )
+ - Calling `Task::run_paged()` no longer permanently enables pagination on Task
+ - Suppress php errors when doing lookup operations - error situations are handled via exceptions
+ - Conversion of Object or its subclass into a string might have returned incorrect class name when both DN and rdnAttId were not present
+ - Setting **pwdLastSet** to -1 ( "do not require password change" ) now behaves correctly
+
 ### Version 0.2.3 ( 2013-08-20 )
 
 #### Fixes
