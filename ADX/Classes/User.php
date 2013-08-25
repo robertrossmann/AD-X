@@ -245,6 +245,10 @@ class User extends Object
 	/**
 	 * Set the user's password to a new value
 	 *
+	 * <p class='alert'>Note that Active Directory will not allow you to reset users'
+	 * passwords over unencrypted connection - you must connect with SSL or TLS encryption
+	 * in order for this method to work.</p>
+	 *
 	 * @param		string		The new password the user's account should receive
 	 *
 	 * @return		self
