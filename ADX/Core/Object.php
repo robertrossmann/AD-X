@@ -218,10 +218,10 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	public function create( $dn )
 	{
 		// Make sure that we have the RDN attribute present
-		if ( ! array_key_exists( $this->rdnAttId, $this->changedAttributes ) ) throw new Exception( "The mandatory attribute $this->rdnAttId is missing" );
+		if ( ! in_array( $this->rdnAttId, $this->changedAttributes ) ) throw new Exception( "The mandatory attribute $this->rdnAttId is missing" );
 
 		$link_id = $this->adxLink->get_link();
-		$dn = "$this->rdnAttId=" . $this->changedAttributes[$this->rdnAttId][0] . ",$dn";
+		$dn = "$this->rdnAttId=" . $this->get( $this->rdnAttId )[0] . ",$dn";
 
 		if ( ldap_add( $link_id, $dn, $this->_get_changed_data() ) )
 		{
