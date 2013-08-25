@@ -1,23 +1,16 @@
 <?php
 
-// Copyright (C) 2013 Robert Rossmann
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is furnished
-// to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-// OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * AD-X
+ *
+ * Licensed under the BSD (3-Clause) license
+ * For full copyright and license information, please see the LICENSE file
+ *
+ * @copyright		2012-2013 Robert Rossmann
+ * @author			Robert Rossmann <rr.rossmann@me.com>
+ * @link			https://github.com/Alaneor/AD-X
+ * @license			http://choosealicense.com/licenses/bsd-3-clause		BSD (3-Clause) License
+ */
 
 
 namespace ADX\Core;
@@ -51,7 +44,7 @@ namespace ADX\Core;
  * // All users that do NOT have the email address set:
  * // ( notice that we pass multiple parameters to the
  * // Query::a() method - you can pass as many as you like -
- * // as long as they are hashes or strings )
+ * // as long as they are keyed arrays or strings )
  * $filter = Query::a(
  * 	['objectclass' => 'user'],
  * 	Query::n([ 'mail' => '*' ])	// We pass multiple parameters here to the Query::a() method
@@ -61,10 +54,19 @@ namespace ADX\Core;
  */
 class Query
 {
+	protected static $escapeMap = [
+		'\\'	=> '\5c',
+		'/'		=> '\2f',
+		'('		=> '\28',
+		')'		=> '\29',
+	//	'*'		=> '\2a', // Not escaping the asterisk because its primary use is to denote a wildcard; escape it yourself if you have to
+	];
+
 	/**
 	 * Build a logical AND filter - (&(attribute=value))
 	 *
 	 * @param	array|string	$data,...	Unlimited number of hash arrays or strings to be used
+	 *
 	 * @return	string						The generated ldap filter
 	 */
 	public static function a()
@@ -78,6 +80,7 @@ class Query
 	 * Build a logical OR filter - (|(attribute=value))
 	 *
 	 * @param	array|string	$data,...	Unlimited number of hash arrays or strings to be used
+	 *
 	 * @return	string						The generated ldap filter
 	 */
 	public static function o()
@@ -91,6 +94,7 @@ class Query
 	 * Build a logical NOT filter - (|(attribute=value))
 	 *
 	 * @param	array|string	$data,...	Unlimited number of hash arrays or strings to be used
+	 *
 	 * @return	string						The generated ldap filter
 	 */
 	public static function n()
@@ -119,7 +123,9 @@ class Query
 	/**
 	 * Loop through the arguments and generate a proper ldap filter using the provided operator
 	 *
-	 * @param	array	Array containing the attribute => value mappings, or a string with already generated ldap filter
+	 * @param	array	Array containing the attribute => value mappings, or a
+	 * 					string with already generated ldap filter
+	 *
 	 * @return	string	The generated ldap filter
 	 */
 	protected static function _parse( $args, $operator )
@@ -151,6 +157,23 @@ class Query
 	 */
 	protected static function _stringify( $key, $value, $logic = null )
 	{
-		return "($key" . ( $logic ? ":$logic:" : "" ) . "=$value)";
+		return "($key" . ( $logic ? ":$logic:" : "" ) . "=" . static::_escape( $value ) . ")";
+	}
+
+	/**
+	 * Replace all characters that are not allowed in a ldap query's value with their escaped equivalents
+	 *
+	 * @param		string		The value to be escaped
+	 *
+	 * @return		string		The escaped value
+	 */
+	protected static function _escape( $value )
+	{
+		$keys	= array_keys( static::$escapeMap );
+		$values	= array_values( static::$escapeMap );
+
+		$value	= str_ireplace( $keys, $values, $value );
+
+		return $value;
 	}
 }

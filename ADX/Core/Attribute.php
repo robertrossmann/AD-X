@@ -1,32 +1,27 @@
 <?php
 
-// Copyright (C) 2013 Robert Rossmann
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is furnished
-// to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-// OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * AD-X
+ *
+ * Licensed under the BSD (3-Clause) license
+ * For full copyright and license information, please see the LICENSE file
+ *
+ * @copyright		2012-2013 Robert Rossmann
+ * @author			Robert Rossmann <rr.rossmann@me.com>
+ * @link			https://github.com/Alaneor/AD-X
+ * @license			http://choosealicense.com/licenses/bsd-3-clause		BSD (3-Clause) License
+ */
 
 
 namespace ADX\Core;
+
 use ADX\Enums;
 
 /**
  * Contains logic for storing and manipulating the value(s) of a particular property of an {@link Object}.
  *
- * @property-read	bool	$isResolvable	If the attribute contains distinguished name(s), it is considered to be resolvable ( can be converted to an Object )
+ * @property-read	bool	$isResolvable	If the attribute contains distinguished name(s),
+ * 											it is considered to be resolvable ( the DNs can be converted to Objects )
  */
 class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializable
 {
@@ -36,6 +31,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 
 	protected $attribute;					// The name of the ldap attribute
 	protected $value			= array();	// The value or values of the ldap attribute, converted to php-compatible format where applicable
+	protected $originalValue;				// The original value(s) of the attribute at the moment of instantiation
 	protected $needsReindex		= false;	// Determines whether the values should be reindexed upon retrieval to keep the array keys continuous
 	// Schema-loaded properties of the attribute
 	protected $attributeSyntax;				// Determines the syntax of the current attribute
@@ -46,6 +42,34 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 
 	//Iterator interface properties
 	protected $iteratorPosition	= 0;
+
+
+	/**
+	 * Create a new instance of Attribute or its defined subclass
+	 *
+	 * If you use this method to create a new instance of an Attribute, you ensure that
+	 * if there is an override defined in the ADX\Attributes namespace for a specific Attribute,
+	 * you will get instance of that class instead of the base class.
+	 *
+	 * The method accepts exactly the same parameters as {@link self::__construct()} - take
+	 * a look at that method's definition for more information.
+	 *
+	 * @param		string			The ldap display name of the attribute to be created
+	 * @param		mixed|array		The initial value(s) this attribute should have
+	 * @param		Object			An instance of {@link Object} this attribute belongs to
+	 *
+	 * @return		Attribute		An instance of the Attribute class or any of its subclasses, if defined in the ADX\Attributes namespace
+	 */
+	public static function make( $attribute, $values = array(), Object $object = null )
+	{
+		$args = func_get_args();
+		$shouldConvert = isset( $args[3] ) ? $args[3] : false;	// This parameter is hidden
+
+		$class = 'ADX\\Attributes\\' . $attribute;
+		$class = class_exists( $class ) ? $class : 'ADX\Core\Attribute';
+
+		return new $class( $attribute, $values, $object, $shouldConvert );
+	}
 
 
 	/**
@@ -105,6 +129,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * Get the value of the attribute, optionally at a specified index
 	 *
 	 * @param		integer			The optional index of the value
+	 *
 	 * @return		array|mixed		The array with all values ( if no index was provided ) or the value at the specified index
 	 */
 	public function value( $index = null )
@@ -137,6 +162,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * Add a value to the attribute, preserving already existing values
 	 *
 	 * @param		mixed|array		The value(s) to be added to the attribute
+	 *
 	 * @return		self
 	 */
 	public function add( $values )
@@ -172,12 +198,15 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * among the values ( which will also be converted to strings ).
 	 *
 	 * @param		integer|mixed		The index or other data that should be removed
+	 *
 	 * @return		self
 	 */
 	public function remove( $valueOrIndex )
 	{
 		// Make sure this attribute is not constructed
 		if ( $this->isConstructed ) throw new InvalidOperationException();
+
+		$this->_save_state();
 
 		$index = false;
 
@@ -218,6 +247,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * Set the value(s) of the attribute, replacing any existing values
 	 *
 	 * @param		mixed		The value(s) to be set
+	 *
 	 * @return		self
 	 */
 	public function set( $value )
@@ -230,17 +260,38 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	/**
 	 * Remove all values from the attribute
 	 *
-	 * @return    [type]    [description]
+	 * @return		self
 	 */
 	public function clear()
 	{
 		// Make sure this attribute is not constructed
 		if ( $this->isConstructed ) throw new InvalidOperationException();
 
+		$this->_save_state();
+
 		$this->value		= array();
 		$this->needsReindex	= false;
 
 		$this->adxObject->_register_change( $this );
+
+		return $this;
+	}
+
+	/**
+	 * Restore the attribute's value(s) to those present at instantiation,
+	 * discarding all changes made since
+	 *
+	 * @return		self
+	 */
+	public function reset()
+	{
+		// Make sure this attribute is not constructed
+		if ( $this->isConstructed ) throw new InvalidOperationException();
+
+		$this->value		= $this->originalValue;
+		$this->needsReindex	= false;
+
+		$this->adxObject->_unregister_change( $this );
 
 		return $this;
 	}
@@ -254,6 +305,7 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 	 * to inform the attribute that it should belong to that Object instead.
 	 *
 	 * @param		Object		The new owner of this Attribute
+	 *
 	 * @return		self
 	 */
 	public function belongs_to( Object $object = null )
@@ -290,10 +342,21 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 		return $this;
 	}
 
+	protected function _save_state()
+	{
+		if ( $this->originalValue !== null ) return;	// State already saved, nothing to do
+
+		$this->originalValue = $this->value;
+
+		return $this;
+	}
+
 	protected function _set_value( $value, $offset = null, $ignoreChanges = false )
 	{
 		// Make sure this attribute is not constructed
 		if ( ! $ignoreChanges && $this->isConstructed ) throw new InvalidOperationException();
+
+		! $ignoreChanges && $this->_save_state();
 
 		// Make sure this attribute can have multiple values
 		if ( $this->isSingleValued && $this->count() > 0 ) throw new OutOfRangeException( 'This attribute cannot have multiple values' );

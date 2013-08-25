@@ -1,30 +1,22 @@
 <?php
 
-// Copyright (C) 2013 Robert Rossmann
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is furnished
-// to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-// OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * AD-X
+ *
+ * Licensed under the BSD (3-Clause) license
+ * For full copyright and license information, please see the LICENSE file
+ *
+ * @copyright		2012-2013 Robert Rossmann
+ * @author			Robert Rossmann <rr.rossmann@me.com>
+ * @link			https://github.com/Alaneor/AD-X
+ * @license			http://choosealicense.com/licenses/bsd-3-clause		BSD (3-Clause) License
+ */
 
 
 namespace ADX\Core;
 
 use ADX\Enums;
 use ADX\Core\Query as q;
-
 
 /**
  * Performs lookup operations on ldap server
@@ -40,7 +32,8 @@ use ADX\Core\Query as q;
  * together return the {@link self} object to avoid issues. See the example code below.<br>
  * <br>
  * <p class="alert">Make sure you import the class into current namespace before trying to use it:<br>
- * <code>use ADX\Core\Task;</code><br>
+ * `use ADX\Core\Task;`
+ * <br>
  * To simplify the examples, the above line is not present in the examples but it is assumed you have
  * it in your implementation.</p>
  *
@@ -65,7 +58,9 @@ use ADX\Core\Query as q;
  * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms678001%28v=vs.85%29.aspx">MSDN - Deciding Where To Search</a>
  *
  * @todo		Move all lookup error checking from {@link Object} to {@link self}
- * @todo		The connection pooling feature might need a rewrite - if I start a lookup operation with an account that has lower access rights than the one I used previously, AD-X might fail to perform the requested operation.
+ * @todo		The connection pooling feature might need a rewrite - if I start a lookup
+ * 				operation with an account that has lower access rights than the one I used
+ * 				previously, AD-X might fail to perform the requested operation.
  */
 class Task
 {
@@ -113,7 +108,8 @@ class Task
 	protected $attributes		= ['*'];			// Attributes to be fetched
 	protected $filter			= '(objectclass=*)';// Filter for the lookup operation
 
-	protected $page_size;							// If paged results have been enabled, this specifies the size of a single page
+	protected $sizelimit;							// The size of a single resultset
+	protected $use_pages		= false;			// Should paged search be used?
 	protected $cookie;								// If paged results have been enabled, this will contain the cookie returned by server
 
 	protected $referral_counter	= 0;				// Number of times a referral was chased
@@ -255,7 +251,9 @@ class Task
 	 *
 	 * @uses		Link
 	 * @uses		Enums\Operation
-	 * @param		string		The type of lookup operation you wish to perform, defined in {@link Enums\Operation}. While you can pass an explicit string as an argument, you are strongly discouraged from doing that.
+	 * @param		string		The type of lookup operation you wish to perform, defined
+	 * 							in {@link Enums\Operation}. While you can pass an explicit
+	 * 							string as an argument, you are strongly discouraged from doing that.
 	 * @param		Link		The Link the operation will be performed on
 	 */
 	public function __construct( $operationType, Link $adxLink )
@@ -274,21 +272,23 @@ class Task
 	 * to 1000 objects by default ). Enable this functionality by invoking this
 	 * method on the Task and perform search queries using the same search criteria
 	 * using {@link Task::run()}. You can also avoid the overhead of calling this method multiple times
-	 * by invoking {@link Task::get_all_pages()} and you will get all the data with a single command.
+	 * by invoking {@link Task::run_paged()} and you will get all the data with a single command.
 	 *
 	 * @uses		Enums\ServerControl::PagedResults
-	 * @param		int		Number of objects in a single page ( default is 1000 )
+	 * @param		int			Number of objects in a single page ( default is 1000 )
 	 * @param		string		Base64-encoded pagination cookie to be re-used. If not specified, an empty cookie will be used
+	 *
 	 * @return		self
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-control-paged-result.php">PHP - ldap_control_paged_result()</a>
 	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746459%28v=vs.85%29.aspx">MSDN - Retrieving Large Results Sets</a>
 	 */
-	public function use_pages( $page_size = 1000, $encoded_cookie = '' )
+	public function use_pages( $sizelimit = null, $encoded_cookie = '' )
 	{
 		if ( in_array( Enums\ServerControl::PagedResults, $this->adxLink->rootDSE->supportedcontrol() ) )
 		{
-			$this->page_size	= $page_size;
+			$this->use_pages	= true;
+			$this->sizelimit	= $sizelimit ? $sizelimit : ( $this->sizelimit ?: 1000 );
 			$this->cookie		= $encoded_cookie === '' ? $encoded_cookie : base64_decode( $encoded_cookie );
 		}
 		else throw new Exception( "$this->adxLink does not support paged results" );
@@ -308,7 +308,8 @@ class Task
 	 * of the distinguished name.</p>
 	 *
 	 * @param		array|string		The attribute or attributes to be retrieved<br><b>Default:</b> <code>['*']</code>
-	 * @return		self
+	 *
+	 * @return		self|array			Self or the current set of attributes to be retrieved
 	 *
 	 */
 	public function attributes( $attributes = null )
@@ -326,8 +327,9 @@ class Task
 	/**
 	 * Get or set the ldap filter for the task
 	 *
-	 * @param		string		A valid ldap filter string<br><b>Default:</b> <code>"(objectclass=*)"</code>
-	 * @return		self
+	 * @param		string			A valid ldap filter string<br><b>Default:</b> <code>"(objectclass=*)"</code>
+	 *
+	 * @return		self|string		Self or the current search filter
 	 *
 	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx">MSDN - Search Filter Syntax</a>
 	 * @see			{@link Query}
@@ -352,14 +354,32 @@ class Task
 	 * you will receive {@link Enums\ServerResponse::NoSuchObject} error when executing the
 	 * lookup operation.</p>
 	 *
-	 * @param		string		The distinguished name of an existing directory object / container<br><b>Default:</b> the base DN of the current domain
-	 * @return		self
+	 * @param		string			The distinguished name of an existing directory object / container
+	 * 								<br><b>Default:</b> the base DN of the current domain
+	 *
+	 * @return		self|string		Self or the current baseDN
 	 */
 	public function base( $dn = null )
 	{
 		if ( is_null( $dn ) ) return $this->dn;
 
 		$this->dn = $dn;
+
+		return $this;
+	}
+
+	/**
+	 * Specify the maximum number of objects to be returned in a single lookup operation
+	 *
+	 * @param		int				The desired sizelimit
+	 *
+	 * @return		self|int		Self or the current sizelimit
+	 */
+	public function sizelimit( $sizelimit = null )
+	{
+		if ( is_null( $sizelimit ) ) return $this->sizelimit;
+
+		$this->sizelimit = $sizelimit;
 
 		return $this;
 	}
@@ -373,6 +393,7 @@ class Task
 	 * again on the object, without modifying the lookup criteria.
 	 *
 	 * @uses		Link::$rootDSE		to get the domain base dn ( from <i>defaultnamingcontext</i> ) if no override has been specified
+	 *
 	 * @return		Result|false		The Result object with returned Objects or FALSE if maximum number of referrals was chased
 	 */
 	public function run()
@@ -380,12 +401,12 @@ class Task
 		// Prepare the information needed for the operation
 		$link_id	= $this->adxLink->get_link();
 		$baseDN		= ( $this->dn || $this->dn === '' ) ? $this->dn : $this->adxLink->rootDSE->defaultnamingcontext(0);
-		if ( $this->page_size && $this->complete ) $this->cookie = '';	// Reset the cookie if the operation is started again
+		if ( $this->use_pages && $this->complete ) $this->cookie = '';	// Reset the cookie if the operation is started again
 		$this->complete = false;										// Reset the completion status
 
 		// Send the pagination control cookie if present
 		// I must check explicitly for NULL bcause '' also evaluates to FALSE
-		if ( $this->cookie !== null ) ldap_control_paged_result( $link_id, $this->page_size, true, $this->cookie );
+		if ( $this->cookie !== null ) ldap_control_paged_result( $link_id, $this->sizelimit, true, $this->cookie );
 
 		// Perform the lookup operation
 		// All exceptions thrown here will bubble up!
@@ -431,7 +452,19 @@ class Task
 		$data = array();
 
 		// Create new objects from result, converting the values to php-compatible data formats on the way
-		foreach ( $result as $objectData ) $data[] = new Object( $this->adxLink, $objectData, true );
+		foreach ( $result as $objectData )
+		{
+			// Is there a special class defined for this particular object class ( under ADX\Classes namespace )?
+			// Use 'Object' if the objectClass attribute is either not present or there is no class override
+			if ( isset( $objectData['objectclass'] ) )
+			{
+				$class = 'ADX\\Classes\\' . end( $objectData['objectclass'] );
+				$class = class_exists( $class ) ? $class : 'ADX\Core\Object';
+			}
+			else $class = 'ADX\Core\Object';
+
+			$data[] = new $class( $this->adxLink, $objectData, true );
+		}
 
 		$this->complete = ! $this->cookie;	// As long as cookie is present, the result cannot be complete
 
@@ -442,14 +475,20 @@ class Task
 	 * Return all pages at once when doing paged search operations
 	 *
 	 * Use this method to get a complete resultset with all pages at once.
+	 * The page size specified via this method call only applies for this lookup
+	 * operation and will be set to its previous value ( if any ).
 	 *
 	 * @param		int			Optional size of objects per single page
+	 *
 	 * @return		Result		A Result object containing the objects on the server
 	 *
 	 * @see			self::use_pages()
 	 */
 	public function run_paged( $page_size = null )
 	{
+		$sizelimit = $this->sizelimit;
+		$use_pages = $this->use_pages;
+
 		isset( $page_size ) ? $this->use_pages( $page_size ) : $this->use_pages();
 
 		$resultset = array();
@@ -465,6 +504,9 @@ class Task
 			else return false;
 		}
 		while ( ! $this->complete );
+
+		$this->use_pages = $use_pages;
+		$this->sizelimit = $sizelimit;
 
 		return new Result( $resultset );
 	}
@@ -493,6 +535,9 @@ class Task
 		$mandatory = [
 			'objectguid',
 			'objectclass',
+			// Following are not required but are used so frequently that they should be included by default
+			'cn',
+			'ou',
 		];
 
 		$attributes = array_merge( $attributes, $mandatory );
@@ -503,7 +548,8 @@ class Task
 		// $attributes = array_unique( $attributes );
 
 		// Perform the operation
-		$result_id = $operation( $link_id, $dn, $filter, $attributes );
+		// Supress php errors - any error situations are handled by checking ldap error code below
+		$result_id = @$operation( $link_id, $dn, $filter, $attributes, 0, ( $this->sizelimit ?: 0 ) );
 
 		if ( $result_id === false )	// Operation was unsuccessful
 		{
@@ -516,6 +562,11 @@ class Task
 
 					throw new IncorrectParameterException( "The DN was of incorrect syntax: $dn." );
 					break;
+
+				case Enums\ServerResponse::SizelimitExceeded:
+				case Enums\ServerResponse::CompareFalse:
+				case Enums\ServerResponse::CompareTrue:
+					break;	// Not an error situation
 
 				default:
 

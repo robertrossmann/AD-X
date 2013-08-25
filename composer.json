@@ -1,9 +1,9 @@
 {
 	"name": "alaneor/ad-x",
-	"description": "X-tremely powerful interface to Active Directory",
+	"description": "X-tremely powerful Active Directory interface for php",
 	"keywords": ["Active Directory", "ldap"],
 	"homepage": "https://github.com/Alaneor/AD-X",
-	"license": "MIT",
+	"license": "BSD-3",
 	"authors": [
 		{
 			"name": "Robert Rossmann",
@@ -16,12 +16,13 @@
 		"php": ">=5.4.0",
 		"ext-ldap": "*",
 		"ext-json": "*",
-		"ext-openssl": "*"
+		"rhumsaa/uuid": "~2.4"
 	},
 	"require-dev": {
 		"apigen/apigen": "~2.8.0"
 	},
 	"autoload": {
-		"files": ["adx.php"]
+		"psr-0": { "ADX\\": "." },
+		"files": ["ADX/common.php"]
 	}
 }

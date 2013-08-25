@@ -1,26 +1,20 @@
 <?php
 
-// Copyright (C) 2013 Robert Rossmann
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is furnished
-// to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-// OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * AD-X
+ *
+ * Licensed under the BSD (3-Clause) license
+ * For full copyright and license information, please see the LICENSE file
+ *
+ * @copyright		2012-2013 Robert Rossmann
+ * @author			Robert Rossmann <rr.rossmann@me.com>
+ * @link			https://github.com/Alaneor/AD-X
+ * @license			http://choosealicense.com/licenses/bsd-3-clause		BSD (3-Clause) License
+ */
 
 
 namespace ADX\Core;
+
 use ADX\Enums\Syntax;
 
 /**
@@ -30,6 +24,9 @@ use ADX\Enums\Syntax;
  * internally to convert data automatically to php as it is received from
  * ldap server and also to convert data to ldap when data is being written
  * to ldap server.
+ *
+ * <p class="alert">The Converter <b>requires</b> the directory schema cache
+ * to be present, otherwise no conversion will be made.</p>
  */
 class Converter
 {
@@ -37,11 +34,27 @@ class Converter
 	final private function __construct() {}
 
 
+	/**
+	 * Convert a php-based value into ldap-compatible value
+	 *
+	 * @param		Attribute|string		The attribute's name the value belongs to
+	 * @param		array|mixed				An array of values or a single value to be converted of any type
+	 *
+	 * @return		array|mixed				The converted data, ready for writing into server
+	 */
 	public static function to_ldap( $attribute, $values )
 	{
 		return static::_convert( 'to_l', $attribute, $values );
 	}
 
+	/**
+	 * Convert an ldap-based value into php-compatible value
+	 *
+	 * @param		Attribute|string		The attribute's name the value belongs to
+	 * @param		array|mixed				An array of values or a single value to be converted of any type
+	 *
+	 * @return		array|mixed				The converted data, ready for usage in php
+	 */
 	public static function from_ldap( $attribute, $values )
 	{
 		return static::_convert( 'to_p', $attribute, $values );
@@ -115,8 +128,12 @@ class Converter
 				break;
 
 			case 'unicodepwd':					// A password always needs special treatment
-			case 'objectguid':					// I want objectguid shown as AD tools show it ( like Powershell )
 				$method = $attribute;
+				break;
+
+			case 'objectguid':					// I want objectguid and msExchMailboxGuid shown
+			case 'msexchmailboxguid':			// as AD tools show it ( like Powershell )
+				$method = 'guid';
 				break;
 
 			// These attributes have LargeInt as syntax, but their meaning is different ( they represent a time )
@@ -131,9 +148,9 @@ class Converter
 		// If a conversion method has been found, call it for all values in $value
 		$method = '_'.$direction.'_'.$method;
 
-		if ( is_callable( [$class, $method]) )
+		if ( is_callable( [$class, $method] ) )
 		{
-			foreach ( $values as $value ) $converted[] = call_user_func( [ $class, $method], $value );
+			foreach ( $values as $value ) $converted[] = call_user_func( [$class, $method], $value );
 		}
 		else $converted = $values;	// No conversion has been found - use the raw data
 
@@ -145,18 +162,24 @@ class Converter
 
 	protected static function _to_l_timestamp( $timestamp )
 	{
-		if ( $timestamp === 0 ) return 0;
+		$timestamp = (int)$timestamp;
+
+		// 0 should always be, well, 0
+		// -1 is a special treatment for pwdLastSet ( -1 is used to disable password change requirement )
+		if ( $timestamp === 0 || $timestamp === -1 ) return $timestamp;
 
 		return ( ( $timestamp * 10000000 ) + 11644473600 );
 	}
 
 	protected static function _to_p_timestamp( $timestamp )
 	{
-		// The second part of the conditiona takes care of some crazy behaviour
+		$timestamp = (int)$timestamp;
+
+		// The second part of the condition takes care of some crazy behaviour
 		// ( documented, though ) of accountExpires, which can be zero
 		// or 0x7FFFFFFFFFFFFFFF when the account is set to never expire.
 		// Hopefully, this will not have any side effects...
-		if ( $timestamp === 0 || $timestamp === hexdec('0x7FFFFFFFFFFFFFFF') ) return 0;
+		if ( $timestamp === 0 || $timestamp === hexdec( 0x7FFFFFFFFFFFFFFF ) ) return 0;
 
 		return ( floor( $timestamp / 10000000 ) - 11644473600 );
 	}
@@ -212,7 +235,7 @@ class Converter
 
 	protected static function _to_l_object( $object )
 	{
-		if ( $object instanceof Object && ! $object->dn )	throw new InvalidOperationException( "The object $object is not stored on server - please save your object first, then retry the action" );
+		if ( $object instanceof Object && ! $object->dn ) throw new InvalidOperationException( "The object $object is not stored on server - please save your object first, then retry the action" );
 
 		return ( $object instanceof object ) ? $object->dn : (string)$object;
 	}
@@ -235,7 +258,7 @@ class Converter
 		return $pwd;
 	}
 
-	protected static function _to_p_objectguid( $guid )
+	protected static function _to_p_guid( $guid )
 	{
 		// An interesting piece of code I have found that converts
 		// the objectguid exactly to what standard Powershell or other MS-based
@@ -254,7 +277,7 @@ class Converter
 		return $guid;
 	}
 
-	protected static function _to_l_objectguid( $guid )
+	protected static function _to_l_guid( $guid )
 	{
 		$guid = str_replace( '-', '', $guid );
 

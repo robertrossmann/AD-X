@@ -1,23 +1,16 @@
 <?php
 
-// Copyright (C) 2013 Robert Rossmann
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is furnished
-// to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-// OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * AD-X
+ *
+ * Licensed under the BSD (3-Clause) license
+ * For full copyright and license information, please see the LICENSE file
+ *
+ * @copyright		2012-2013 Robert Rossmann
+ * @author			Robert Rossmann <rr.rossmann@me.com>
+ * @link			https://github.com/Alaneor/AD-X
+ * @license			http://choosealicense.com/licenses/bsd-3-clause		BSD (3-Clause) License
+ */
 
 
 namespace ADX\Core;
@@ -72,12 +65,13 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Create an instance of the class using provided data as array
 	 *
-	 * @param		array		The data to be used in the object ( usually, the array contains instances of {@link Object} )
+	 * @param		array|mixed		The data to be used in the object ( usually,
+	 * 								an array that contains instances of {@link Object} or a single Object )
 	 */
 	public function __construct( $data )
 	{
-		$this->data		= $data;
-		$this->count	= count( $data );
+		$this->data		= (array)$data;
+		$this->count	= count( $this->data );
 	}
 
 	/**
@@ -93,7 +87,8 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Return the first item in the resultset
 	 *
-	 * @return		mixed|null		The first item in the resultset, as returned from the directory server or null if the resultset is empty
+	 * @return		mixed|null		The first item in the resultset, as returned from the directory
+	 * 								server or null if the resultset is empty
 	 */
 	public function first()
 	{
@@ -103,7 +98,8 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	/**
 	 * Loop through all objects in the resultset, applying a callback on it
 	 *
-	 * @param		\Object		An optional object that the callback will be bound to ( the object will be assigned to $this )
+	 * @param		\Object		An optional object that the callback will be bound to
+	 * 							( the object will be assigned to $this )
 	 * @param		function	The callback function to be applied on each object
 	 */
 	public function each( $newthis = null, $callback = null )
@@ -117,8 +113,10 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	 * Use this function to loop through the objects in the resultset, evaluate each object
 	 * in turn and return the objects that you want to have in a new Result object.
 	 *
-	 * @param		\Object		An optional object that the callback will be bound to ( the object will be assigned to $this )
+	 * @param		\Object		An optional object that the callback will be bound to
+	 * 							( the object will be assigned to $this )
 	 * @param		function	The callback function to be applied on each object
+	 *
 	 * @return		self		A subset of items that your callbacks returned, encapsulated in the Result class
 	 */
 	public function filter( $newthis = null, $callback = null )
@@ -130,6 +128,7 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	 * Get an array of all unique values of a specified attribute within the resultset
 	 *
 	 * @param		string		The ldap name of the attribute to be uniquified
+	 *
 	 * @return		array		The array of all unique items within the resultset
 	 */
 	public function unique( $attribute )

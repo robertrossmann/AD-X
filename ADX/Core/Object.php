@@ -1,26 +1,20 @@
 <?php
 
-// Copyright (C) 2013 Robert Rossmann
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is furnished
-// to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-// OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * AD-X
+ *
+ * Licensed under the BSD (3-Clause) license
+ * For full copyright and license information, please see the LICENSE file
+ *
+ * @copyright		2012-2013 Robert Rossmann
+ * @author			Robert Rossmann <rr.rossmann@me.com>
+ * @link			https://github.com/Alaneor/AD-X
+ * @license			http://choosealicense.com/licenses/bsd-3-clause		BSD (3-Clause) License
+ */
 
 
 namespace ADX\Core;
+
 use ADX\Core\Schema;
 use ADX\Enums;
 
@@ -33,7 +27,8 @@ use ADX\Enums;
  *
  * @see		{@link Attribute} - Attributes of an entity / object are represented by this class
  *
- * @property-read		string	$dn			The Distinguished name of the object ( available only for objects already stored in ldap database )
+ * @property-read		string	$dn			The Distinguished name of the object
+ * 											( available only for objects already stored in ldap database )
  */
 class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 {
@@ -86,6 +81,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * @param		string			The distinguished name of the entity to be loaded or an ldap filter that reaturns exactly one object
 	 * @param		array			Array of attributes to be loaded from the server
 	 * @param		Link			The configured and bound Link to server
+	 *
 	 * @return		self			Object containing the requested attributes
 	 */
 	public static function read( $dnOrFilter, $attributes, Link $adxLink )
@@ -131,6 +127,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @param		string		The json string, as returned by {@link self::json()}
 	 * @param		Link		The Link to be used for later server-side operations
+	 *
 	 * @return		Object		The restored object
 	 */
 	public static function restore( $json, Link $adxLink )
@@ -151,18 +148,26 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * <code>
 	 * use ADX\Core\Object;	// Import the class into the current namespace
 	 *
-	 * // Create the instance and specify the 'objectclass' and 'mail' attributes immediately
-	 * $object = new Object( $link, ['objectclass' => 'user', 'mail' => 'robert@company.com'] );
+	 * // Create the instance and specify the 'objectclass', 'cn' and 'samAccountName'
+	 * // attributes immediately
+	 * // ( $link is an instance of fully configured ADX\Core\Link )
+	 * $object = new Object( $link, ['objectclass' => 'user', 'cn' => 'Rossmann Robert', 'samAccountName' => 'robertrossmann'] );
 	 *
 	 * // Optionally, further modify the object as needed
 	 * $object->givenName->set( 'Robert' );
+	 * $object->sn->set( 'Rossmann' );
 	 *
 	 * // Save the object to the server
 	 * $object->create( 'OU=admins,DC=corp,DC=company,DC=com' );
 	 * </code>
 	 *
+	 * <p class='alert'>To create users in Active Directory, you should use the
+	 * {@link ADX\Classes\User} class for best usability. The axample above is
+	 * just to demonstrate the basic usage.</p>
+	 *
 	 * @param		Link		A configured and bound {@link Link} object
 	 * @param		array		A named array containing the attribute names as indexes and their values
+	 *
 	 * @return		self		A new instance of this class
 	 */
 	public function __construct( Link $adxLink, $attributes = array() )
@@ -176,6 +181,13 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		{
 			$this->dn = $attributes['dn'];
 			unset( $attributes['dn'] );
+		}
+
+		// Check if we are instantiating an objectclass override - in that case use the class' name
+		// as the objectclass attribute
+		if ( ! $comesFromLdap && stristr( get_class( $this ), 'ADX\\Classes\\' ) )
+		{
+			$attributes['objectclass'] = [ strtolower( str_ireplace( 'ADX\\Classes\\', "", get_class( $this ) ) ) ];
 		}
 
 		// Check for presence of the schema definition for the current class
@@ -207,15 +219,16 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * more information.
 	 *
 	 * @param		string		The distinguished name of the parent container where this object should be stored
+	 *
 	 * @return		self
 	 */
 	public function create( $dn )
 	{
 		// Make sure that we have the RDN attribute present
-		if ( ! array_key_exists( $this->rdnAttId, $this->changedAttributes ) ) throw new Exception( "The mandatory attribute $this->rdnAttId is missing" );
+		if ( ! in_array( $this->rdnAttId, $this->changedAttributes ) ) throw new Exception( "The mandatory attribute $this->rdnAttId is missing" );
 
 		$link_id = $this->adxLink->get_link();
-		$dn = "$this->rdnAttId=" . $this->changedAttributes[$this->rdnAttId][0] . ",$dn";
+		$dn = "$this->rdnAttId=" . $this->get( $this->rdnAttId )[0] . ",$dn";
 
 		if ( ldap_add( $link_id, $dn, $this->_get_changed_data() ) )
 		{
@@ -245,7 +258,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		if ( count( $changes ) === 0 ) return $this;	// Nothing to be updated
 
-		if ( ldap_modify( $link_id, $this->dn, $changes ) )
+		if ( @ldap_modify( $link_id, $this->dn, $changes ) )
 		{
 			// Successfully modified the object
 			$this->changedAttributes = array();
@@ -274,6 +287,30 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	}
 
 	/**
+	 * Move the object to a new parent container
+	 *
+	 * @param		Object|string		The new container to hold the object
+	 *
+	 * @return		self
+	 */
+	public function move( $new_parent )
+	{
+		$new_parent		= (string)$new_parent;		// Make sure the DN is a string
+		$rdnAttId	= $this->rdnAttId;				// Which attribute is the relative distinguished name attribute?
+		$rdn		= $this->$rdnAttId(0);			// Use the RDN attribute to get its value
+		$link_id	= $this->adxLink->get_link();
+
+		if ( ! $rdn ) throw new InvalidOperationException( "The attribute '$rdn' must be present when moving objects of this class" );
+
+		if ( ! @ldap_rename( $link_id, $this->dn, "$rdnAttId=$rdn", $new_parent, true ) ) $this->_handle_last_error();	// Could not move object
+
+		// Update the local distinguished name associated with this object
+		$this->dn = "$rdnAttId=$rdn,$new_parent";
+
+		return $this;
+	}
+
+	/**
 	 * Get the specified attribute of the object
 	 *
 	 * This is one of the many ways how to access an object's attribute.
@@ -290,6 +327,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * </code>
 	 *
 	 * @param		string			The name of the attribute, as defined on the ldap server
+	 *
 	 * @return		Attribute		An instance of Attribute class, holding the attribute's value(s)
 	 */
 	public function get( $attribute )
@@ -319,7 +357,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 			}
 
 			// Either Schema is not cached or the attribute exists in the schema - let's continue
-			$attribute = new Attribute( $attribute );
+			$attribute = Attribute::make( $attribute );
 			$attribute->belongs_to( $this );
 
 			$this->data["$attribute"] = $attribute;
@@ -339,6 +377,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @param		string						The name of the attribute to be modified
 	 * @param		string|array|Attribute		The value(s) to be set on the attribute
+	 *
 	 * @return		self
 	 */
 	public function set( $attribute, $value )
@@ -361,6 +400,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * or an array with either the names or instances to be removed.
 	 *
 	 * @param		string|array|Attribute		The attribute(s) to be removed
+	 *
 	 * @return		self
 	 */
 	public function remove( $attributes = array() )
@@ -376,6 +416,42 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 			// Remove the attribute by clearing it's value
 			$this->$attribute->clear();
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Get or set a bit in a bitfield attribute
+	 *
+	 * This method is useful for getting or setting bits in a bitfield attributes
+	 * like *userAccountControl*, *systemFlags* etc.
+	 *
+	 * <h2>Example:</h2>
+	 * <code>
+	 * // $link is a valid connection to a directory server
+	 * // Always load attributes you are going to modify from server first to prevent data loss
+	 * $object = ADX\Core\Object::read( 'samaccountname=admin', ['userAccountControl'], $link );
+	 *
+	 * // Is this account disabled?
+	 * var_dump( $object->bit_state( 'userAccountControl', ADX\Enums\UAC::AccountDisable ) );
+	 *
+	 * // Disable the user account
+	 * $object->bit_state( 'userAccountControl', ADX\Enums\UAC::AccountDisable, true );
+	 * </code>
+	 *
+	 * @param		string		The attribute name in which to check the bit's state
+	 * @param		int			The bit's position to be retrieved / set ( you can use predefined values from the **ADX\Enums** namespace where applicable )
+	 * @param		bool		The new value for the bit ( non-boolean values will be cast into boolean )
+	 *
+	 * @return		bool|self	The bit's state ( true / false ) or {@link self} when modifying bits
+	 */
+	public function bit_state( $attribute, $bit, $new_state = null )
+	{
+		if ( $new_state === null ) return (bool)( $this->$attribute(0) & $bit );
+
+		$new_state = (bool)$new_state;
+		if ( $new_state === true )	$this->set( $attribute, $this->$attribute(0) | $bit );
+		if ( $new_state === false )	$this->set( $attribute, $this->$attribute(0) & ~$bit );
 
 		return $this;
 	}
@@ -429,6 +505,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @param		string				The ldap name of the attribute to be resolved
 	 * @param		string|array		The attribute(s) the resolved objects should have
+	 *
 	 * @return		Result				The objects, contained within the Result class
 	 */
 	public function resolve( $attribute, $attributes = null )
@@ -441,7 +518,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		foreach ( $data as $dn ) $objects[] = static::read( $dn, $attributes, $this->adxLink );
 
-		$this->data["$attribute"] = new Attribute( "$attribute", $objects, $this );
+		$this->data["$attribute"] = Attribute::make( "$attribute", $objects, $this );
 
 		return new Result( $objects );
 	}
@@ -490,7 +567,20 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 */
 	public function _register_change( Attribute $attribute )
 	{
-		if ( ! in_array( $attribute, $this->changedAttributes ) ) $this->changedAttributes[] = "$attribute";
+		$attribute = (string)$attribute;
+
+		if ( ! in_array( $attribute, $this->changedAttributes ) ) $this->changedAttributes[] = $attribute;
+	}
+
+	/**
+	 * @internal
+	 */
+	public function _unregister_change( Attribute $attribute )
+	{
+		$attribute = (string)$attribute;
+
+		$key = array_search( $attribute, $this->changedAttributes );
+		if ( $key !== false ) unset( $this->changedAttributes[$key] );
 	}
 
 
@@ -572,7 +662,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		// Create the Attribute objects
 		foreach ( $cleanResult as $attribute => $value )
 		{
-			$result[$attribute] = new Attribute( $attribute, $value, $this, $performConversion );
+			$result[$attribute] = Attribute::make( $attribute, $value, $this, $performConversion );
 		}
 
 		// Return the clean data
@@ -692,14 +782,15 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * is returned if present on the object. If not, the name of the class
 	 * is returned.
 	 *
-	 * @return		string		Either a DN of the object, the value of the RDN attribute ( if present ) or class name, respectively
+	 * @return		string		Either a DN of the object, the value of the RDN attribute
+	 * 							( if present ) or class name, respectively
 	 */
 	public function __toString()
 	{
 		if ( isset( $this->dn ) ) return $this->dn;
 		if ( isset( $this->data[$this->rdnAttId] ) ) return $this->data[$this->rdnAttId];
 
-		return get_called_class();
+		return get_class( $this );
 	}
 
 	/**

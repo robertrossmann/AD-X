@@ -1,33 +1,29 @@
 # AD-X :: Active Directory library for php
 
-The **AD-X** library aims to provide an easy-to-use, object-oriented and powerful tool to work with Active Directory.
+The **AD-X** library aims to provide an easy-to-use, object-oriented and powerful tool to work with Active Directory and related components, like Exchange.
 
 ## Features
 
 ### The important ones
 ----
- - A nice, understandable, object-oriented API to work with Active Directory
+ - An understandable, object-oriented API to work with Active Directory
  - **Automatic data conversion** - with this library, you won't encounter a value that has to be converted to something else before you can work with it in php ( like `unicodePwd` or `lastLogonTimestamp` ) - you simply use the values and the library will take care of the conversion
- - Support for paged results to get more objects than the server-enforced maximum objects per query
+ - [User management](http://alaneor.github.io/AD-X/api/class-ADX.Classes.User.html) / **Microsoft Exchange mailbox management** ( yes, you can create Exchange mailboxes / mail users with this! )
+ - Support for paged searches
  - Support for referrals - useful if you operate on multiple domains in a forest
  - TLS or SSL encryption support
  - Directory Schema caching allows to perform checks, validations and provide guidance before you even attempt to modify anything on the server
- - Simple change tracking on your directory server
+ - Simple [change tracking](http://alaneor.github.io/AD-X/api/class-ADX.Core.Task.html#_changes) on your directory server
+ - [Selectors](http://alaneor.github.io/AD-X/api/class-ADX.Util.Selector.html) - a simple and elegant way to retrieve objects
 
 ### The nice to have ones
 ----
  - *ldap v3* protocol support
  - Namespaced classes to prevent collisions
  - Exceptions-based error handling
- - Autoloading support ( either via Composer's autoloader or via standalone autoloader )
+ - Autoloading support via Composer
  - Object-to-json conversion for easy integration with your front-end
  - Optional simple ldap query builder
-
-## Found an issue / have idea?
-
-Please submit issues and ideas to the Github's [issue tracker](https://github.com/Alaneor/AD-X/issues).
-
-Contributing rules will be provided in a future update - for now, please try to match the programming style currently used in the code when submitting pull requests.
 
 ## Installation
 
@@ -44,18 +40,14 @@ This will install the latest stable release:<br>
 `composer require alaneor/ad-x:dev-master`
 ( visit [Packagist](https://packagist.org/packages/alaneor/ad-x) for list of all available versions )
 
-#### Manually:
-
-1. Download the repository to your local storage
-1. Include the [adx.php](adx.php) file into your project
-1. Use the provided classes ( no need to include separate files )
-
 ### Post-installation ( optional, but **strongly recommended** ) :
 
 #### Generate the schema cache:
 
 Create a new php script with the following contents, providing relevant information like domain and your domain credentials:
 ```php
+    include './vendor/autoload.php'; // Include Composer's autoloader
+
     $link = new ADX\Core\Link( 'company.com', 389 ); // Connect to server on default port
     $link->bind( 'username@company.com', 'password' ); // Authenticate to the server
     ADX\Core\Schema::build( $link ); // Build the local schema cache ( takes some time, go get a coffee )
@@ -67,7 +59,13 @@ Depending on the stability of your Active Directory environment, you might need 
 ## Documentation
 
 Documentation is currently available for the API only, but it includes a lot of examples and explanations.
-I recommend that you start with the [Link](http://alaneor.github.io/AD-X/api/class-ADX.Core.Link.html) class, follow with [Task](http://alaneor.github.io/AD-X/api/class-ADX.Core.Task.html) and [Object](http://alaneor.github.io/AD-X/api/class-ADX.Core.Object.html) and finish with [Attribute](http://alaneor.github.io/AD-X/api/class-ADX.Core.Attribute.html) class - this will give you a good idea about basic usage.
+I recommend that you read the documentation in the following order:
+
+ - [Link](http://alaneor.github.io/AD-X/api/class-ADX.Core.Link.html) : How to connect to the directory and perform authentication
+ - [Task](http://alaneor.github.io/AD-X/api/class-ADX.Core.Task.html) : How to search the directory and retrieve data
+ - [Object](http://alaneor.github.io/AD-X/api/class-ADX.Core.Object.html) : How to work with retrieved objects and read/manipulate its attributes
+ - [Attribute](http://alaneor.github.io/AD-X/api/class-ADX.Core.Attribute.html) : How to manipulate individual attributes and read/manipulate its values
+ - [User](http://alaneor.github.io/AD-X/api/class-ADX.Classes.User.html) : How to work with users and manage Exchange mailboxes / mail users
 
 ### Read online: [API documentation](http://alaneor.github.io/AD-X/api)
 ### Generate the documentation locally:
@@ -93,13 +91,19 @@ php ./vendor/bin/apigen.php
 ## Future to-dos
 
  - Improve the API documentation
- - Provide "helper" classes to simplify working with computers, users, groups, contacts, Exchange mailboxes etc.
+ - Provide "helper" classes to simplify working with computers, groups, contacts etc.
  - Write unit tests
  - Write tutorials
 
+## Found an issue / have idea?
+
+Please submit issues and ideas to the Github's [issue tracker](https://github.com/Alaneor/AD-X/issues).
+
+Contributing rules will be provided in a future update - for now, please try to match the programming style currently used in the code when submitting pull requests.
+
 ## License
 
-This software is licensed under the **MIT license**.
+This software is licensed under the **BSD (3-Clause) License**.
 See the [LICENSE](LICENSE) file for more information.
 
 ## Appreciate

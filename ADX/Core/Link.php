@@ -1,26 +1,20 @@
 <?php
 
-// Copyright (C) 2013 Robert Rossmann
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is furnished
-// to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-// OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * AD-X
+ *
+ * Licensed under the BSD (3-Clause) license
+ * For full copyright and license information, please see the LICENSE file
+ *
+ * @copyright		2012-2013 Robert Rossmann
+ * @author			Robert Rossmann <rr.rossmann@me.com>
+ * @link			https://github.com/Alaneor/AD-X
+ * @license			http://choosealicense.com/licenses/bsd-3-clause		BSD (3-Clause) License
+ */
 
 
 namespace ADX\Core;
+
 use ADX\Enums;
 
 /**
@@ -49,7 +43,8 @@ use ADX\Enums;
  * next batch of results.<br>
  * <br>
  * <p class="alert">Make sure you import the class into current namespace before trying to use it:<br>
- * <code>use ADX\Core\Link;</code><br>
+ * `use ADX\Core\Link;`
+ * <br>
  * To simplify the examples, the above line is not present in the examples but it is assumed you have
  * it in your implementation.</p>
  *
@@ -190,8 +185,10 @@ class Link
 	 * $link->bind( 'user@example.com', 'MySecretPassword' );	// Perform authenticated bind attempt
 	 * </code>
 	 *
-	 * @param		string		The username to be used for binding ( Visit <a href="http://msdn.microsoft.com/en-us/library/cc223499.aspx">MSDN</a> for possible formats )
+	 * @param		string		The username to be used for binding
+	 * 							( Visit <a href="http://msdn.microsoft.com/en-us/library/cc223499.aspx">MSDN</a> for possible formats )
 	 * @param		string		The password to be used for binding
+	 *
 	 * @return		self
 	 *
 	 * @see			<a href="http://php.net/manual/en/function.ldap-bind.php">PHP - ldap_bind()</a>
@@ -215,6 +212,7 @@ class Link
 	 * Bind to the directory using a sasl mechanism
 	 *
 	 * @todo		Implementation is missing at this moment; keeping the method here for future development
+	 *
 	 * @return		self
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-sasl-bind.php">PHP - ldap_sasl_bind()</a>
@@ -273,9 +271,11 @@ class Link
 	 *
 	 * @uses		Object::read()
 	 * @param		array		Array with the attributes you wish to have retrieved
+	 *
 	 * @return		Object		The Object representing the RootDSE entry with requested attributes
 	 *
-	 * @todo		Make the information requested via this method available in the {@link self::$rootDSE} property for subsequent reuse
+	 * @todo		Make the information requested via this method available in
+	 * 				the {@link self::$rootDSE} property for subsequent reuse
 	 */
 	public function rootDSE( $attributes = ['*', '+'] )
 	{
@@ -313,11 +313,14 @@ class Link
 	 *
 	 * @uses		self::use_extended_control()
 	 * @uses		Enums\ServerControl::ShowDeleted
-	 * @param		bool		If set to true, the feature is critical and server will not perform any operation if the feature is not available
+	 * @param		bool		If set to true, the feature is critical and server
+	 * 							will not perform any operation if the feature is not available
+	 *
 	 * @return		self
 	 *
 	 * @see			self::use_extended_control()
-	 * @see			<a href="http://www.php.net/manual/en/function.ldap-set-option.php">PHP - ldap_set_option()</a> ( LDAP_OPT_SERVER_CONTROLS )
+	 * @see			<a href="http://www.php.net/manual/en/function.ldap-set-option.php">PHP - ldap_set_option()</a>
+	 * 				( LDAP_OPT_SERVER_CONTROLS )
 	 */
 	public function show_deleted( $critical = false )
 	{
@@ -335,8 +338,10 @@ class Link
 	 * due to lack of knowledge about BER encoding in php...
 	 *
 	 * @param		string		The control OID of the server control to be used
-	 * @param		bool		If set to true, the feature is critical and server will not perform any operation if the feature is not available
+	 * @param		bool		If set to true, the feature is critical and server will
+	 * 							not perform any operation if the feature is not available
 	 * @param		mixed		Value to be sent along the control ( not supported yet )
+	 *
 	 * @return		self|false	Returns FALSE if the feature could not be enabled
 	 *
 	 * @see			Enums\ServerControl
@@ -386,6 +391,7 @@ class Link
 	 *
 	 * @internal
 	 * @param		string		The DNS domain name, as returned by directory server
+	 *
 	 * @return		self		The new Link object pointing to the new server
 	 */
 	public function _redirect( $domain )
@@ -483,6 +489,7 @@ class Link
 	 * </code>
 	 *
 	 * @internal
+	 *
 	 * @return		string		The domain name this link is connected to
 	 */
 	public function __toString()
@@ -500,6 +507,7 @@ class Link
 	 * Serialising a Link renders the object unusable!
 	 *
 	 * @internal
+	 *
 	 * @return		array		The object's properties to be serialised
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/language.oop5.magic.php#object.sleep">PHP - __sleep()</a>
@@ -527,6 +535,7 @@ class Link
 	 * @internal
 	 * @uses		self::$rootDSE
 	 * @uses		self::use_tls()
+	 *
 	 * @return		void
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/language.oop5.magic.php#object.wakeup">PHP - __wakeup()</a>
@@ -543,6 +552,7 @@ class Link
 	 * Unbinds from directory server when the object is destroyed
 	 *
 	 * @internal
+	 *
 	 * @return		void
 	 *
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-unbind.php">PHP - ldap_unbind()</a>
