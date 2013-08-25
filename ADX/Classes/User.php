@@ -281,6 +281,9 @@ class User extends Object
 		// Tabula rasa ( clean slate )
 		$this->_remove_exchange_properties();
 
+		// Make sure that externalAddress and replyAddress are different
+		if ( $externalAddress === $replyAddress ) unset( $replyAddress );
+
 		// Set the correct mail address
 		$this->mail->set( $replyAddress ?: $externalAddress );
 
