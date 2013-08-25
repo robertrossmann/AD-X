@@ -50,6 +50,8 @@ This will install the latest stable release:<br>
 
 Create a new php script with the following contents, providing relevant information like domain and your domain credentials:
 ```php
+    include './vendor/autoload.php'; // Include Composer's autoloader
+
     $link = new ADX\Core\Link( 'company.com', 389 ); // Connect to server on default port
     $link->bind( 'username', 'password' ); // Authenticate to the server
     ADX\Core\Schema::build( $link ); // Build the local schema cache ( takes some time, go get a coffee )
