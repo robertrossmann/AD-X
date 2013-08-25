@@ -161,6 +161,10 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 * $object->create( 'OU=admins,DC=corp,DC=company,DC=com' );
 	 * </code>
 	 *
+	 * <p class='alert'>To create users in Active Directory, you should use the
+	 * {@link ADX\Classes\User} class for best usability. The axample above is
+	 * just to demonstrate the basic usage.</p>
+	 *
 	 * @param		Link		A configured and bound {@link Link} object
 	 * @param		array		A named array containing the attribute names as indexes and their values
 	 *

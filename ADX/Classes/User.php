@@ -50,6 +50,101 @@ class User extends Object
 
 
 	/**
+	 * Create a new instance of the user
+	 *
+	 * In order to successfully create a new user account you **must** provide the following
+	 * attributes the moment you instantiate a new object:
+	 *
+	 * - `cn` - the user's cn forms part of the distinguished name and cannot be omitted
+	 * - `samAccountName` - the username used to log in
+	 *
+	 * <br>
+	 * The following attributes are calculated automatically for you:
+	 * - `name`, `displayName` - equals to `cn`
+	 * - `userPrincipalName` - equals to `samAccountName` + *@* + *domain name* ( *domain name* is generated from rootDSE's defaultNamingContext )
+	 * - `userAccountControl` - if you provide user's password at this moment, it will include only
+	 *   the {@link ADX\Enums\UAC::NormalAccount} bit; if no password is present, it will also include
+	 *   {@link ADX\Enums\UAC::PasswdNotReqd} and {@link ADX\Enums\UAC::AccountDisable} bits. This is default behaviour of Active Directory.
+	 *
+	 * <br>
+	 * <p class='alert'>If you set the user's password before creating the account, it will be created
+	 * **without** the requirement to reset the password upon next logon. To force user to change the
+	 * password next time he/she logs in, use the {@link self::force_password_change()} method
+	 * before calling {@link self::create()}.</p>
+	 *
+	 * @param		ADX\Core\Link		A configured and bound {@link ADX\Core\Link} object
+	 * @param		array				A named array containing the attribute names as indexes and their values
+	 */
+	public function __construct( Core\Link $link, $attributes = array() )
+	{
+		parent::__construct( $link, array_change_key_case( $attributes ) );
+
+		$mandatory = ['cn', 'samaccountname'];
+		$diff = array_diff( $mandatory, $this->all_attributes() ); // Do we have all required params present?
+
+		if ( count( $diff ) > 0 ) throw new Core\IncorrectParameterException( "Mandatory attribute '" . implode( "', '", $diff ) . "' is missing" );
+
+		// Generate UserPrincipalName
+		$domain = ldap_explode_dn( $link->rootDSE->defaultNamingContext(0), 1 );
+		unset( $domain['count'] );
+		$domain = implode( '.', $domain );
+
+		$this->UserPrincipalName->set( $this->samaccountname(0) . '@' . $domain );
+		// Name and displayName should be equivalent to CN by default
+		$this->name->set( $this->cn(0) );
+		$this->displayName->set( $this->cn(0) );
+
+		// Set the UserAccountControl attribute to its defaults after account creation
+		$this->userAccountControl->clear();
+		$this->bit_state( 'userAccountControl', Enums\UAC::NormalAccount, true );	// Default, must be set for all users
+
+		if ( ! in_array( 'unicodepwd', $this->all_attributes() ) )
+		{
+			// We don't know yet if password will be provided so let's go with strict security.
+			// Since we MUST set PasswdNotReqd if password has not been set, let's also
+			// disable the account to prevent passwordless logon
+			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotreqd, true );
+			$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, true );
+		}
+	}
+
+	/**
+	 * Create the user on the server
+	 *
+	 * This method provides some extra functionality to the standard
+	 * {@link ADX\Core\Object::create()} method.
+	 *
+	 * If you have set the user's password then the following updates will be
+	 * made to the user account:
+	 *
+	 * - The {@link ADX\Enums\UAC::PasswdNotReqd} bit will be turned **off**
+	 * - The user account will be created as **enabled**
+	 * - The user will **not** be forced to change the password unless you have explicitly
+	 *   forced a password change with {@link self::force_password_change()}
+	 *
+	 * <br>
+	 * If, for whatever reason you need any of the above `userAccountControl` bits to be different
+	 * you must override the values **after** the user has been created on the server,
+	 * meaning, after you have called the `create()` method on the object.
+	 *
+	 * @param		string		The distinguished name of the parent container where this user should be stored
+	 *
+	 * @return		self
+	 */
+	public function create( $dn )
+	{
+		// Check if password has been set since initialisation and modify UserAccountControl
+		// to enable the account but also to require password for logon
+		if ( in_array( 'unicodepwd', $this->all_attributes() ) )
+		{
+			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotreqd, false );
+			$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, false );
+		}
+
+		return parent::create( $dn );
+	}
+
+	/**
 	 * Is the user's account locked?
 	 *
 	 * <p class='alert'>The attribute *lockoutTime* must be loaded from the server
