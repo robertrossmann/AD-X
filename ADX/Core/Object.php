@@ -560,7 +560,9 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 */
 	public function _register_change( Attribute $attribute )
 	{
-		if ( ! in_array( $attribute, $this->changedAttributes ) ) $this->changedAttributes[] = "$attribute";
+		$attribute = (string)$attribute;
+
+		if ( ! in_array( $attribute, $this->changedAttributes ) ) $this->changedAttributes[] = $attribute;
 	}
 
 
