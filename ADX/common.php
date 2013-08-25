@@ -158,7 +158,7 @@ class UAC extends TypedefEnum
 	const AccountDisable						= 2;
 	const HomedirRequired						= 8;
 	const Lockout								= 16;
-	const PasswdNotreqd							= 32;
+	const PasswdNotReqd							= 32;
 	const PasswdCantChange						= 64;
 	const EncryptedTextPasswordAllowed			= 128;
 	const TempDuplicateAccount					= 256;
