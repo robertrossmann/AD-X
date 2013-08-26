@@ -1,5 +1,20 @@
 # Changelog
 
+### Version 0.3.1 ( 2013-08-27 )
+
+#### New features / changes
+
+ - The `Link::rootDSE` is now only loaded on first property access or by calling `Link::rootDSE()`
+ - Stop checking for *ldap v3* compatibility during Link instantiation - all AD implementations support *ldap v3*
+ - The `Link::rootDSE()` no longer performs anonymous bind and behaviour has also been slightly changed - make sure to check API documentation (backwards-compatibility is not compromised)
+ - When resetting ldap password, the password is expected to be encoded in character set defined in your php.ini - `ini_get( 'default_charset' );`
+
+#### Fixes
+
+ - Correct capitalisation of `ADX\Enums\UAC::PasswdNotReqd` in code after 0ac9135
+ - Fix php notice when unsetting serialised `Link` instances
+ - `Link` unserialisation was broken
+
 ### Version 0.3 ( 2013-08-25 )
 
 The 0.3 is a major release aimed primarily at User management / Exchange support and at adding long-missing functionality. A lot of internal work has been done on the code and a fair amount of new features have been introduced.
