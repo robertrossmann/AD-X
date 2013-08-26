@@ -8,7 +8,7 @@
 	<title>File common.php | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1307753119"></script>
+	<script type="text/javascript" src="elementlist.js?433632425"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -108,7 +108,6 @@
 				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
 				<li class="active"><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
 				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
-				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
 			</ul>
 
 
@@ -438,63 +437,54 @@
 </span><span id="316" class="l"><a class="l" href="#316">316 </a>}
 </span><span id="317" class="l"><a class="l" href="#317">317 </a>
 </span><span id="318" class="l"><a class="l" href="#318">318 </a><span class="php-comment">/**
-</span></span><span id="319" class="l"><a class="l" href="#319">319 </a><span class="php-comment"> * Thrown when trying to connect to server that does not support ldap v3 protocol
+</span></span><span id="319" class="l"><a class="l" href="#319">319 </a><span class="php-comment"> * Thrown when you provide an unexpected input to a method call
 </span></span><span id="320" class="l"><a class="l" href="#320">320 </a><span class="php-comment"> */</span>
-</span><span id="321" class="l"><a class="l" href="#321">321 </a><span class="php-keyword1">class</span> <a id="UnsupportedPlatformException" href="#UnsupportedPlatformException">UnsupportedPlatformException</a> <span class="php-keyword1">extends</span> Exception
+</span><span id="321" class="l"><a class="l" href="#321">321 </a><span class="php-keyword1">class</span> <a id="IncorrectParameterException" href="#IncorrectParameterException">IncorrectParameterException</a> <span class="php-keyword1">extends</span> Exception
 </span><span id="322" class="l"><a class="l" href="#322">322 </a>{
-</span><span id="323" class="l"><a class="l" href="#323">323 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$code" href="#$code">$code</a></span>     = <span class="php-num">1001</span>;
-</span><span id="324" class="l"><a class="l" href="#324">324 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$message" href="#$message">$message</a></span>  = <span class="php-quote">'This domain does not support ldap v3 protocol'</span>;
+</span><span id="323" class="l"><a class="l" href="#323">323 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$code" href="#$code">$code</a></span>     = <span class="php-num">1002</span>;
+</span><span id="324" class="l"><a class="l" href="#324">324 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$message" href="#$message">$message</a></span>  = <span class="php-quote">'The supplied value for the parameter is incorrect'</span>;
 </span><span id="325" class="l"><a class="l" href="#325">325 </a>}
 </span><span id="326" class="l"><a class="l" href="#326">326 </a>
 </span><span id="327" class="l"><a class="l" href="#327">327 </a><span class="php-comment">/**
-</span></span><span id="328" class="l"><a class="l" href="#328">328 </a><span class="php-comment"> * Thrown when you provide an unexpected input to a method call
-</span></span><span id="329" class="l"><a class="l" href="#329">329 </a><span class="php-comment"> */</span>
-</span><span id="330" class="l"><a class="l" href="#330">330 </a><span class="php-keyword1">class</span> <a id="IncorrectParameterException" href="#IncorrectParameterException">IncorrectParameterException</a> <span class="php-keyword1">extends</span> Exception
-</span><span id="331" class="l"><a class="l" href="#331">331 </a>{
-</span><span id="332" class="l"><a class="l" href="#332">332 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$code" href="#$code">$code</a></span>     = <span class="php-num">1002</span>;
-</span><span id="333" class="l"><a class="l" href="#333">333 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$message" href="#$message">$message</a></span>  = <span class="php-quote">'The supplied value for the parameter is incorrect'</span>;
-</span><span id="334" class="l"><a class="l" href="#334">334 </a>}
-</span><span id="335" class="l"><a class="l" href="#335">335 </a>
-</span><span id="336" class="l"><a class="l" href="#336">336 </a><span class="php-comment">/**
-</span></span><span id="337" class="l"><a class="l" href="#337">337 </a><span class="php-comment"> * Thrown when the ldap attribute you are trying to modify cannot have multiple
-</span></span><span id="338" class="l"><a class="l" href="#338">338 </a><span class="php-comment"> * values or the maximum amount of values has been already reached
+</span></span><span id="328" class="l"><a class="l" href="#328">328 </a><span class="php-comment"> * Thrown when the ldap attribute you are trying to modify cannot have multiple
+</span></span><span id="329" class="l"><a class="l" href="#329">329 </a><span class="php-comment"> * values or the maximum amount of values has been already reached
+</span></span><span id="330" class="l"><a class="l" href="#330">330 </a><span class="php-comment"> */</span>
+</span><span id="331" class="l"><a class="l" href="#331">331 </a><span class="php-keyword1">class</span> <a id="OutOfRangeException" href="#OutOfRangeException">OutOfRangeException</a> <span class="php-keyword1">extends</span> Exception
+</span><span id="332" class="l"><a class="l" href="#332">332 </a>{
+</span><span id="333" class="l"><a class="l" href="#333">333 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$code" href="#$code">$code</a></span>     = <span class="php-num">1003</span>;
+</span><span id="334" class="l"><a class="l" href="#334">334 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$message" href="#$message">$message</a></span>  = <span class="php-quote">'The supplied value is out of the range for the target attribute'</span>; <span class="php-comment">// TODO - maybe a better description?</span>
+</span><span id="335" class="l"><a class="l" href="#335">335 </a>}
+</span><span id="336" class="l"><a class="l" href="#336">336 </a>
+</span><span id="337" class="l"><a class="l" href="#337">337 </a><span class="php-comment">/**
+</span></span><span id="338" class="l"><a class="l" href="#338">338 </a><span class="php-comment"> * Thrown when trying to modify a constructed attribute
 </span></span><span id="339" class="l"><a class="l" href="#339">339 </a><span class="php-comment"> */</span>
-</span><span id="340" class="l"><a class="l" href="#340">340 </a><span class="php-keyword1">class</span> <a id="OutOfRangeException" href="#OutOfRangeException">OutOfRangeException</a> <span class="php-keyword1">extends</span> Exception
+</span><span id="340" class="l"><a class="l" href="#340">340 </a><span class="php-keyword1">class</span> <a id="InvalidOperationException" href="#InvalidOperationException">InvalidOperationException</a> <span class="php-keyword1">extends</span> Exception
 </span><span id="341" class="l"><a class="l" href="#341">341 </a>{
-</span><span id="342" class="l"><a class="l" href="#342">342 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$code" href="#$code">$code</a></span>     = <span class="php-num">1003</span>;
-</span><span id="343" class="l"><a class="l" href="#343">343 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$message" href="#$message">$message</a></span>  = <span class="php-quote">'The supplied value is out of the range for the target attribute'</span>; <span class="php-comment">// TODO - maybe a better description?</span>
+</span><span id="342" class="l"><a class="l" href="#342">342 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$code" href="#$code">$code</a></span>     = <span class="php-num">1004</span>;
+</span><span id="343" class="l"><a class="l" href="#343">343 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$message" href="#$message">$message</a></span>  = <span class="php-quote">'This operation is not allowed or available on the current object'</span>;
 </span><span id="344" class="l"><a class="l" href="#344">344 </a>}
 </span><span id="345" class="l"><a class="l" href="#345">345 </a>
 </span><span id="346" class="l"><a class="l" href="#346">346 </a><span class="php-comment">/**
-</span></span><span id="347" class="l"><a class="l" href="#347">347 </a><span class="php-comment"> * Thrown when trying to modify a constructed attribute
-</span></span><span id="348" class="l"><a class="l" href="#348">348 </a><span class="php-comment"> */</span>
-</span><span id="349" class="l"><a class="l" href="#349">349 </a><span class="php-keyword1">class</span> <a id="InvalidOperationException" href="#InvalidOperationException">InvalidOperationException</a> <span class="php-keyword1">extends</span> Exception
-</span><span id="350" class="l"><a class="l" href="#350">350 </a>{
-</span><span id="351" class="l"><a class="l" href="#351">351 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$code" href="#$code">$code</a></span>     = <span class="php-num">1004</span>;
-</span><span id="352" class="l"><a class="l" href="#352">352 </a>    <span class="php-keyword1">protected</span> <span class="php-var"><a id="$message" href="#$message">$message</a></span>  = <span class="php-quote">'This operation is not allowed or available on the current object'</span>;
-</span><span id="353" class="l"><a class="l" href="#353">353 </a>}
-</span><span id="354" class="l"><a class="l" href="#354">354 </a>
-</span><span id="355" class="l"><a class="l" href="#355">355 </a><span class="php-comment">/**
-</span></span><span id="356" class="l"><a class="l" href="#356">356 </a><span class="php-comment"> * Thrown if user's credentials are incorrect or if the account is not usable
-</span></span><span id="357" class="l"><a class="l" href="#357">357 </a><span class="php-comment"> * for any reason ( locked, disabled, expired etc. )
-</span></span><span id="358" class="l"><a class="l" href="#358">358 </a><span class="php-comment"> */</span>
-</span><span id="359" class="l"><a class="l" href="#359">359 </a><span class="php-keyword1">class</span> <a id="InvalidCredentialsException" href="#InvalidCredentialsException">InvalidCredentialsException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
-</span><span id="360" class="l"><a class="l" href="#360">360 </a>
-</span><span id="361" class="l"><a class="l" href="#361">361 </a><span class="php-comment">/**
-</span></span><span id="362" class="l"><a class="l" href="#362">362 </a><span class="php-comment"> * Thrown when trying to set or modify an attribute that is not defined in ldap schema
-</span></span><span id="363" class="l"><a class="l" href="#363">363 </a><span class="php-comment"> */</span>
-</span><span id="364" class="l"><a class="l" href="#364">364 </a><span class="php-keyword1">class</span> <a id="UndefinedTypeException" href="#UndefinedTypeException">UndefinedTypeException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
-</span><span id="365" class="l"><a class="l" href="#365">365 </a>
-</span><span id="366" class="l"><a class="l" href="#366">366 </a><span class="php-comment">/**
-</span></span><span id="367" class="l"><a class="l" href="#367">367 </a><span class="php-comment"> * Thrown when the account does not have enough privileges to perform the requested operation
-</span></span><span id="368" class="l"><a class="l" href="#368">368 </a><span class="php-comment"> */</span>
-</span><span id="369" class="l"><a class="l" href="#369">369 </a><span class="php-keyword1">class</span> <a id="InsufficientAccessException" href="#InsufficientAccessException">InsufficientAccessException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
-</span><span id="370" class="l"><a class="l" href="#370">370 </a>
-</span><span id="371" class="l"><a class="l" href="#371">371 </a><span class="php-comment">/**
-</span></span><span id="372" class="l"><a class="l" href="#372">372 </a><span class="php-comment"> * Thrown when the ldap server is not reachable due to network issues
-</span></span><span id="373" class="l"><a class="l" href="#373">373 </a><span class="php-comment"> */</span>
-</span><span id="374" class="l"><a class="l" href="#374">374 </a><span class="php-keyword1">class</span> <a id="ServerUnreachableException" href="#ServerUnreachableException">ServerUnreachableException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
-</span><span id="375" class="l"><a class="l" href="#375">375 </a></span></code></pre>
+</span></span><span id="347" class="l"><a class="l" href="#347">347 </a><span class="php-comment"> * Thrown if user's credentials are incorrect or if the account is not usable
+</span></span><span id="348" class="l"><a class="l" href="#348">348 </a><span class="php-comment"> * for any reason ( locked, disabled, expired etc. )
+</span></span><span id="349" class="l"><a class="l" href="#349">349 </a><span class="php-comment"> */</span>
+</span><span id="350" class="l"><a class="l" href="#350">350 </a><span class="php-keyword1">class</span> <a id="InvalidCredentialsException" href="#InvalidCredentialsException">InvalidCredentialsException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
+</span><span id="351" class="l"><a class="l" href="#351">351 </a>
+</span><span id="352" class="l"><a class="l" href="#352">352 </a><span class="php-comment">/**
+</span></span><span id="353" class="l"><a class="l" href="#353">353 </a><span class="php-comment"> * Thrown when trying to set or modify an attribute that is not defined in ldap schema
+</span></span><span id="354" class="l"><a class="l" href="#354">354 </a><span class="php-comment"> */</span>
+</span><span id="355" class="l"><a class="l" href="#355">355 </a><span class="php-keyword1">class</span> <a id="UndefinedTypeException" href="#UndefinedTypeException">UndefinedTypeException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
+</span><span id="356" class="l"><a class="l" href="#356">356 </a>
+</span><span id="357" class="l"><a class="l" href="#357">357 </a><span class="php-comment">/**
+</span></span><span id="358" class="l"><a class="l" href="#358">358 </a><span class="php-comment"> * Thrown when the account does not have enough privileges to perform the requested operation
+</span></span><span id="359" class="l"><a class="l" href="#359">359 </a><span class="php-comment"> */</span>
+</span><span id="360" class="l"><a class="l" href="#360">360 </a><span class="php-keyword1">class</span> <a id="InsufficientAccessException" href="#InsufficientAccessException">InsufficientAccessException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
+</span><span id="361" class="l"><a class="l" href="#361">361 </a>
+</span><span id="362" class="l"><a class="l" href="#362">362 </a><span class="php-comment">/**
+</span></span><span id="363" class="l"><a class="l" href="#363">363 </a><span class="php-comment"> * Thrown when the ldap server is not reachable due to network issues
+</span></span><span id="364" class="l"><a class="l" href="#364">364 </a><span class="php-comment"> */</span>
+</span><span id="365" class="l"><a class="l" href="#365">365 </a><span class="php-keyword1">class</span> <a id="ServerUnreachableException" href="#ServerUnreachableException">ServerUnreachableException</a> <span class="php-keyword1">extends</span> LdapNativeException {}
+</span><span id="366" class="l"><a class="l" href="#366">366 </a></span></code></pre>
 	</div>
 
 	<div id="footer">

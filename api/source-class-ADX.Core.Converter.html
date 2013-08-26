@@ -8,7 +8,7 @@
 	<title>File Core/Converter.php | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1307753119"></script>
+	<script type="text/javascript" src="elementlist.js?433632425"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -108,7 +108,6 @@
 				<li><a href="class-ADX.Core.OutOfRangeException.html">OutOfRangeException</a></li>
 				<li><a href="class-ADX.Core.ServerUnreachableException.html">ServerUnreachableException</a></li>
 				<li><a href="class-ADX.Core.UndefinedTypeException.html">UndefinedTypeException</a></li>
-				<li><a href="class-ADX.Core.UnsupportedPlatformException.html">UnsupportedPlatformException</a></li>
 			</ul>
 
 
@@ -365,65 +364,67 @@
 </span><span id="243" class="l"><a class="l" href="#243">243 </a>
 </span><span id="244" class="l"><a class="l" href="#244">244 </a>    <span class="php-comment">// Special cases</span>
 </span><span id="245" class="l"><a class="l" href="#245">245 </a>
-</span><span id="246" class="l"><a class="l" href="#246">246 </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="__to_l_unicodepwd" href="#__to_l_unicodepwd">_to_l_unicodepwd</a>( <span class="php-var">$password</span> )
-</span><span id="247" class="l"><a class="l" href="#247">247 </a>    {
-</span><span id="248" class="l"><a class="l" href="#248">248 </a>        <span class="php-var">$password</span>   = <span class="php-quote">&quot;\&quot;</span><span class="php-var">$password</span><span class="php-quote">\&quot;&quot;</span>;  <span class="php-comment">// Enclose the password in double quotes</span>
-</span><span id="249" class="l"><a class="l" href="#249">249 </a>
-</span><span id="250" class="l"><a class="l" href="#250">250 </a>        <span class="php-var">$length</span>     = <span class="php-keyword2">strlen</span>( <span class="php-var">$password</span> );
-</span><span id="251" class="l"><a class="l" href="#251">251 </a>        <span class="php-var">$pwd</span>        = <span class="php-quote">''</span>;
-</span><span id="252" class="l"><a class="l" href="#252">252 </a>
-</span><span id="253" class="l"><a class="l" href="#253">253 </a>        <span class="php-keyword1">for</span> ( <span class="php-var">$i</span> = <span class="php-num">0</span>; <span class="php-var">$i</span> &lt; <span class="php-var">$length</span>; <span class="php-var">$i</span>++ )
-</span><span id="254" class="l"><a class="l" href="#254">254 </a>        {
-</span><span id="255" class="l"><a class="l" href="#255">255 </a>            <span class="php-var">$pwd</span> .= <span class="php-quote">&quot;</span><span class="php-var">{$password{$i}</span><span class="php-quote">}\000&quot;</span>;  <span class="php-comment">// Pad every character with a NULL value ( null-padded string )</span>
-</span><span id="256" class="l"><a class="l" href="#256">256 </a>        }
-</span><span id="257" class="l"><a class="l" href="#257">257 </a>
-</span><span id="258" class="l"><a class="l" href="#258">258 </a>        <span class="php-keyword1">return</span> <span class="php-var">$pwd</span>;
-</span><span id="259" class="l"><a class="l" href="#259">259 </a>    }
-</span><span id="260" class="l"><a class="l" href="#260">260 </a>
-</span><span id="261" class="l"><a class="l" href="#261">261 </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="__to_p_guid" href="#__to_p_guid">_to_p_guid</a>( <span class="php-var">$guid</span> )
-</span><span id="262" class="l"><a class="l" href="#262">262 </a>    {
-</span><span id="263" class="l"><a class="l" href="#263">263 </a>        <span class="php-comment">// An interesting piece of code I have found that converts</span>
-</span><span id="264" class="l"><a class="l" href="#264">264 </a>        <span class="php-comment">// the objectguid exactly to what standard Powershell or other MS-based</span>
-</span><span id="265" class="l"><a class="l" href="#265">265 </a>        <span class="php-comment">// tools show.</span>
-</span><span id="266" class="l"><a class="l" href="#266">266 </a>        <span class="php-var">$hex_guid</span> = <span class="php-keyword2">unpack</span>( <span class="php-quote">&quot;H*hex&quot;</span>, <span class="php-var">$guid</span> );
-</span><span id="267" class="l"><a class="l" href="#267">267 </a>        <span class="php-var">$hex</span>    = <span class="php-var">$hex_guid</span>[<span class="php-quote">&quot;hex&quot;</span>];
-</span><span id="268" class="l"><a class="l" href="#268">268 </a>
-</span><span id="269" class="l"><a class="l" href="#269">269 </a>        <span class="php-var">$hex1</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">26</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">28</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">30</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">32</span>, <span class="php-num">2</span> );
-</span><span id="270" class="l"><a class="l" href="#270">270 </a>        <span class="php-var">$hex2</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">22</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">24</span>, <span class="php-num">2</span> );
-</span><span id="271" class="l"><a class="l" href="#271">271 </a>        <span class="php-var">$hex3</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">18</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">20</span>, <span class="php-num">2</span> );
-</span><span id="272" class="l"><a class="l" href="#272">272 </a>        <span class="php-var">$hex4</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">16</span>, <span class="php-num">4</span> );
-</span><span id="273" class="l"><a class="l" href="#273">273 </a>        <span class="php-var">$hex5</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">12</span>, <span class="php-num">12</span> );
-</span><span id="274" class="l"><a class="l" href="#274">274 </a>
-</span><span id="275" class="l"><a class="l" href="#275">275 </a>        <span class="php-var">$guid</span> = <span class="php-var">$hex1</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex2</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex3</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex4</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex5</span>;
+</span><span id="246" class="l"><a class="l" href="#246">246 </a>    <span class="php-comment">/**
+</span></span><span id="247" class="l"><a class="l" href="#247">247 </a><span class="php-comment">     * Convert a string into quotation marks-encapsulated UTF-16LE string
+</span></span><span id="248" class="l"><a class="l" href="#248">248 </a><span class="php-comment">     *
+</span></span><span id="249" class="l"><a class="l" href="#249">249 </a><span class="php-comment">     * The password conversion is well described in the MSDN document available below.
+</span></span><span id="250" class="l"><a class="l" href="#250">250 </a><span class="php-comment">     *
+</span></span><span id="251" class="l"><a class="l" href="#251">251 </a><span class="php-comment">     * @see         &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/cc223248.aspx&quot;&gt;MSDN - unicodePwd&lt;/a&gt;
+</span></span><span id="252" class="l"><a class="l" href="#252">252 </a><span class="php-comment">     * @param       A password encoded in php's default charset ( as set in php.ini )
+</span></span><span id="253" class="l"><a class="l" href="#253">253 </a><span class="php-comment">     *
+</span></span><span id="254" class="l"><a class="l" href="#254">254 </a><span class="php-comment">     * @return      A quotation marks-encapsulated UTF-16LE string
+</span></span><span id="255" class="l"><a class="l" href="#255">255 </a><span class="php-comment">     */</span>
+</span><span id="256" class="l"><a class="l" href="#256">256 </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="__to_l_unicodepwd" href="#__to_l_unicodepwd">_to_l_unicodepwd</a>( <span class="php-var">$password</span> )
+</span><span id="257" class="l"><a class="l" href="#257">257 </a>    {
+</span><span id="258" class="l"><a class="l" href="#258">258 </a>        <span class="php-comment">// Enclose the password in double quotes and convert it from</span>
+</span><span id="259" class="l"><a class="l" href="#259">259 </a>        <span class="php-comment">// default php charset defined in php.ini to UTF-16LE encoding</span>
+</span><span id="260" class="l"><a class="l" href="#260">260 </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">iconv</span>( <span class="php-keyword2">ini_get</span>( <span class="php-quote">'default_charset'</span> ), <span class="php-quote">'utf-16le'</span>, <span class="php-quote">&quot;\&quot;</span><span class="php-var">$password</span><span class="php-quote">\&quot;&quot;</span> );
+</span><span id="261" class="l"><a class="l" href="#261">261 </a>    }
+</span><span id="262" class="l"><a class="l" href="#262">262 </a>
+</span><span id="263" class="l"><a class="l" href="#263">263 </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="__to_p_guid" href="#__to_p_guid">_to_p_guid</a>( <span class="php-var">$guid</span> )
+</span><span id="264" class="l"><a class="l" href="#264">264 </a>    {
+</span><span id="265" class="l"><a class="l" href="#265">265 </a>        <span class="php-comment">// An interesting piece of code I have found that converts</span>
+</span><span id="266" class="l"><a class="l" href="#266">266 </a>        <span class="php-comment">// the objectguid exactly to what standard Powershell or other MS-based</span>
+</span><span id="267" class="l"><a class="l" href="#267">267 </a>        <span class="php-comment">// tools show.</span>
+</span><span id="268" class="l"><a class="l" href="#268">268 </a>        <span class="php-var">$hex_guid</span> = <span class="php-keyword2">unpack</span>( <span class="php-quote">&quot;H*hex&quot;</span>, <span class="php-var">$guid</span> );
+</span><span id="269" class="l"><a class="l" href="#269">269 </a>        <span class="php-var">$hex</span>    = <span class="php-var">$hex_guid</span>[<span class="php-quote">&quot;hex&quot;</span>];
+</span><span id="270" class="l"><a class="l" href="#270">270 </a>
+</span><span id="271" class="l"><a class="l" href="#271">271 </a>        <span class="php-var">$hex1</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">26</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">28</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">30</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">32</span>, <span class="php-num">2</span> );
+</span><span id="272" class="l"><a class="l" href="#272">272 </a>        <span class="php-var">$hex2</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">22</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">24</span>, <span class="php-num">2</span> );
+</span><span id="273" class="l"><a class="l" href="#273">273 </a>        <span class="php-var">$hex3</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">18</span>, <span class="php-num">2</span> ) . <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">20</span>, <span class="php-num">2</span> );
+</span><span id="274" class="l"><a class="l" href="#274">274 </a>        <span class="php-var">$hex4</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">16</span>, <span class="php-num">4</span> );
+</span><span id="275" class="l"><a class="l" href="#275">275 </a>        <span class="php-var">$hex5</span>   = <span class="php-keyword2">substr</span>( <span class="php-var">$hex</span>, -<span class="php-num">12</span>, <span class="php-num">12</span> );
 </span><span id="276" class="l"><a class="l" href="#276">276 </a>
-</span><span id="277" class="l"><a class="l" href="#277">277 </a>        <span class="php-keyword1">return</span> <span class="php-var">$guid</span>;
-</span><span id="278" class="l"><a class="l" href="#278">278 </a>    }
-</span><span id="279" class="l"><a class="l" href="#279">279 </a>
-</span><span id="280" class="l"><a class="l" href="#280">280 </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="__to_l_guid" href="#__to_l_guid">_to_l_guid</a>( <span class="php-var">$guid</span> )
-</span><span id="281" class="l"><a class="l" href="#281">281 </a>    {
-</span><span id="282" class="l"><a class="l" href="#282">282 </a>        <span class="php-var">$guid</span> = <span class="php-keyword2">str_replace</span>( <span class="php-quote">'-'</span>, <span class="php-quote">''</span>, <span class="php-var">$guid</span> );
-</span><span id="283" class="l"><a class="l" href="#283">283 </a>
-</span><span id="284" class="l"><a class="l" href="#284">284 </a>        <span class="php-var">$octet_str</span>  = <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">6</span>,     <span class="php-num">2</span> );
-</span><span id="285" class="l"><a class="l" href="#285">285 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">4</span>,     <span class="php-num">2</span> );
-</span><span id="286" class="l"><a class="l" href="#286">286 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">2</span>,     <span class="php-num">2</span> );
-</span><span id="287" class="l"><a class="l" href="#287">287 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">0</span>,     <span class="php-num">2</span> );
-</span><span id="288" class="l"><a class="l" href="#288">288 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">10</span>,    <span class="php-num">2</span> );
-</span><span id="289" class="l"><a class="l" href="#289">289 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">8</span>,     <span class="php-num">2</span> );
-</span><span id="290" class="l"><a class="l" href="#290">290 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">14</span>,    <span class="php-num">2</span> );
-</span><span id="291" class="l"><a class="l" href="#291">291 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">12</span>,    <span class="php-num">2</span> );
-</span><span id="292" class="l"><a class="l" href="#292">292 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">16</span>,    <span class="php-keyword2">strlen</span>( <span class="php-var">$guid</span> ) );
-</span><span id="293" class="l"><a class="l" href="#293">293 </a>
-</span><span id="294" class="l"><a class="l" href="#294">294 </a>        <span class="php-var">$hex_guid</span> = <span class="php-quote">''</span>;
+</span><span id="277" class="l"><a class="l" href="#277">277 </a>        <span class="php-var">$guid</span> = <span class="php-var">$hex1</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex2</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex3</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex4</span> . <span class="php-quote">&quot;-&quot;</span> . <span class="php-var">$hex5</span>;
+</span><span id="278" class="l"><a class="l" href="#278">278 </a>
+</span><span id="279" class="l"><a class="l" href="#279">279 </a>        <span class="php-keyword1">return</span> <span class="php-var">$guid</span>;
+</span><span id="280" class="l"><a class="l" href="#280">280 </a>    }
+</span><span id="281" class="l"><a class="l" href="#281">281 </a>
+</span><span id="282" class="l"><a class="l" href="#282">282 </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="__to_l_guid" href="#__to_l_guid">_to_l_guid</a>( <span class="php-var">$guid</span> )
+</span><span id="283" class="l"><a class="l" href="#283">283 </a>    {
+</span><span id="284" class="l"><a class="l" href="#284">284 </a>        <span class="php-var">$guid</span> = <span class="php-keyword2">str_replace</span>( <span class="php-quote">'-'</span>, <span class="php-quote">''</span>, <span class="php-var">$guid</span> );
+</span><span id="285" class="l"><a class="l" href="#285">285 </a>
+</span><span id="286" class="l"><a class="l" href="#286">286 </a>        <span class="php-var">$octet_str</span>  = <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">6</span>,     <span class="php-num">2</span> );
+</span><span id="287" class="l"><a class="l" href="#287">287 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">4</span>,     <span class="php-num">2</span> );
+</span><span id="288" class="l"><a class="l" href="#288">288 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">2</span>,     <span class="php-num">2</span> );
+</span><span id="289" class="l"><a class="l" href="#289">289 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">0</span>,     <span class="php-num">2</span> );
+</span><span id="290" class="l"><a class="l" href="#290">290 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">10</span>,    <span class="php-num">2</span> );
+</span><span id="291" class="l"><a class="l" href="#291">291 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">8</span>,     <span class="php-num">2</span> );
+</span><span id="292" class="l"><a class="l" href="#292">292 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">14</span>,    <span class="php-num">2</span> );
+</span><span id="293" class="l"><a class="l" href="#293">293 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">12</span>,    <span class="php-num">2</span> );
+</span><span id="294" class="l"><a class="l" href="#294">294 </a>        <span class="php-var">$octet_str</span> .= <span class="php-keyword2">substr</span>( <span class="php-var">$guid</span>, <span class="php-num">16</span>,    <span class="php-keyword2">strlen</span>( <span class="php-var">$guid</span> ) );
 </span><span id="295" class="l"><a class="l" href="#295">295 </a>
-</span><span id="296" class="l"><a class="l" href="#296">296 </a>        <span class="php-keyword1">for</span> ( <span class="php-var">$i</span> = <span class="php-num">0</span>; <span class="php-var">$i</span> &lt;= <span class="php-keyword2">strlen</span>( <span class="php-var">$octet_str</span> ) - <span class="php-num">2</span>; <span class="php-var">$i</span> = <span class="php-var">$i</span> + <span class="php-num">2</span> )
-</span><span id="297" class="l"><a class="l" href="#297">297 </a>        {
-</span><span id="298" class="l"><a class="l" href="#298">298 </a>            <span class="php-var">$hex_guid</span> .=  <span class="php-quote">&quot;\\&quot;</span> . <span class="php-keyword2">substr</span>( <span class="php-var">$octet_str</span>, <span class="php-var">$i</span>, <span class="php-num">2</span> );
-</span><span id="299" class="l"><a class="l" href="#299">299 </a>        }
-</span><span id="300" class="l"><a class="l" href="#300">300 </a>
-</span><span id="301" class="l"><a class="l" href="#301">301 </a>        <span class="php-keyword1">return</span> <span class="php-var">$hex_guid</span>;
-</span><span id="302" class="l"><a class="l" href="#302">302 </a>    }
-</span><span id="303" class="l"><a class="l" href="#303">303 </a>}
-</span><span id="304" class="l"><a class="l" href="#304">304 </a></span></code></pre>
+</span><span id="296" class="l"><a class="l" href="#296">296 </a>        <span class="php-var">$hex_guid</span> = <span class="php-quote">''</span>;
+</span><span id="297" class="l"><a class="l" href="#297">297 </a>
+</span><span id="298" class="l"><a class="l" href="#298">298 </a>        <span class="php-keyword1">for</span> ( <span class="php-var">$i</span> = <span class="php-num">0</span>; <span class="php-var">$i</span> &lt;= <span class="php-keyword2">strlen</span>( <span class="php-var">$octet_str</span> ) - <span class="php-num">2</span>; <span class="php-var">$i</span> = <span class="php-var">$i</span> + <span class="php-num">2</span> )
+</span><span id="299" class="l"><a class="l" href="#299">299 </a>        {
+</span><span id="300" class="l"><a class="l" href="#300">300 </a>            <span class="php-var">$hex_guid</span> .=  <span class="php-quote">&quot;\\&quot;</span> . <span class="php-keyword2">substr</span>( <span class="php-var">$octet_str</span>, <span class="php-var">$i</span>, <span class="php-num">2</span> );
+</span><span id="301" class="l"><a class="l" href="#301">301 </a>        }
+</span><span id="302" class="l"><a class="l" href="#302">302 </a>
+</span><span id="303" class="l"><a class="l" href="#303">303 </a>        <span class="php-keyword1">return</span> <span class="php-var">$hex_guid</span>;
+</span><span id="304" class="l"><a class="l" href="#304">304 </a>    }
+</span><span id="305" class="l"><a class="l" href="#305">305 </a>}
+</span><span id="306" class="l"><a class="l" href="#306">306 </a></span></code></pre>
 	</div>
 
 	<div id="footer">

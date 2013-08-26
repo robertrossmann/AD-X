@@ -8,7 +8,7 @@
 	<title>File Classes/User.php | AD-X Library</title>
 
 	<script type="text/javascript" src="resources/combined.js?2152110501"></script>
-	<script type="text/javascript" src="elementlist.js?1307753119"></script>
+	<script type="text/javascript" src="elementlist.js?433632425"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609" />
 
@@ -200,7 +200,7 @@
 </span><span id="103" class="l"><a class="l" href="#103">103 </a>            <span class="php-comment">// We don't know yet if password will be provided so let's go with strict security.</span>
 </span><span id="104" class="l"><a class="l" href="#104">104 </a>            <span class="php-comment">// Since we MUST set PasswdNotReqd if password has not been set, let's also</span>
 </span><span id="105" class="l"><a class="l" href="#105">105 </a>            <span class="php-comment">// disable the account to prevent passwordless logon</span>
-</span><span id="106" class="l"><a class="l" href="#106">106 </a>            <span class="php-var">$this</span>-&gt;bit_state( <span class="php-quote">'userAccountControl'</span>, Enums\UAC::PasswdNotreqd, <span class="php-keyword1">true</span> );
+</span><span id="106" class="l"><a class="l" href="#106">106 </a>            <span class="php-var">$this</span>-&gt;bit_state( <span class="php-quote">'userAccountControl'</span>, Enums\UAC::PasswdNotReqd, <span class="php-keyword1">true</span> );
 </span><span id="107" class="l"><a class="l" href="#107">107 </a>            <span class="php-var">$this</span>-&gt;bit_state( <span class="php-quote">'userAccountControl'</span>, Enums\UAC::AccountDisable, <span class="php-keyword1">true</span> );
 </span><span id="108" class="l"><a class="l" href="#108">108 </a>        }
 </span><span id="109" class="l"><a class="l" href="#109">109 </a>    }
@@ -234,7 +234,7 @@
 </span><span id="137" class="l"><a class="l" href="#137">137 </a>        <span class="php-comment">// to enable the account but also to require password for logon</span>
 </span><span id="138" class="l"><a class="l" href="#138">138 </a>        <span class="php-keyword1">if</span> ( <span class="php-keyword2">in_array</span>( <span class="php-quote">'unicodepwd'</span>, <span class="php-var">$this</span>-&gt;all_attributes() ) )
 </span><span id="139" class="l"><a class="l" href="#139">139 </a>        {
-</span><span id="140" class="l"><a class="l" href="#140">140 </a>            <span class="php-var">$this</span>-&gt;bit_state( <span class="php-quote">'userAccountControl'</span>, Enums\UAC::PasswdNotreqd, <span class="php-keyword1">false</span> );
+</span><span id="140" class="l"><a class="l" href="#140">140 </a>            <span class="php-var">$this</span>-&gt;bit_state( <span class="php-quote">'userAccountControl'</span>, Enums\UAC::PasswdNotReqd, <span class="php-keyword1">false</span> );
 </span><span id="141" class="l"><a class="l" href="#141">141 </a>            <span class="php-var">$this</span>-&gt;bit_state( <span class="php-quote">'userAccountControl'</span>, Enums\UAC::AccountDisable, <span class="php-keyword1">false</span> );
 </span><span id="142" class="l"><a class="l" href="#142">142 </a>        }
 </span><span id="143" class="l"><a class="l" href="#143">143 </a>
