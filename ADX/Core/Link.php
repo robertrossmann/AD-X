@@ -164,9 +164,6 @@ class Link
 			$this->rootDSE = $this->rootDSE( $get );
 		}
 
-		// Make sure that the server supports ldap v3 protocol, otherwise no need to continue
-		if ( ! in_array( 3, $this->rootDSE->supportedldapversion() ) ) throw new UnsupportedPlatformException();
-
 		// Force the link to use ldap v3 and disable native referrals handling as it is required by this implementation
 		ldap_set_option( $this->link_id, LDAP_OPT_PROTOCOL_VERSION,	3 );
 		ldap_set_option( $this->link_id, LDAP_OPT_REFERRALS,		0 );

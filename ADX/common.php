@@ -316,15 +316,6 @@ class LdapNativeException extends Exception
 }
 
 /**
- * Thrown when trying to connect to server that does not support ldap v3 protocol
- */
-class UnsupportedPlatformException extends Exception
-{
-	protected $code		= 1001;
-	protected $message	= 'This domain does not support ldap v3 protocol';
-}
-
-/**
  * Thrown when you provide an unexpected input to a method call
  */
 class IncorrectParameterException extends Exception
