@@ -289,6 +289,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	/**
 	 * Move the object to a new parent container
 	 *
+	 * @see			<a href="http://msdn.microsoft.com/en-us/library/cc223251.aspx"><MSDN - Modify DN Operations</a>
 	 * @param		Object|string		The new container to hold the object
 	 *
 	 * @return		self
@@ -302,6 +303,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		if ( ! $rdn ) throw new InvalidOperationException( "The attribute '$rdn' must be present when moving objects of this class" );
 
+		// The 'deleteOldRdn' param must always be set to true - see the docblock @see link above
 		if ( ! @ldap_rename( $link_id, $this->dn, "$rdnAttId=$rdn", $new_parent, true ) ) $this->_handle_last_error();	// Could not move object
 
 		// Update the local distinguished name associated with this object
