@@ -516,11 +516,11 @@ class Link
 	public function __sleep()
 	{
 		// Release the ldap link_identifier
-		unset( $this->link_id );
+		$this->link_id = null;
 
 		// Clear the username and password for security reasons
-		unset( $this->username );
-		unset( $this->password );
+		$this->username = null;
+		$this->password = null;
 
 		// Return all non-empty object attributes as array for serialisation (required by method definition)
 		return array_keys( get_object_vars( $this ) );
@@ -559,6 +559,6 @@ class Link
 	 */
 	public function __destruct()
 	{
-		if ( $this->link_id ) ldap_unbind( $this->link_id );
+		isset( $this->link_id ) && ldap_unbind( $this->link_id );
 	}
 }
