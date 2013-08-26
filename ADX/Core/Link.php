@@ -254,50 +254,68 @@ class Link
 	}
 
 	/**
-	 * Read information from the RootDSE that is not available by default
+	 * Read information from the RootDSE entry
 	 *
-	 * Use this method to read additional information from the RootDSE entry if
-	 * the information you require is not available in {@link self::$rootDSE} by default.
+	 * Use this method to read information from the RootDSE entry of the directory server.
 	 *
-	 * Returns all available information when called without any parameter.
+	 * The following information ( each represented as {@link Attribute} )
+	 * is always available:
+	 *
+	 * - dnshostname
+	 * - defaultnamingcontext
+	 * - highestcommittedusn
+	 * - supportedcontrol
+	 * - supportedldapversion
+	 * - supportedsaslmechanisms
+	 * - rootdomainnamingcontext
+	 * - configurationnamingcontext
+	 * - schemanamingcontext
+	 * - namingcontexts
+	 * - currenttime
+	 *
+	 * <br>
+	 * Note that you do not need to use this method each time
+	 * you need to read information from rootDSE - simply access the information
+	 * straight away via `$link->rootDSE->property_name()` and the class will take
+	 * care of the rest. In fact, accessing the property is faster because the library
+	 * caches to rootDSE information for you and only reloads when calling this method.
 	 *
 	 * <h4>Example</h4>
 	 * <code>
 	 * $link	= new Link( 'example.com' );	// Connect to server
-	 * $object	= $link->rootDSE();		// Load ALL attributes from the RootDSE
+	 * $object	= $link->rootDSE();		// Load default attribute set from the RootDSE
 	 * // Do something with Object...
-	 * $isSynchronised = $object->isSynchronized->value( 0 );
+	 * $currentTime = $object->currentTime->value(0);
 	 * </code>
 	 *
+	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684291%28v=vs.85%29.aspx">MSDN - RootDSE</a>
 	 * @uses		Object::read()
-	 * @param		array		Array with the attributes you wish to have retrieved
+	 * @param		string|array		One or more attributes you wish to have retrieved in addition to the default set
 	 *
-	 * @return		Object		The Object representing the RootDSE entry with requested attributes
-	 *
-	 * @todo		Make the information requested via this method available in
-	 * 				the {@link self::$rootDSE} property for subsequent reuse
+	 * @return		Object				The Object representing the RootDSE entry with requested attributes
 	 */
-	public function rootDSE( $attributes = ['*', '+'] )
+	public function rootDSE( $attributes = [] )
 	{
-		// Attempt anonymous bind
-		try
-		{
-			$this->_int_bind();
-		}
-		catch ( InvalidCredentialsException $e )
-		{
-			// Attempt failed, nothing much to do then...
-			throw new Exception( "Your ldap server must allow anonymous bind requests to the rootDSE" );
+		$get = [
+			'dnshostname',
+			'defaultnamingcontext',
+			'highestcommittedusn',
+			'supportedcontrol',
+			'supportedldapversion',
+			'supportedsaslmechanisms',
+			'rootdomainnamingcontext',
+			'configurationnamingcontext',
+			'schemanamingcontext',
+			'namingcontexts',
+			'currenttime',
+		];
 
-		}
-
-		// Successfully bound anonymously!
-		$attributes = (array)$attributes;
+		$attributes = array_merge( $get, (array)$attributes );
 
 		// Read the rootDSE
-		$rootDSE = Object::read( '', $attributes, $this );
+		$this->rootDSE = Object::read( '', $attributes, $this );
 
-		return $rootDSE;
+		return $this->rootDSE;
 	}
 
 	/**
