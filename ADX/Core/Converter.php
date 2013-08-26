@@ -243,19 +243,21 @@ class Converter
 
 	// Special cases
 
+	/**
+	 * Convert a string into quotation marks-encapsulated UTF-16LE string
+	 *
+	 * The password conversion is well described in the MSDN document available below.
+	 *
+	 * @see			<a href="http://msdn.microsoft.com/en-us/library/cc223248.aspx">MSDN - unicodePwd</a>
+	 * @param		A password encoded in php's default charset ( as set in php.ini )
+	 *
+	 * @return		A quotation marks-encapsulated UTF-16LE string
+	 */
 	protected static function _to_l_unicodepwd( $password )
 	{
-		$password	= "\"$password\"";	// Enclose the password in double quotes
-
-		$length		= strlen( $password );
-		$pwd		= '';
-
-		for ( $i = 0; $i < $length; $i++ )
-		{
-			$pwd .= "{$password{$i}}\000";	// Pad every character with a NULL value ( null-padded string )
-		}
-
-		return $pwd;
+		// Enclose the password in double quotes and convert it from
+		// default php charset defined in php.ini to UTF-16LE encoding
+		return iconv( ini_get( 'default_charset' ), 'utf-16le', "\"$password\"" );
 	}
 
 	protected static function _to_p_guid( $guid )

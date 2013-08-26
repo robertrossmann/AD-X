@@ -103,7 +103,7 @@ class User extends Object
 			// We don't know yet if password will be provided so let's go with strict security.
 			// Since we MUST set PasswdNotReqd if password has not been set, let's also
 			// disable the account to prevent passwordless logon
-			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotreqd, true );
+			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotReqd, true );
 			$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, true );
 		}
 	}
@@ -137,7 +137,7 @@ class User extends Object
 		// to enable the account but also to require password for logon
 		if ( in_array( 'unicodepwd', $this->all_attributes() ) )
 		{
-			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotreqd, false );
+			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotReqd, false );
 			$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, false );
 		}
 

@@ -68,40 +68,13 @@ use ADX\Enums;
  * </code>
  *
  * @see			{@link Task} - perform lookup operations on directory servers
+ *
+ * @property	Object		$rootDSE		The rootDSE entry of the directory server.
+ * 											Read more at {@link self::rootDSE()}
  */
 class Link
 {
-	/**
-	 * {@link Object} that represents the RootDSE of a directory server.
-	 *
-	 * This information is generated automatically for each new Link object and the information
-	 * is used across the library. You should not attempt to modify the object.
-	 *
-	 * These attributes ( represented as {@link Attribute} ) are available by default:<br>
-	 * - dnshostname
-	 * - defaultnamingcontext
-	 * - highestcommittedusn
-	 * - supportedcontrol
-	 * - supportedldapversion
-	 * - supportedsaslmechanisms
-	 * - rootdomainnamingcontext
-	 * - configurationnamingcontext
-	 * - schemanamingcontext
-	 * - namingcontexts
-	 * - currenttime
-	 *
-	 * <h4>Example</h4>
-	 * <code>
-	 * // Read the current time of the directory server
-	 * $link		= new Link( 'example.com' );
-	 * $server_time	= $link->rootDSE->currenttime->value( 0 );
-	 * // Do something with $server_time...
-	 * </code>
-	 *
-	 * @var			Object
-	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684291%28v=vs.85%29.aspx">MSDN - RootDSE</a>
-	 */
-	public $rootDSE;
+	protected $rootDSE;				// The rootDSE object is stored here once loaded from server
 
 	protected $link_id;				// Resource link_identifier ( as returned by ldap_connect() )
 
@@ -118,14 +91,13 @@ class Link
 	/**
 	 * Create a new connection to a directory server
 	 *
-	 * Connects to a directory server and reads the RootDSE entry ( via anonymous bind ).
-	 * Note that <b>ldap v3 is enforced</b> for all operations and cannot be overriden.
+	 * Note that **ldap v3 is enforced** for all operations and cannot be overriden.
 	 *
 	 * <h4>Example</h4>
 	 * <code>
 	 * $link = new Link( 'example.com' );	// Uses default ldap port 389
 	 * $link = new Link( 'example.com', 636 );	// Uses ssl-specific port 636
-	 * $link = new Link( 'example.com', 389, [ServerControl::ShowDeleted] );	// Allows listing of deleted objects
+	 * $link = new Link( 'example.com', 389, [ADX\Enums\ServerControl::ShowDeleted] );	// Allows listing of deleted objects
 	 * </code>
 	 *
 	 * @param		string		DNS name of the directory server, i.e. <i>example.com</i>
@@ -144,30 +116,8 @@ class Link
 		$this->port		= $port;
 		$this->link_id	= ldap_connect( $domain, $port );	// Connect to ldap
 
-		// Load the rootDSE object
-		if ( ! $this->rootDSE )
-		{
-			$get = [
-				'dnshostname',
-				'defaultnamingcontext',
-				'highestcommittedusn',
-				'supportedcontrol',
-				'supportedldapversion',
-				'supportedsaslmechanisms',
-				'rootdomainnamingcontext',
-				'configurationnamingcontext',
-				'schemanamingcontext',
-				'namingcontexts',
-				'currenttime',
-			];
-
-			$this->rootDSE = $this->rootDSE( $get );
-		}
-
-		// Make sure that the server supports ldap v3 protocol, otherwise no need to continue
-		if ( ! in_array( 3, $this->rootDSE->supportedldapversion() ) ) throw new UnsupportedPlatformException();
-
-		// Force the link to use ldap v3 and disable native referrals handling as it is required by this implementation
+		// Force the link to use ldap v3 and disable native referrals handling
+		// as it is required by this implementation
 		ldap_set_option( $this->link_id, LDAP_OPT_PROTOCOL_VERSION,	3 );
 		ldap_set_option( $this->link_id, LDAP_OPT_REFERRALS,		0 );
 	}
@@ -254,50 +204,68 @@ class Link
 	}
 
 	/**
-	 * Read information from the RootDSE that is not available by default
+	 * Read information from the RootDSE entry
 	 *
-	 * Use this method to read additional information from the RootDSE entry if
-	 * the information you require is not available in {@link self::$rootDSE} by default.
+	 * Use this method to read information from the RootDSE entry of the directory server.
 	 *
-	 * Returns all available information when called without any parameter.
+	 * The following information ( each represented as {@link Attribute} )
+	 * is always available:
+	 *
+	 * - dnshostname
+	 * - defaultnamingcontext
+	 * - highestcommittedusn
+	 * - supportedcontrol
+	 * - supportedldapversion
+	 * - supportedsaslmechanisms
+	 * - rootdomainnamingcontext
+	 * - configurationnamingcontext
+	 * - schemanamingcontext
+	 * - namingcontexts
+	 * - currenttime
+	 *
+	 * <br>
+	 * Note that you do not need to use this method each time
+	 * you need to read information from rootDSE - simply access the information
+	 * straight away via `$link->rootDSE->property_name()` and the class will take
+	 * care of the rest. In fact, accessing the property is faster because the library
+	 * caches to rootDSE information for you and only reloads when calling this method.
 	 *
 	 * <h4>Example</h4>
 	 * <code>
 	 * $link	= new Link( 'example.com' );	// Connect to server
-	 * $object	= $link->rootDSE();		// Load ALL attributes from the RootDSE
+	 * $object	= $link->rootDSE();		// Load default attribute set from the RootDSE
 	 * // Do something with Object...
-	 * $isSynchronised = $object->isSynchronized->value( 0 );
+	 * $currentTime = $object->currentTime->value(0);
 	 * </code>
 	 *
+	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684291%28v=vs.85%29.aspx">MSDN - RootDSE</a>
 	 * @uses		Object::read()
-	 * @param		array		Array with the attributes you wish to have retrieved
+	 * @param		string|array		One or more attributes you wish to have retrieved in addition to the default set
 	 *
-	 * @return		Object		The Object representing the RootDSE entry with requested attributes
-	 *
-	 * @todo		Make the information requested via this method available in
-	 * 				the {@link self::$rootDSE} property for subsequent reuse
+	 * @return		Object				The Object representing the RootDSE entry with requested attributes
 	 */
-	public function rootDSE( $attributes = ['*', '+'] )
+	public function rootDSE( $attributes = [] )
 	{
-		// Attempt anonymous bind
-		try
-		{
-			$this->_int_bind();
-		}
-		catch ( InvalidCredentialsException $e )
-		{
-			// Attempt failed, nothing much to do then...
-			throw new Exception( "Your ldap server must allow anonymous bind requests to the rootDSE" );
+		$get = [
+			'dnshostname',
+			'defaultnamingcontext',
+			'highestcommittedusn',
+			'supportedcontrol',
+			'supportedldapversion',
+			'supportedsaslmechanisms',
+			'rootdomainnamingcontext',
+			'configurationnamingcontext',
+			'schemanamingcontext',
+			'namingcontexts',
+			'currenttime',
+		];
 
-		}
-
-		// Successfully bound anonymously!
-		$attributes = (array)$attributes;
+		$attributes = array_merge( $get, (array)$attributes );
 
 		// Read the rootDSE
-		$rootDSE = Object::read( '', $attributes, $this );
+		$this->rootDSE = Object::read( '', $attributes, $this );
 
-		return $rootDSE;
+		return $this->rootDSE;
 	}
 
 	/**
@@ -516,11 +484,11 @@ class Link
 	public function __sleep()
 	{
 		// Release the ldap link_identifier
-		unset( $this->link_id );
+		$this->link_id = null;
 
 		// Clear the username and password for security reasons
-		unset( $this->username );
-		unset( $this->password );
+		$this->username = null;
+		$this->password = null;
 
 		// Return all non-empty object attributes as array for serialisation (required by method definition)
 		return array_keys( get_object_vars( $this ) );
@@ -544,8 +512,32 @@ class Link
 	public function __wakeup()
 	{
 		// Reconnect to the domain
-		$this->_connect( $this->domain, $this->port );	// Connect to the server
-		if ( $this->use_tls ) $this->use_tls();			// Use TLS connection if previously enabled
+		$this->__construct( $this->domain, $this->port );	// Connect to the server
+		if ( $this->use_tls ) $this->use_tls();				// Use TLS connection if previously enabled
+	}
+
+	/**
+	 * @internal
+	 */
+	public function __get( $property )
+	{
+		switch ( $property )
+		{
+			case 'rootDSE':
+
+				return $this->rootDSE instanceof Object ? $this->rootDSE : $this->rootDSE();
+
+			default:
+
+				$trace = debug_backtrace();
+				trigger_error(
+					'Undefined property: ' . $property .
+					' in ' . $trace[0]['file'] .
+					' on line ' . $trace[0]['line'],
+					E_USER_NOTICE );
+
+				return null;
+		}
 	}
 
 	/**
@@ -559,6 +551,6 @@ class Link
 	 */
 	public function __destruct()
 	{
-		if ( $this->link_id ) ldap_unbind( $this->link_id );
+		isset( $this->link_id ) && ldap_unbind( $this->link_id );
 	}
 }
