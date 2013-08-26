@@ -125,7 +125,7 @@ class Link
 	 * <code>
 	 * $link = new Link( 'example.com' );	// Uses default ldap port 389
 	 * $link = new Link( 'example.com', 636 );	// Uses ssl-specific port 636
-	 * $link = new Link( 'example.com', 389, [ServerControl::ShowDeleted] );	// Allows listing of deleted objects
+	 * $link = new Link( 'example.com', 389, [ADX\Enums\ServerControl::ShowDeleted] );	// Allows listing of deleted objects
 	 * </code>
 	 *
 	 * @param		string		DNS name of the directory server, i.e. <i>example.com</i>
