@@ -68,40 +68,13 @@ use ADX\Enums;
  * </code>
  *
  * @see			{@link Task} - perform lookup operations on directory servers
+ *
+ * @property	Object		$rootDSE		The rootDSE entry of the directory server.
+ * 											Read more at {@link self::rootDSE()}
  */
 class Link
 {
-	/**
-	 * {@link Object} that represents the RootDSE of a directory server.
-	 *
-	 * This information is generated automatically for each new Link object and the information
-	 * is used across the library. You should not attempt to modify the object.
-	 *
-	 * These attributes ( represented as {@link Attribute} ) are available by default:<br>
-	 * - dnshostname
-	 * - defaultnamingcontext
-	 * - highestcommittedusn
-	 * - supportedcontrol
-	 * - supportedldapversion
-	 * - supportedsaslmechanisms
-	 * - rootdomainnamingcontext
-	 * - configurationnamingcontext
-	 * - schemanamingcontext
-	 * - namingcontexts
-	 * - currenttime
-	 *
-	 * <h4>Example</h4>
-	 * <code>
-	 * // Read the current time of the directory server
-	 * $link		= new Link( 'example.com' );
-	 * $server_time	= $link->rootDSE->currenttime->value( 0 );
-	 * // Do something with $server_time...
-	 * </code>
-	 *
-	 * @var			Object
-	 * @see			<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684291%28v=vs.85%29.aspx">MSDN - RootDSE</a>
-	 */
-	public $rootDSE;
+	protected $rootDSE;				// The rootDSE object is stored here once loaded from server
 
 	protected $link_id;				// Resource link_identifier ( as returned by ldap_connect() )
 
@@ -118,7 +91,6 @@ class Link
 	/**
 	 * Create a new connection to a directory server
 	 *
-	 * Connects to a directory server and reads the RootDSE entry ( via anonymous bind ).
 	 * Note that **ldap v3 is enforced** for all operations and cannot be overriden.
 	 *
 	 * <h4>Example</h4>
@@ -143,26 +115,6 @@ class Link
 		$this->domain	= $domain;
 		$this->port		= $port;
 		$this->link_id	= ldap_connect( $domain, $port );	// Connect to ldap
-
-		// Load the rootDSE object
-		if ( ! $this->rootDSE )
-		{
-			$get = [
-				'dnshostname',
-				'defaultnamingcontext',
-				'highestcommittedusn',
-				'supportedcontrol',
-				'supportedldapversion',
-				'supportedsaslmechanisms',
-				'rootdomainnamingcontext',
-				'configurationnamingcontext',
-				'schemanamingcontext',
-				'namingcontexts',
-				'currenttime',
-			];
-
-			$this->rootDSE = $this->rootDSE( $get );
-		}
 
 		// Force the link to use ldap v3 and disable native referrals handling
 		// as it is required by this implementation
@@ -562,6 +514,30 @@ class Link
 		// Reconnect to the domain
 		$this->__construct( $this->domain, $this->port );	// Connect to the server
 		if ( $this->use_tls ) $this->use_tls();				// Use TLS connection if previously enabled
+	}
+
+	/**
+	 * @internal
+	 */
+	public function __get( $property )
+	{
+		switch ( $property )
+		{
+			case 'rootDSE':
+
+				return $this->rootDSE instanceof Object ? $this->rootDSE : $this->rootDSE();
+
+			default:
+
+				$trace = debug_backtrace();
+				trigger_error(
+					'Undefined property: ' . $property .
+					' in ' . $trace[0]['file'] .
+					' on line ' . $trace[0]['line'],
+					E_USER_NOTICE );
+
+				return null;
+		}
 	}
 
 	/**
