@@ -544,8 +544,8 @@ class Link
 	public function __wakeup()
 	{
 		// Reconnect to the domain
-		$this->_connect( $this->domain, $this->port );	// Connect to the server
-		if ( $this->use_tls ) $this->use_tls();			// Use TLS connection if previously enabled
+		$this->__construct( $this->domain, $this->port );	// Connect to the server
+		if ( $this->use_tls ) $this->use_tls();				// Use TLS connection if previously enabled
 	}
 
 	/**
