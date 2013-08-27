@@ -77,35 +77,14 @@ class User extends Object
 	 */
 	public function __construct( Core\Link $link, $attributes = array() )
 	{
-		parent::__construct( $link, array_change_key_case( $attributes ) );
+		$args = func_get_args();
+		$comesFromLdap = isset( $args[2] ) ? $args[2] : false;	// This parameter is hidden
 
-		$mandatory = ['cn', 'samaccountname'];
-		$diff = array_diff( $mandatory, $this->all_attributes() ); // Do we have all required params present?
+		parent::__construct( $link, $attributes, $comesFromLdap );
 
-		if ( count( $diff ) > 0 ) throw new Core\IncorrectParameterException( "Mandatory attribute '" . implode( "', '", $diff ) . "' is missing" );
-
-		// Generate UserPrincipalName
-		$domain = ldap_explode_dn( $link->rootDSE->defaultNamingContext(0), 1 );
-		unset( $domain['count'] );
-		$domain = implode( '.', $domain );
-
-		$this->UserPrincipalName->set( $this->samaccountname(0) . '@' . $domain );
-		// Name and displayName should be equivalent to CN by default
-		$this->name->set( $this->cn(0) );
-		$this->displayName->set( $this->cn(0) );
-
-		// Set the UserAccountControl attribute to its defaults after account creation
-		$this->userAccountControl->clear();
-		$this->bit_state( 'userAccountControl', Enums\UAC::NormalAccount, true );	// Default, must be set for all users
-
-		if ( ! in_array( 'unicodepwd', $this->all_attributes() ) )
-		{
-			// We don't know yet if password will be provided so let's go with strict security.
-			// Since we MUST set PasswdNotReqd if password has not been set, let's also
-			// disable the account to prevent passwordless logon
-			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotReqd, true );
-			$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, true );
-		}
+		// Only perform steps for new object creation when the object has not been
+		// returned from ldap server
+		( ! $comesFromLdap ) && $this->_prepare_new_object();
 	}
 
 	/**
@@ -433,6 +412,42 @@ class User extends Object
 		return $this;
 	}
 
+
+	/**
+	 * Prepare a completely new user object for storage on ldap
+	 *
+	 * @return		void
+	 */
+	protected function _prepare_new_object()
+	{
+		$mandatory = ['cn', 'samaccountname'];
+		$diff = array_diff( $mandatory, array_change_key_case( $this->all_attributes() ) ); // Do we have all required params present?
+
+		if ( count( $diff ) > 0 ) throw new Core\IncorrectParameterException( "Mandatory attribute '" . implode( "', '", $diff ) . "' is missing" );
+
+		// Generate UserPrincipalName
+		$domain = ldap_explode_dn( $link->rootDSE->defaultNamingContext(0), 1 );
+		unset( $domain['count'] );
+		$domain = implode( '.', $domain );
+
+		$this->UserPrincipalName->set( $this->samaccountname(0) . '@' . $domain );
+		// Name and displayName should be equivalent to CN by default
+		$this->name->set( $this->cn(0) );
+		$this->displayName->set( $this->cn(0) );
+
+		// Set the UserAccountControl attribute to its defaults after account creation
+		$this->userAccountControl->clear();
+		$this->bit_state( 'userAccountControl', Enums\UAC::NormalAccount, true );	// Default, must be set for all users
+
+		if ( ! in_array( 'unicodepwd', $this->all_attributes() ) )
+		{
+			// We don't know yet if password will be provided so let's go with strict security.
+			// Since we MUST set PasswdNotReqd if password has not been set, let's also
+			// disable the account to prevent passwordless logon
+			$this->bit_state( 'userAccountControl', Enums\UAC::PasswdNotReqd, true );
+			$this->bit_state( 'userAccountControl', Enums\UAC::AccountDisable, true );
+		}
+	}
 
 	/**
 	 * Remove all Exchange properties from the user
