@@ -230,7 +230,7 @@ class Converter
 
 	protected static function _to_p_binary( $data )
 	{
-		return base64_encode( $data );
+		return bin2hex( $data );
 	}
 
 	protected static function _to_l_object( $object )
