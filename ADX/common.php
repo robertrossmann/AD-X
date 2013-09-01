@@ -133,6 +133,7 @@ class BitwiseFilter extends TypedefEnum
 class Syntax extends TypedefEnum
 {
 	const Binary			= '2.5.5.10';	// Binary data as usual - just raw ones and zeros
+	const Sid				= '2.5.5.17';	// A binary-encoded SID string
 	const Boolean			= '2.5.5.8';	// Boolean as we know it, but represented as a string ( "TRUE" / "FALSE" )
 	const Integer			= '2.5.5.9';	// 32-bit integer
 	const LargeInt			= '2.5.5.16';	// 64-bit integer

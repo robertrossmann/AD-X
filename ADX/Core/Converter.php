@@ -88,6 +88,10 @@ class Converter
 				$method = 'object';
 				break;
 
+			case Syntax::Sid:
+				$method = 'sid';
+				break;
+
 			case Syntax::Integer:
 			case Syntax::LargeInt:
 				// Conversion not needed
@@ -309,5 +313,36 @@ class Converter
 		}
 
 		return $hex_guid;
+	}
+
+	protected static function _to_p_sid( $sid )
+	{
+		// Originally found at http://www.php.net/manual/en/function.ldap-get-values-len.php#73198
+		// I only took the code, modified formatting and verified functionality.
+
+		// Converts a little-endian hex-number to one that 'hexdec' can convert
+		$little_endian = function( $hex )
+		{
+			$result = '';
+
+			for ( $x = strlen( $hex ) - 2; $x >= 0; $x = $x - 2 ) $result .= substr( $hex, $x, 2 );
+
+			return $result;
+		};
+
+		$hex_sid	= bin2hex( $sid );
+		$rev		= hexdec( substr( $hex_sid, 0, 2 ) );
+		$subcount	= hexdec( substr( $hex_sid, 2, 2 ) );
+		$auth		= hexdec( substr( $hex_sid, 4, 12 ) );
+		$result		= "$rev-$auth";
+
+		for ( $x = 0; $x < $subcount; $x++ )
+		{
+			$subauth[$x] = hexdec( $little_endian( substr( $hex_sid, 16 + ( $x * 8 ), 8 ) ) );
+			$result .= "-" . $subauth[$x];
+		}
+
+		// Cheat by tacking on the S-
+		return 'S-' . $result;
 	}
 }
