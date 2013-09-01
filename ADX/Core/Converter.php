@@ -233,6 +233,14 @@ class Converter
 		return bin2hex( $data );
 	}
 
+	protected static function _to_l_binary( $data )
+	{
+		// Did we get a hex string? Convert it to binary!
+		is_numeric( '0x' . $data ) && $data = hex2bin( $data );
+
+		return $data;
+	}
+
 	protected static function _to_l_object( $object )
 	{
 		if ( $object instanceof Object && ! $object->dn ) throw new InvalidOperationException( "The object $object is not stored on server - please save your object first, then retry the action" );
