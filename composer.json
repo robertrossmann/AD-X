@@ -3,7 +3,7 @@
 	"description": "X-tremely powerful Active Directory interface for php",
 	"keywords": ["Active Directory", "ldap"],
 	"homepage": "https://github.com/Alaneor/AD-X",
-	"license": "BSD-3",
+	"license": "BSD-3-Clause",
 	"authors": [
 		{
 			"name": "Robert Rossmann",
