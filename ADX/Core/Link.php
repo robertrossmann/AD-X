@@ -427,14 +427,6 @@ class Link
 
 			@ldap_set_option( $this->link_id, $option, $value );
 
-			$adxError = ldap_errno( $this->link_id );
-
-			switch ( $adxError )
-			{
-				case Enums\ServerResponse::UnavailableCriticalExtension:
-					throw new LdapNativeException( $this->link_id );
-					break;
-			}
 
 			// Store the option for future reuse
 			$this->options[$option] = $value;
