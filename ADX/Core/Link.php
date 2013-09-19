@@ -170,7 +170,7 @@ class Link
 	public function sasl_bind()
 	{
 
-		return $this;
+		throw new InvalidOperationException( 'This method is not implemented yet.' );
 	}
 
 	/**
