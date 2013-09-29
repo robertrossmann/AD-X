@@ -284,12 +284,23 @@ namespace ADX\Core;
 
 trait Jsonizer
 {
-	public function json()
+	/**
+	 * Convert the object's data into json string
+	 *
+	 * @param		bool		If true, the json string will also contain whitespace to improve readability
+	 *
+	 * @return		string		The json string
+	 */
+	public function json( $pretty = false )
 	{
+
 		// Used options ( in order of appearance ):
 		// Do not escape unicode characters ( š, ,č ž, ú etc. )
 		// Encode numeric strings as numbers
-		return json_encode( $this, JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK );
+		$options = JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK;
+		$pretty && $options = $options | JSON_PRETTY_PRINT;
+
+		return json_encode( $this, $options );
 	}
 }
 
