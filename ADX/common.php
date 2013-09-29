@@ -260,15 +260,12 @@ class Exception extends \Exception {}
  */
 class LdapNativeException extends Exception
 {
-	public function __construct( $link_id )
+	public function __construct( \Ldap\Response $response )
 	{
 		parent::__construct();
 
-		ldap_get_option( $link_id, LDAP_OPT_HOST_NAME, $domain );
-
-		$domain			= explode( ':', $domain )[0]; // Get the server name and discard the port
-		$this->code		= ldap_errno( $link_id );
-		$this->message	= "$domain: ".ldap_error( $link_id );
+		$this->code		= $response->code;
+		$this->message	= $response->message;
 	}
 }
 
