@@ -426,8 +426,7 @@ class User extends Object
 		if ( count( $diff ) > 0 ) throw new Core\IncorrectParameterException( "Mandatory attribute '" . implode( "', '", $diff ) . "' is missing" );
 
 		// Generate UserPrincipalName
-		$domain = ldap_explode_dn( $link->rootDSE->defaultNamingContext(0), 1 );
-		unset( $domain['count'] );
+		$domain = \Ldap\Ldap::explode_dn( $this->link->rootDSE->defaultNamingContext(0), 1 );
 		$domain = implode( '.', $domain );
 
 		$this->UserPrincipalName->set( $this->samaccountname(0) . '@' . $domain );
