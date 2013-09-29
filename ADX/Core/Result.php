@@ -53,8 +53,10 @@ namespace ADX\Core;
  * @see			Task
  * @see			<a href="http://www.php.net/manual/en/class.closure.php">PHP - Closure</a>
  */
-class Result implements \ArrayAccess, \Iterator, \Countable
+class Result implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 {
+	use	Jsonizer;
+
 	protected $data;					// Container for the objects
 
 	// Iterator properties
@@ -259,5 +261,16 @@ class Result implements \ArrayAccess, \Iterator, \Countable
 	public function count()
 	{
 		return $this->count;
+	}
+
+
+	// JsonSerializable interface implementation
+
+	/**
+	 * @internal
+	 */
+	public function jsonSerialize()
+	{
+		return $this->data;
 	}
 }
