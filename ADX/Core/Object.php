@@ -229,7 +229,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		$dn = "$this->rdnAttId=" . $this->get( $this->rdnAttId )[0] . ",$dn";
 
-		$response = $this->link->add( $dn, $this->_get_changed_data() );
+		$response = $this->link->get_link()->add( $dn, $this->_get_changed_data() );
 		if ( $response->ok() )
 		{
 			// Successfully created the object
@@ -257,7 +257,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		if ( count( $changes ) === 0 ) return $this;	// Nothing to be updated
 
-		$response = @$this->link->modify( $this->dn, $changes );
+		$response = @$this->link->get_link()->modify( $this->dn, $changes );
 		if ( $response->ok() )
 		{
 			// Successfully modified the object
@@ -278,7 +278,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 */
 	public function delete()
 	{
-		$response = $this->link->delete( $this->dn );
+		$response = $this->link->get_link()->delete( $this->dn );
 		if ( $response->ok() )
 		{
 			// Successfully deleted the object. Take care of data in php now...
@@ -304,7 +304,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		if ( ! $rdn ) throw new InvalidOperationException( "The attribute '$rdn' must be present when moving objects of this class" );
 
 		// The 'deleteOldRdn' param must always be set to true - see the docblock @see link above
-		$response = $this->link->rename( $this->dn, "$rdnAttId=$rdn", $new_parent, true );
+		$response = $this->link->get_link()->rename( $this->dn, "$rdnAttId=$rdn", $new_parent, true );
 
 		// Was the object moved?
 		if ( ! $response->ok() ) $this->_handle_last_error( $response );
