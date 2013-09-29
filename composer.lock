@@ -7,16 +7,16 @@
     "packages": [
         {
             "name": "alaneor/ldap",
-            "version": "0.3",
+            "version": "0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Alaneor/Ldap.git",
-                "reference": "041452c55a68e7c53685d64db0a20a426e5ce453"
+                "reference": "2b8ce6a9f6a71b312cb10a287591da2b8b2fbed7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Alaneor/Ldap/zipball/041452c55a68e7c53685d64db0a20a426e5ce453",
-                "reference": "041452c55a68e7c53685d64db0a20a426e5ce453",
+                "url": "https://api.github.com/repos/Alaneor/Ldap/zipball/2b8ce6a9f6a71b312cb10a287591da2b8b2fbed7",
+                "reference": "2b8ce6a9f6a71b312cb10a287591da2b8b2fbed7",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -42,11 +42,14 @@
             ],
             "description": "A simple class encapsulation of php's ldap functions",
             "keywords": [
+                "OOP",
                 "active directory",
                 "ldap",
-                "mock"
+                "mock",
+                "object",
+                "openldap"
             ],
-            "time": "2013-09-05 22:24:50"
+            "time": "2013-09-29 14:55:42"
         },
         {
             "name": "rhumsaa/uuid",
