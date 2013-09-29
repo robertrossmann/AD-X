@@ -614,13 +614,13 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	{
 		switch( $response->code )
 		{
-			case Enums\ServerResponse::InsufficientAccess:
+			case \Ldap\ResponseCode::InsufficientAccess:
 				throw new InsufficientAccessException( $response );
 				break;
-			case Enums\ServerResponse::AlreadyExists:
+			case \Ldap\ResponseCode::AlreadyExists:
 				throw new LdapNativeException( $response );
 				break;
-			case Enums\ServerResponse::UndefinedType:
+			case \Ldap\ResponseCode::UndefinedType:
 				throw new UndefinedTypeException( $response );
 			default:
 				throw new LdapNativeException( $response );
