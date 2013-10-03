@@ -16,7 +16,8 @@
 		"php": ">=5.4.0",
 		"ext-ldap": "*",
 		"ext-json": "*",
-		"rhumsaa/uuid": "~2.4"
+		"rhumsaa/uuid": "~2.4",
+		"alaneor/ldap": "~0.3"
 	},
 	"require-dev": {
 		"apigen/apigen": "~2.8.0"

@@ -101,7 +101,7 @@ class Task
 	public $complete;
 
 
-	protected $adxLink;
+	protected $link;
 
 	protected $operationType;						// The operation to be performed ( one of consts with name OperationType* defined in this class )
 	protected $dn;									// baseDN override to be used for the operation
@@ -256,12 +256,12 @@ class Task
 	 * 							string as an argument, you are strongly discouraged from doing that.
 	 * @param		Link		The Link the operation will be performed on
 	 */
-	public function __construct( $operationType, Link $adxLink )
+	public function __construct( $operationType, Link $link )
 	{
 		if ( ! in_array( $operationType, $this::$allowedScopes ) ) throw new IncorrectParameterException( 'Invalid Operation supplied for directory lookup - see the Operation enumeration for allowed values' );
 
 		$this->operationType	= $operationType;
-		$this->adxLink			= $adxLink;
+		$this->link				= $link;
 	}
 
 	/**
@@ -285,13 +285,13 @@ class Task
 	 */
 	public function use_pages( $sizelimit = null, $encoded_cookie = '' )
 	{
-		if ( in_array( Enums\ServerControl::PagedResults, $this->adxLink->rootDSE->supportedcontrol() ) )
+		if ( in_array( Enums\ServerControl::PagedResults, $this->link->rootDSE->supportedcontrol() ) )
 		{
 			$this->use_pages	= true;
 			$this->sizelimit	= $sizelimit ? $sizelimit : ( $this->sizelimit ?: 1000 );
 			$this->cookie		= $encoded_cookie === '' ? $encoded_cookie : base64_decode( $encoded_cookie );
 		}
-		else throw new Exception( "$this->adxLink does not support paged results" );
+		else throw new Exception( "$this->link does not support paged results" );
 
 		return $this;
 	}
@@ -399,30 +399,31 @@ class Task
 	public function run()
 	{
 		// Prepare the information needed for the operation
-		$link_id	= $this->adxLink->get_link();
-		$baseDN		= ( $this->dn || $this->dn === '' ) ? $this->dn : $this->adxLink->rootDSE->defaultnamingcontext(0);
+		$ldap_link = $this->link->get_link();
+
+		$baseDN		= ( $this->dn || $this->dn === '' ) ? $this->dn : $this->link->rootDSE->defaultnamingcontext(0);
 		if ( $this->use_pages && $this->complete ) $this->cookie = '';	// Reset the cookie if the operation is started again
 		$this->complete = false;										// Reset the completion status
 
 		// Send the pagination control cookie if present
 		// I must check explicitly for NULL bcause '' also evaluates to FALSE
-		if ( $this->cookie !== null ) ldap_control_paged_result( $link_id, $this->sizelimit, true, $this->cookie );
+		if ( $this->cookie !== null ) $ldap_link->paged_result( $this->sizelimit, true, $this->cookie );
 
 		// Perform the lookup operation
 		// All exceptions thrown here will bubble up!
-		$result_id = $this->_directory_lookup( $this->operationType, $link_id, $baseDN, $this->filter, $this->attributes );
+		$response = $this->_directory_lookup( $this->operationType, $baseDN, $this->filter, $this->attributes );
 
 		// Get the new cookie from the response if pagination is enabled
 		// I must check explicitly for NULL bcause '' also evaluates to FALSE
-		if ( $this->cookie !== null ) ldap_control_paged_result_response( $link_id, $result_id, $this->cookie );
+		$this->cookie = $response->cookie;
 
 		// Lookup operation successful - continue processing...
-		$referral_link = $this->_parse_referrals( $result_id );
+		$referral_link = $this->_parse_referrals( $response );
 
 		// Check for referrals
-		if ( $referral_link )										// We have been referred to a new Link
+		if ( $referral_link )											// We have been referred to a new Link
 		{
-			if ( $this->referral_counter <= $this->max_referrals )	// Are we still allowed to chase referrals?
+			if ( $this->referral_counter <= $this->max_referrals )		// Are we still allowed to chase referrals?
 			{
 				// Do we have this connection in the pool already?
 				if ( isset( static::$connection_pool[$referral_link] ) )
@@ -431,12 +432,12 @@ class Task
 				}
 				else
 				{
-					$link = $this->adxLink->_redirect( $referral_link );	// Reconnect to the new server
-					static::$connection_pool[$referral_link] = $link;		// Save the connection in the link pool
+					$link = $this->link->_redirect( $referral_link );	// Reconnect to the new server
+					static::$connection_pool[$referral_link] = $link;	// Save the connection in the link pool
 				}
 
 				$this->referral_counter++;
-				$this->adxLink = $link;										// Replace the current link with the new link
+				$this->link = $link;									// Replace the current link with the new link
 
 				return $this->run();	// Only those calls that actually succeed in getting data should continue with code below
 			} else return false;		// Reached maximum number of referrals -> do not continue
@@ -445,14 +446,10 @@ class Task
 		// Successfully retrieved data from server
 		$this->referral_counter = 0;
 
-		$result = ldap_get_entries( $this->adxLink->get_link(), $result_id );
-
-		unset( $result['count'] );	// Clean up some unneeded mess ( more cleanup happens at object instantiation )
-
 		$data = array();
 
 		// Create new objects from result, converting the values to php-compatible data formats on the way
-		foreach ( $result as $objectData )
+		foreach ( $response->data as $objectData )
 		{
 			// Is there a special class defined for this particular object class ( under ADX\Classes namespace )?
 			// Use 'Object' if the objectClass attribute is either not present or there is no class override
@@ -463,7 +460,7 @@ class Task
 			}
 			else $class = 'ADX\Core\Object';
 
-			$data[] = new $class( $this->adxLink, $objectData, true );
+			$data[] = new $class( $this->link, $objectData, true );
 		}
 
 		$this->complete = ! $this->cookie;	// As long as cookie is present, the result cannot be complete
@@ -512,9 +509,9 @@ class Task
 	}
 
 
-	protected function _parse_referrals( $result_id )
+	protected function _parse_referrals( \Ldap\Response $response )
 	{
-		if ( ! ldap_parse_result( $this->adxLink->get_link(), $result_id, $code, $matchedDN, $errMsg, $referrals ) ) return;
+		$referrals = $response->referrals;
 
 		if ( count( $referrals ) == 0 ) return;
 
@@ -529,7 +526,7 @@ class Task
 	}
 
 
-	protected function _directory_lookup( $operation, $link_id, $dn, $filter, $attributes )
+	protected function _directory_lookup( $operation, $dn, $filter, $attributes )
 	{
 		// Ensure that attributes required by the library to work correctly are always present in the resultset
 		$mandatory = [
@@ -549,33 +546,11 @@ class Task
 
 		// Perform the operation
 		// Supress php errors - any error situations are handled by checking ldap error code below
-		$result_id = @$operation( $link_id, $dn, $filter, $attributes, 0, ( $this->sizelimit ?: 0 ) );
+		$response = @$this->link->get_link()->$operation( $dn, $filter, $attributes, 0, ( $this->sizelimit ?: 0 ) );
 
-		if ( $result_id === false )	// Operation was unsuccessful
-		{
-			// Check for any possible errors and handle them ( probably a TODO )
-			$code = ldap_errno( $link_id );
+		if ( ! $response->ok() ) throw new LdapNativeException( $response );
 
-			switch( $code )
-			{
-				case Enums\ServerResponse::InvalidDnSyntax:
-
-					throw new IncorrectParameterException( "The DN was of incorrect syntax: $dn." );
-					break;
-
-				case Enums\ServerResponse::SizelimitExceeded:
-				case Enums\ServerResponse::CompareFalse:
-				case Enums\ServerResponse::CompareTrue:
-					break;	// Not an error situation
-
-				default:
-
-					throw new LdapNativeException( $link_id );
-					break;
-			}
-		}
-
-		// return the resource result_id
-		return $result_id;
+		// return the server response that contains the data ( if any )
+		return $response;
 	}
 }

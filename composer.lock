@@ -3,8 +3,54 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "dbe7ab8a437134902ae42f4e5a2637db",
+    "hash": "36b3b8f914d94191ec88cb3e004494c9",
     "packages": [
+        {
+            "name": "alaneor/ldap",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Alaneor/Ldap.git",
+                "reference": "2b8ce6a9f6a71b312cb10a287591da2b8b2fbed7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Alaneor/Ldap/zipball/2b8ce6a9f6a71b312cb10a287591da2b8b2fbed7",
+                "reference": "2b8ce6a9f6a71b312cb10a287591da2b8b2fbed7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ldap": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ldap\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Rossmann",
+                    "email": "rr.rossmann@me.com",
+                    "homepage": "https://github.com/Alaneor"
+                }
+            ],
+            "description": "A simple class encapsulation of php's ldap functions",
+            "keywords": [
+                "OOP",
+                "active directory",
+                "ldap",
+                "mock",
+                "object",
+                "openldap"
+            ],
+            "time": "2013-09-29 14:55:42"
+        },
         {
             "name": "rhumsaa/uuid",
             "version": "2.4.0",

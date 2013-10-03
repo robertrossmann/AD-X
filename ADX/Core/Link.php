@@ -15,6 +15,9 @@
 
 namespace ADX\Core;
 
+use Ldap\Ldap;
+use Ldap\Option;
+
 use ADX\Enums;
 
 /**
@@ -76,7 +79,7 @@ class Link
 {
 	protected $rootDSE;				// The rootDSE object is stored here once loaded from server
 
-	protected $link_id;				// Resource link_identifier ( as returned by ldap_connect() )
+	protected $ldap_link;			// Ldap link object
 
 	protected $domain;				// Domain to which this Link is connected
 	protected $port;				// Port for the connection
@@ -114,12 +117,12 @@ class Link
 
 		$this->domain	= $domain;
 		$this->port		= $port;
-		$this->link_id	= ldap_connect( $domain, $port );	// Connect to ldap
+		$this->ldap_link	= new Ldap( $domain, $port );	// Connect to ldap
 
 		// Force the link to use ldap v3 and disable native referrals handling
 		// as it is required by this implementation
-		ldap_set_option( $this->link_id, LDAP_OPT_PROTOCOL_VERSION,	3 );
-		ldap_set_option( $this->link_id, LDAP_OPT_REFERRALS,		0 );
+		$this->ldap_link->set_option( Option::ProtocolVersion,	3 );
+		$this->ldap_link->set_option( Option::Referrals,		0 );
 	}
 
 	/**
@@ -145,7 +148,7 @@ class Link
 	 */
 	public function bind( $username = null, $password = null )
 	{
-		// Set the ldap options on the link_id
+		// Set the ldap options on the ldap_link
 		$this->_set_ldap_options( $this->options );
 
 		// Attempt bind operation...
@@ -196,7 +199,9 @@ class Link
 	 */
 	public function use_tls()
 	{
-		if ( ! @ldap_start_tls( $this->link_id ) ) throw new LdapNativeException( $this->link_id );
+		$response = @$this->ldap_link->start_tls();
+
+		if ( ! $response->ok() ) throw new LdapNativeException( $response );
 
 		$this->use_tls = true;
 
@@ -288,7 +293,7 @@ class Link
 	 *
 	 * @see			self::use_extended_control()
 	 * @see			<a href="http://www.php.net/manual/en/function.ldap-set-option.php">PHP - ldap_set_option()</a>
-	 * 				( LDAP_OPT_SERVER_CONTROLS )
+	 * 				( Option::ServerControls )
 	 */
 	public function show_deleted( $critical = false )
 	{
@@ -327,10 +332,10 @@ class Link
 			];
 
 			$options = array();
-			if ( isset( $this->options[LDAP_OPT_SERVER_CONTROLS] ) ) $options = $this->options[LDAP_OPT_SERVER_CONTROLS];
+			if ( isset( $this->options[Option::ServerControls] ) ) $options = $this->options[Option::ServerControls];
 			$options[] = $control;
 
-			$this->_set_ldap_options( [LDAP_OPT_SERVER_CONTROLS => $options] );
+			$this->_set_ldap_options( [Option::ServerControls => $options] );
 
 			return $this;
 		}
@@ -338,7 +343,7 @@ class Link
 	}
 
 	/**
-	 * Returns the configured Resource ldap link to be used in ldap operations
+	 * Returns the configured Ldap object to be used in ldap operations
 	 *
 	 * This method is used internally - you should not have any need to call it explicitly
 	 * unless you deliberately want to do something special with the Resource object.
@@ -349,7 +354,7 @@ class Link
 	public function get_link()
 	{
 		// Hand over the configured connection
-		return $this->link_id;
+		return $this->ldap_link;
 	}
 
 
@@ -377,38 +382,34 @@ class Link
 	{
 		if ( strlen( $username ) > 0 && strlen( $password ) === 0 ) throw new IncorrectParameterException( 'You must supply a password if you supply a username' );
 
-		if ( ! @ldap_bind( $this->link_id, $username, $password ) )
+		$response = @$this->ldap_link->bind( $username, $password );
+		if ( ! $response->ok() )
 		{
-			$adxError = ldap_errno( $this->link_id );
-
-			switch ( $adxError )
+			switch ( $response->code )
 			{
-				case 0:
-					break;	// No error occured
-
 				// Throw a specific exception if the bind failed due to invalid credentials
 				// or other account-related issues
-				case Enums\ServerResponse::InappropriateAuth				:
-				case Enums\ServerResponse::InvalidCredentials				:
-				case Enums\ServerResponse::InsufficientAccess				:
-				case Enums\ServerResponse::UserNotFound						:
-				case Enums\ServerResponse::NotPermittedToLogonAtThisTime	:
-				case Enums\ServerResponse::RestrictedToSpecificMachines		:
-				case Enums\ServerResponse::PasswordExpired					:
-				case Enums\ServerResponse::AccountDisabled					:
-				case Enums\ServerResponse::AccountExpired					:
-				case Enums\ServerResponse::UserMustResetPassword			:
-					throw new InvalidCredentialsException( $this->link_id );
+				case Ldap\ResponseCode::InappropriateAuth				:
+				case Ldap\ResponseCode::InvalidCredentials				:
+				case Ldap\ResponseCode::InsufficientAccess				:
+				case Ldap\ResponseCode::UserNotFound					:
+				case Ldap\ResponseCode::NotPermittedToLogonAtThisTime	:
+				case Ldap\ResponseCode::RestrictedToSpecificMachines	:
+				case Ldap\ResponseCode::PasswordExpired					:
+				case Ldap\ResponseCode::AccountDisabled					:
+				case Ldap\ResponseCode::AccountExpired					:
+				case Ldap\ResponseCode::UserMustResetPassword			:
+					throw new InvalidCredentialsException( $response );
 					break;
 
 				// Throw a specific exception if the ldap server is unreachable
 				case -1:
-					throw new ServerUnreachableException( $this->link_id );
+					throw new ServerUnreachableException( $response );
 					break;
 
 				// For all other cases, throw a generic exception
 				default:
-					throw new LdapNativeException( $this->link_id );
+					throw new LdapNativeException( $response );
 					break;
 			}
 		}
@@ -419,14 +420,13 @@ class Link
 
 	protected function _set_ldap_options( $options = array() )
 	{
-		// Set the ldap options on the link_id
+		// Set the ldap options on the ldap_link
 		foreach ( $options as $option => $value )
 		{
 			// Skip protocol version setting ( ldap v3 is enforced ) and referral handling settings
-			if ( in_array( $option, [LDAP_OPT_PROTOCOL_VERSION, LDAP_OPT_REFERRALS] ) ) continue;
+			if ( in_array( $option, [Option::ProtocolVersion, Option::Referrals] ) ) continue;
 
-			@ldap_set_option( $this->link_id, $option, $value );
-
+			@$this->ldap_link->set_option( $option, $value );
 
 			// Store the option for future reuse
 			$this->options[$option] = $value;
@@ -475,8 +475,8 @@ class Link
 	 */
 	public function __sleep()
 	{
-		// Release the ldap link_identifier
-		$this->link_id = null;
+		// Release the Ldap link object
+		$this->ldap_link = null;
 
 		// Clear the username and password for security reasons
 		$this->username = null;
@@ -530,19 +530,5 @@ class Link
 
 				return null;
 		}
-	}
-
-	/**
-	 * Unbinds from directory server when the object is destroyed
-	 *
-	 * @internal
-	 *
-	 * @return		void
-	 *
-	 * @see			<a href="http://www.php.net/manual/en/function.ldap-unbind.php">PHP - ldap_unbind()</a>
-	 */
-	public function __destruct()
-	{
-		isset( $this->link_id ) && ldap_unbind( $this->link_id );
 	}
 }

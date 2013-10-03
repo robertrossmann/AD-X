@@ -34,7 +34,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 {
 	use	Jsonizer;
 
-	protected $adxLink;							// Link object that stores the link_id resource
+	protected $link;							// Link object that stores the link_id resource
 	protected $dn;								// The distinguished name of the object ( empty in case of new object )
 	protected $data					= array();	// Contains all properties and their values for the ldap object
 	protected $changedAttributes	= array();	// Contains attribute objects that were changed after the initial load from server
@@ -84,14 +84,14 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @return		self			Object containing the requested attributes
 	 */
-	public static function read( $dnOrFilter, $attributes, Link $adxLink )
+	public static function read( $dnOrFilter, $attributes, Link $link )
 	{
 		// Check if we have DN or a search filter
 		if ( ! is_string( $dnOrFilter ) ) throw new IncorrectParameterException( 'Invalid search filter supplied - you must provide a valid ldap filter' );
 
 		if ( $dnOrFilter === '' || preg_match( '/^[^(].*DC={1}.*[^)]$/i', $dnOrFilter ) === 1 )	// It's a DN or rootDSE
 		{
-			$task = new Task( Enums\Operation::OpRead, $adxLink );
+			$task = new Task( Enums\Operation::OpRead, $link );
 			$task	->attributes( $attributes )
 					->base( $dnOrFilter );
 
@@ -99,7 +99,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		}
 		else	// It's a filter
 		{
-			$task = new Task( Enums\Operation::OpSearch, $adxLink );
+			$task = new Task( Enums\Operation::OpSearch, $link );
 			$task	->attributes( $attributes )
 					->filter( $dnOrFilter );
 
@@ -130,11 +130,11 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @return		Object		The restored object
 	 */
-	public static function restore( $json, Link $adxLink )
+	public static function restore( $json, Link $link )
 	{
 		$data = json_decode( $json, true, 512, JSON_BIGINT_AS_STRING );
 
-		return new static( $adxLink, $data );
+		return new static( $link, $data );
 	}
 
 
@@ -170,12 +170,12 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @return		self		A new instance of this class
 	 */
-	public function __construct( Link $adxLink, $attributes = array() )
+	public function __construct( Link $link, $attributes = array() )
 	{
 		$args = func_get_args();
 		$comesFromLdap = isset( $args[2] ) ? $args[2] : false;	// This parameter is hidden
 
-		$this->adxLink = $adxLink;
+		$this->link = $link;
 
 		if ( isset( $attributes['dn'] ) )
 		{
@@ -227,10 +227,10 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		// Make sure that we have the RDN attribute present
 		if ( ! in_array( $this->rdnAttId, $this->changedAttributes ) ) throw new Exception( "The mandatory attribute $this->rdnAttId is missing" );
 
-		$link_id = $this->adxLink->get_link();
 		$dn = "$this->rdnAttId=" . $this->get( $this->rdnAttId )[0] . ",$dn";
 
-		if ( ldap_add( $link_id, $dn, $this->_get_changed_data() ) )
+		$response = $this->link->get_link()->add( $dn, $this->_get_changed_data() );
+		if ( $response->ok() )
 		{
 			// Successfully created the object
 			$this->changedAttributes = array();
@@ -238,7 +238,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 			return $this;
 		}
-		else $this->_handle_last_error(); // Could not create object
+		else $this->_handle_last_error( $response ); // Could not create object
 	}
 
 	/**
@@ -253,19 +253,19 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	{
 		if ( ! isset( $this->dn ) ) throw new Exception( 'You cannot call update() on a newly created object' );
 
-		$link_id	= $this->adxLink->get_link();
 		$changes	= $this->_get_changed_data();
 
 		if ( count( $changes ) === 0 ) return $this;	// Nothing to be updated
 
-		if ( @ldap_modify( $link_id, $this->dn, $changes ) )
+		$response = @$this->link->get_link()->modify( $this->dn, $changes );
+		if ( $response->ok() )
 		{
 			// Successfully modified the object
 			$this->changedAttributes = array();
 
 			return $this;
 		}
-		else $this->_handle_last_error(); // Could not update object
+		else $this->_handle_last_error( $response ); // Could not update object
 	}
 
 	/**
@@ -278,12 +278,13 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 */
 	public function delete()
 	{
-		if ( ldap_delete( $this->adxLink->get_link(), $this->dn ) )
+		$response = $this->link->get_link()->delete( $this->dn );
+		if ( $response->ok() )
 		{
 			// Successfully deleted the object. Take care of data in php now...
 			unset( $this->data );
 		}
-		else $this->_handle_last_error(); // Could not delete object
+		else $this->_handle_last_error( $response ); // Could not delete object
 	}
 
 	/**
@@ -299,12 +300,14 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 		$new_parent		= (string)$new_parent;		// Make sure the DN is a string
 		$rdnAttId	= $this->rdnAttId;				// Which attribute is the relative distinguished name attribute?
 		$rdn		= $this->$rdnAttId(0);			// Use the RDN attribute to get its value
-		$link_id	= $this->adxLink->get_link();
 
 		if ( ! $rdn ) throw new InvalidOperationException( "The attribute '$rdn' must be present when moving objects of this class" );
 
 		// The 'deleteOldRdn' param must always be set to true - see the docblock @see link above
-		if ( ! @ldap_rename( $link_id, $this->dn, "$rdnAttId=$rdn", $new_parent, true ) ) $this->_handle_last_error();	// Could not move object
+		$response = $this->link->get_link()->rename( $this->dn, "$rdnAttId=$rdn", $new_parent, true );
+
+		// Was the object moved?
+		if ( ! $response->ok() ) $this->_handle_last_error( $response );
 
 		// Update the local distinguished name associated with this object
 		$this->dn = "$rdnAttId=$rdn,$new_parent";
@@ -518,7 +521,7 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 
 		if ( ! $attribute->isResolvable ) throw new InvalidOperationException( "Attribute '$attribute' is not resolvable" );
 
-		foreach ( $data as $dn ) $objects[] = static::read( $dn, $attributes, $this->adxLink );
+		foreach ( $data as $dn ) $objects[] = static::read( $dn, $attributes, $this->link );
 
 		$this->data["$attribute"] = Attribute::make( "$attribute", $objects, $this );
 
@@ -537,11 +540,10 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	{
 		if ( ! $this->dn ) return null;	// This object has not yet been saved to the directory server
 
-		$data = ldap_explode_dn( $this->dn, false );	// Explode the DN if this object into individual components
-		unset( $data['count'] );						// Remove the count
-		unset( $data[0] );								// Remove the RDN of this object
+		$data = \Ldap\Ldap::explode_dn( $this->dn, false );	// Explode the DN if this object into individual components
+		unset( $data[0] );									// Remove the RDN of this object
 
-		return implode( ',', $data );					// Glue them back together
+		return implode( ',', $data );						// Glue them back together
 	}
 
 	/**
@@ -608,61 +610,30 @@ class Object implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable
 	 *
 	 * @return		void
 	 */
-	protected function _handle_last_error()
+	protected function _handle_last_error( \Ldap\Response $response )
 	{
-		$link_id	= $this->adxLink->get_link(); 	// The link resource
-		$error		= ldap_errno( $link_id );		// The error code
-
-		switch( $error )
+		switch( $response->code )
 		{
-			case Enums\ServerResponse::InsufficientAccess:
-				throw new InsufficientAccessException( $link_id );
+			case \Ldap\ResponseCode::InsufficientAccess:
+				throw new InsufficientAccessException( $response );
 				break;
-			case Enums\ServerResponse::AlreadyExists:
-				throw new LdapNativeException( $link_id );
+			case \Ldap\ResponseCode::AlreadyExists:
+				throw new LdapNativeException( $response );
 				break;
-			case Enums\ServerResponse::UndefinedType:
-				throw new UndefinedTypeException( $link_id );
+			case \Ldap\ResponseCode::UndefinedType:
+				throw new UndefinedTypeException( $response );
 			default:
-				throw new LdapNativeException( $link_id );
+				throw new LdapNativeException( $response );
 				break;
 		}
 	}
 
 	protected function _filter_ldap_result( $data, $performConversion )
 	{
-		$result			= array();
-		$cleanResult	= array();
-
-		unset( $data['count'] );
-
-		foreach ( $data as $property => $value )
-		{
-			// There might be numeric keys, indicating the name of the attribute - just skip them...
-			if ( is_numeric( $property ) )	continue;
-			if ( is_array( $value ) ) 		unset( $value['count'] );
-
-			// Some ldap servers ( i.e. AD ) may split too large attributes into smaller
-			// attributes with a special notation in the attribute's name ( i.e. "member;0-4999" ).
-			// Let's join those together.
-
-			// Search for ';' in $property, returning string BEFORE needle
-			$realProperty = strstr( $property, ';', true );
-			if ( $realProperty )
-			{
-				if ( array_key_exists( $realProperty, $cleanResult ) )
-				{
-					// If that attribute already exists, join the two together
-					$cleanResult[$realProperty] = array_merge( $cleanResult[$realProperty], $value );
-				}
-				else $cleanResult[$realProperty] = $value;
-			}
-			// It is a normal ( non-split ) attribute
-			else $cleanResult[$property] = $value;
-		}
+		$result = array();
 
 		// Create the Attribute objects
-		foreach ( $cleanResult as $attribute => $value )
+		foreach ( $data as $attribute => $value )
 		{
 			$result[$attribute] = Attribute::make( $attribute, $value, $this, $performConversion );
 		}
