@@ -1,5 +1,11 @@
 # Changelog
 
+### Version 0.3.2 ( 2014-04-09 )
+
+#### Fixes
+
+ - Fix an issue when clearing the msExchMailboxGuid attribute
+
 ### Version 0.3.1 ( 2013-08-27 )
 
 #### New features / changes

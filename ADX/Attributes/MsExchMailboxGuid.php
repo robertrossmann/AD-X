@@ -31,8 +31,9 @@ class MsExchMailboxGuid extends \ADX\Core\Attribute
 	public function ldap_data()
 	{
 		$data = parent::ldap_data();
-		$data = str_ireplace( '\\', '', $data[0] );
 
-		return [hex2bin( $data )];
+		return count( $data ) > 0
+			? hex2bin( str_ireplace( '\\', '', $data[0] ) )
+			: array();	// Empty attributes are represented as empty arrays
 	}
 }
