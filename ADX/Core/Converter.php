@@ -77,6 +77,7 @@ class Converter
 		switch ( $ats )
 		{
 			case Syntax::Binary:
+			case Syntax::NtSecDesc:
 				$method = 'binary';
 				break;
 
