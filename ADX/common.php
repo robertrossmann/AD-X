@@ -142,6 +142,7 @@ class Syntax extends TypedefEnum
 	const PrintableString	= '2.5.5.5';	// Basically just another string
 	const NumericString		= '2.5.5.6';	// String that contains digits ( yet another string )
 	const Time				= '2.5.5.11';	// Timestamp. There can be two forms, however! That's where OMSyntax will become handy
+	const NtSecDesc			= '2.5.5.15';	// NT Security Descriptor - an octet string, not necessarily Unicode
 	// const CaseString		= '2.5.5.3';	// Case-sensitive string ( not used in AD by default )
 
 }
