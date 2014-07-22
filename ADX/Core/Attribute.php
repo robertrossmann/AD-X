@@ -176,10 +176,9 @@ class Attribute implements \Iterator, \ArrayAccess, \Countable, \JsonSerializabl
 
 		foreach ( $values as $value )
 		{
-			// First, check if this object is a DnString and then check if we are trying to add a DN that
-			// is already present in the attribute
-			if ( $this->attributeSyntax == Enums\Syntax::DnString &&
-				in_array( strtolower( $value ), $lowercase_values ) )
+			// Check if the value is already present in the attribute - Active Directory does not allow
+			// multi-valued attributes to contain the same value twice
+			if ( in_array( strtolower( $value ), $lowercase_values ) )
 			{
 				continue;	// Nothing to be done here - this DN is already there
 			}
