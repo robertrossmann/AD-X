@@ -548,7 +548,10 @@ class Task
 		// Supress php errors - any error situations are handled by checking ldap error code below
 		$response = @$this->link->get_link()->$operation( $dn, $filter, $attributes, 0, ( $this->sizelimit ?: 0 ) );
 
-		if ( ! $response->ok() ) throw new LdapNativeException( $response );
+		// Throw if there was an error during the ldap operation (referrals are handled automatically)
+		if ( ! $response->ok() && $response->code !== \Ldap\ResponseCode::Referral ) {
+			throw new LdapNativeException( $response );
+		}
 
 		// return the server response that contains the data ( if any )
 		return $response;
