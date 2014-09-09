@@ -17,6 +17,7 @@ namespace ADX\Core;
 
 use Ldap\Ldap;
 use Ldap\Option;
+use Ldap\ResponseCode;
 
 use ADX\Enums;
 
