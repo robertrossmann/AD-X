@@ -72,13 +72,15 @@ I recommend that you read the documentation in the following order:
 
 1. Download the library
 1. Install the dependencies using [Composer](http://getcomposer.org/):
-```
-composer install --dev
-```
+
+    ```
+    composer install --dev
+    ```
 1. Generate the API documentation using [ApiGen](http://apigen.org/) ( installed by Composer ):
-```
-php ./vendor/bin/apigen.php
-```
+
+    ```
+    php ./vendor/bin/apigen.php
+    ```
 1. Generated documentation will be available at *./docs/www/index.html*
 
 
